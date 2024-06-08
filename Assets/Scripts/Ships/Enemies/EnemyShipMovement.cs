@@ -15,7 +15,7 @@ public class EnemyShipMovement : MonoBehaviour
     private EnemyShip enemyShip; // Reference to the EnemyShip component
 
     [Tooltip("Angle offset to adjust the ship's facing direction. Adjust this value if the ship is not facing correctly.")]
-    public float AngleOffset = -90f; // Default to -90 degrees, adjust as needed
+    private float AngleOffset = -90f; // Default to -90 degrees, adjust as needed
 
     private Vector3 lastDirection;
     private float lastSpeedModifier;
@@ -148,12 +148,12 @@ public class EnemyShipMovement : MonoBehaviour
         {
             case 0: // Face down
                 Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, 180f));
-                transform.rotation = SmoothRotate(transform.rotation, targetRotation, 5f);
+                transform.rotation = SmoothRotate(transform.rotation, targetRotation, 4f);
                 break;
             case 1: // Face Direction
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                targetRotation = Quaternion.Euler(new Vector3(0, 0, angle + AngleOffset)); // Adjusting by AngleOffset
-                transform.rotation = SmoothRotate(transform.rotation, targetRotation, 5f);
+                targetRotation = Quaternion.Euler(new Vector3(0, 0, angle + AngleOffset));
+                transform.rotation = SmoothRotateDirection(transform.rotation, targetRotation, 10f, 3f, 10f); // Use easeRate = 2f and initialSpeed = 0.5f
                 break;
             case 2: // Face Player
                 if (PlayerManager.Inst.ActivePlayerShip.transform != null)
@@ -161,7 +161,7 @@ public class EnemyShipMovement : MonoBehaviour
                     Vector3 playerDirection = PlayerManager.Inst.ActivePlayerShip.transform.position - transform.position;
                     float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
                     targetRotation = Quaternion.Euler(new Vector3(0, 0, playerAngle + AngleOffset)); // Adjusting by AngleOffset
-                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * BaseSpeed);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 4f);
                 }
                 break;
         }
@@ -192,13 +192,20 @@ public class EnemyShipMovement : MonoBehaviour
     //     }
     // }
 
-private Quaternion SmoothRotate(Quaternion from, Quaternion to, float speed)
-{
-    float angle = Quaternion.Angle(from, to);
-    float t = Mathf.SmoothStep(0, 1, angle / 180f); // SmoothStep for ease-in, ease-out effect
-    return Quaternion.RotateTowards(from, to, speed * t * Time.deltaTime);
-}
-
+    private Quaternion SmoothRotate(Quaternion from, Quaternion to, float speed)
+    {
+        float angle = Quaternion.Angle(from, to);
+        float t = Mathf.SmoothStep(0, 1, angle / 180f); // SmoothStep for ease-in, ease-out effect
+        return Quaternion.RotateTowards(from, to, speed * t * Time.deltaTime);
+    }
+    
+    private Quaternion SmoothRotateDirection(Quaternion from, Quaternion to, float maxSpeed, float easeRate = 2f, float initialSpeed = 0.1f)
+    {
+        float angle = Quaternion.Angle(from, to);
+        float t = Mathf.Pow(angle / 180f, easeRate); // Use Mathf.Pow to control the easing curve
+        float speed = Mathf.Lerp(maxSpeed * initialSpeed, maxSpeed, t); // Interpolate speed from maxSpeed * initialSpeed to maxSpeed based on t
+        return Quaternion.RotateTowards(from, to, speed * Time.deltaTime);
+    }
 
     private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
