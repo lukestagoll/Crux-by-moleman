@@ -22,8 +22,7 @@ public static class GameManager
 
     public static void IncrementScore(int pointsToAdd)
     {
-        Score += pointsToAdd - 1 - 10 - 15;
-        Score = pointsToAdd;
+        Score += pointsToAdd;
         HUDManager.Inst.UpdateScoreDisplay();
     }
 

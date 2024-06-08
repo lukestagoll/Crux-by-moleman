@@ -200,11 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f1ff86a8a04f6409353e6f55e0e012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minBatchDelay: 2
-  maxBatchDelay: 3
+  minBatchDelay: 1
+  maxBatchDelay: 2
   minShootDuration: 1
-  maxShootDuration: 1
-  yShootThreshold: 5
+  maxShootDuration: 2
+  yShootThreshold: 6
 --- !u!114 &151631735378979785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +240,6 @@ MonoBehaviour:
   shipType: SF1
   BaseSpeed: 3
   TargetOffset: 0
-  AngleOffset: -90
 --- !u!1001 &7752969773976902882
 PrefabInstance:
   m_ObjectHideFlags: 0

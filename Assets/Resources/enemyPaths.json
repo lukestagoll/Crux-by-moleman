@@ -3,9 +3,11 @@
         {
             "spawns": [3, 9],
             "path": [
-                { "p": [8],  "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-                { "p": [15], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-                { "p": [18], "d": 0, "s": 1, "c": true, "f": 1, "sh": true }
+                { "p": [8],  "d": 0, "s": 1, "c": true, "f": 1, "sh": true },
+                { "p": [15], "d": 0, "s": 1, "c": true, "f": 1, "sh": true },
+                { "p": [17], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+                { "p": [24], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+                { "p": [0], "d": 0, "s": 1, "c": true, "f": 2, "sh": true }
             ]
         },
         {
@@ -31,7 +33,7 @@
                 { "p": [10], "d": 0, "s": 1, "c": true,  "f": 2, "sh": true },
                 { "p": [15], "d": 0, "s": 1, "c": true,  "f": 2, "sh": true },
                 { "p": [20], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
-                { "p": [26], "d": 0, "s": 3, "c": true, "f": 0, "sh": false },
+                { "p": [26], "d": 0, "s": 3, "c": false, "f": 0, "sh": false },
                 { "p": [0],  "d": 0, "s": 4, "c": false, "f": 0, "sh": false }
             ]
         }

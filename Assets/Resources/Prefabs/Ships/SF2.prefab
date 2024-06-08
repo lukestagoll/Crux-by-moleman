@@ -206,10 +206,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minBatchDelay: 2
-  maxBatchDelay: 5
+  maxBatchDelay: 3
   minShootDuration: 1
   maxShootDuration: 3
-  yShootThreshold: 5
+  yShootThreshold: 6
 --- !u!114 &5346293279203998020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +225,6 @@ MonoBehaviour:
   shipType: SF2
   BaseSpeed: 2
   TargetOffset: 0
-  AngleOffset: -90
 --- !u!114 &3207947420798511459
 MonoBehaviour:
   m_ObjectHideFlags: 0

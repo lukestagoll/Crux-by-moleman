@@ -148,7 +148,7 @@ public class EnemyShipMovement : MonoBehaviour
         {
             case 0: // Face down
                 Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, 180f));
-                transform.rotation = SmoothRotate(transform.rotation, targetRotation, 4f);
+                transform.rotation = SmoothRotateDirection(transform.rotation, targetRotation, 10f, 3f, 15f);
                 break;
             case 1: // Face Direction
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
