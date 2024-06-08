@@ -1,0 +1,39 @@
+{
+    "SF1": [
+        {
+            "spawns": [3, 9],
+            "path": [
+                { "p": [8],  "d": 0, "s": 1, "c": true, "f": 3, "sh": true },
+                { "p": [15], "d": 0, "s": 1, "c": true, "f": 3, "sh": true },
+                { "p": [18], "d": 0, "s": 3, "c": true, "f": 3, "sh": true }
+            ]
+        },
+        {
+            "spawns": [5, 7],
+            "path": [
+                { "p": [31], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
+                { "p": [9],  "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
+                { "p": [2],  "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
+                { "p": [7],  "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
+                { "p": [13], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
+                { "p": [33], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
+                { "p": [29], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
+                { "p": [0],  "d": 0, "s": 5, "c": false, "f": 1, "sh": false }
+            ]
+        }
+    ],
+    "SF2": [
+        {
+            "spawns": [2, 10],
+            "path": [
+                { "p": [1],  "d": 0, "s": 3, "c": true,  "f": 1, "sh": false },
+                { "p": [3],  "d": 0, "s": 2, "c": false,  "f": 1, "sh": false },
+                { "p": [10], "d": 0, "s": 1, "c": true,  "f": 2, "sh": true },
+                { "p": [15], "d": 0, "s": 1, "c": true,  "f": 2, "sh": true },
+                { "p": [20], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
+                { "p": [26], "d": 0, "s": 3, "c": true, "f": 0, "sh": false },
+                { "p": [0],  "d": 0, "s": 4, "c": false, "f": 0, "sh": false }
+            ]
+        }
+    ]
+}
