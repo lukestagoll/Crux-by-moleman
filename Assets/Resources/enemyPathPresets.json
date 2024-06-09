@@ -1,15 +1,50 @@
 [
-    {
-        "name": "CrissCross",
-        "spawns": [2, 10],
-        "path": [
-            { "p": [1],  "d": 0, "s": 3, "c": true,  "f": 1, "sh": false },
-            { "p": [3],  "d": 0, "s": 2, "c": false,  "f": 1, "sh": false },
-            { "p": [10], "d": 0, "s": 1, "c": true,  "f": 2, "sh": true },
-            { "p": [15], "d": 0, "s": 1, "c": true,  "f": 2, "sh": true },
-            { "p": [20], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
-            { "p": [26], "d": 0, "s": 3, "c": false, "f": 0, "sh": false },
-            { "p": [0],  "d": 0, "s": 4, "c": false, "f": 0, "sh": false }
-        ]
-    }
+  {
+    "name": "template",
+    "spawns": [],
+    "path": [
+      { "p": [1], "d": 0, "s": 1, "c": true, "f": 1, "sh": false },
+      { "p": [1], "d": 0, "s": 1, "c": true, "f": 1, "sh": false }
+    ]
+  },
+  {
+    "name": "CrissCross",
+    "spawns": [2, 10],
+    "path": [
+      { "p": [1], "d": 0, "s": 3, "c": true, "f": 1, "sh": false },
+      { "p": [3], "d": 0, "s": 2, "c": false, "f": 1, "sh": false },
+      { "p": [10], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+      { "p": [15], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+      { "p": [20], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
+      { "p": [26], "d": 0, "s": 3, "c": false, "f": 0, "sh": false },
+      { "p": [0], "d": 0, "s": 4, "c": false, "f": 0, "sh": false }
+    ]
+  },
+  {
+    "name": "OuterCurve",
+    "spawns": [1, 11],
+    "path": [
+      { "p": [1], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
+      { "p": [3], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
+      { "p": [30], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+      { "p": [0], "d": 0, "s": 2, "c": false, "f": 1, "sh": false }
+    ]
+  },
+  {
+    "name": "DiveBomb",
+    "spawns": [4, 8],
+    "path": [
+      { "p": [2], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+      { "p": [28], "d": 0, "s": 1, "c": true, "f": 2, "sh": true }
+    ]
+  },
+  {
+    "name": "new",
+    "spawns": [5, 7],
+    "path": [
+      { "p": [31], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+      { "p": [15], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
+      { "p": [25], "d": 0, "s": 1, "c": true, "f": 2, "sh": true }
+    ]
+  }
 ]

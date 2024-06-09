@@ -200,10 +200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f1ff86a8a04f6409353e6f55e0e012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minBatchDelay: 1
-  maxBatchDelay: 2
-  minShootDuration: 1
-  maxShootDuration: 2
+  minBatchDelay: 0.5
+  maxBatchDelay: 1
+  minShootDuration: 3
+  maxShootDuration: 4
   yShootThreshold: 6
 --- !u!114 &151631735378979785
 MonoBehaviour:

@@ -43,6 +43,12 @@ public static class GameConfig
         HasBeenLoaded = true;
     }
 
+    public static void ReloadEnemyPaths()
+    {
+        LoadEnemyPaths();
+        LoadEnemyPathPresets();
+    }
+
     private static void LoadGameData()
     {
         TextAsset jsonData = Resources.Load<TextAsset>("gameData");
