@@ -33,6 +33,7 @@ public class EnemyData
     public string ShipType;
     public int Amt;
     public int PathIndex;
+    public string PathPreset;
 }
 
 [System.Serializable]
@@ -49,6 +50,7 @@ public class PathPoint
 [System.Serializable]
 public class PathData
 {
+    public string name;
     public List<int> spawns;
     public List<PathPoint> path;
 }

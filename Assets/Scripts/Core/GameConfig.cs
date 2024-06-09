@@ -9,6 +9,7 @@ public static class GameConfig
     public static GameData GameData { get; private set; }
     public static EnemyPaths EnemyPaths { get; private set; }
     public static Positions Positions { get; private set; }
+    public static Dictionary<string, PathData> EnemyPathPresets { get; private set; } = new Dictionary<string, PathData>();
 
     // PREFABS
     public static Dictionary<string, EnemyShip> EnemyShipPrefabs { get; private set; } = new Dictionary<string, EnemyShip>();
@@ -36,6 +37,7 @@ public static class GameConfig
     {
         LoadGameData();
         LoadEnemyPaths();
+        LoadEnemyPathPresets(); // New method
         LoadPositions();
         CachePrefabs();
         HasBeenLoaded = true;
@@ -67,6 +69,23 @@ public static class GameConfig
         if (EnemyPaths == null)
         {
             Debug.LogError("Failed to deserialize EnemyPaths.");
+        }
+    }
+
+    private static void LoadEnemyPathPresets()
+    {
+        TextAsset jsonData = Resources.Load<TextAsset>("enemyPathPresets");
+        if (jsonData == null)
+        {
+            Debug.LogError("Failed to load enemy path presets data!");
+            return;
+        }
+
+        PathData[] pathPresets = JsonUtility.FromJson<PathData[]>(jsonData.text);
+
+        foreach (PathData preset in pathPresets)
+        {
+            EnemyPathPresets[preset.name] = preset;
         }
     }
 

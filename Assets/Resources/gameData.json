@@ -7,16 +7,16 @@
                         "SpawnCooldown": 0.5,
                         "WaveDelay": 15,
                         "Enemies": [
-                            { "ShipType": "SF1", "Amt": 8, "PathIndex": 0 },
-                            { "ShipType": "SF2", "Amt": 8, "PathIndex": 0 }
+                            { "ShipType": "SF1", "Amt": 8, "PathIndex": 0, "PathPreset": "" },
+                            { "ShipType": "SF2", "Amt": 8, "PathIndex": 0, "PathPreset": "CrissCross" }
                         ]
                     },
                     {
                         "SpawnCooldown": 0.5,
                         "WaveDelay": 0,
                         "Enemies": [
-                            { "ShipType": "SF1", "Amt": 8, "PathIndex": 0 },
-                            { "ShipType": "SF2", "Amt": 4, "PathIndex": 0 }
+                            { "ShipType": "SF1", "Amt": 8, "PathIndex": 0, "PathPreset": "" },
+                            { "ShipType": "SF2", "Amt": 4, "PathIndex": 0, "PathPreset": "CrissCross" }
                         ]
                     }
                 ]
@@ -27,15 +27,15 @@
                         "SpawnCooldown": 0.5,
                         "WaveDelay": 15,
                         "Enemies": [
-                            { "ShipType": "SF1", "Amt": 8, "PathIndex": 0 }
+                            { "ShipType": "SF1", "Amt": 8, "PathIndex": 0, "PathPreset": "" }
                         ]
                     },
                     {
                         "SpawnCooldown": 0.5,
                         "WaveDelay": 0,
                         "Enemies": [
-                            { "ShipType": "SF2", "Amt": 4, "PathIndex": 0 },
-                            { "ShipType": "SF2", "Amt": 6, "PathIndex": 0 }
+                            { "ShipType": "SF2", "Amt": 4, "PathIndex": 0, "PathPreset": "CrissCross" },
+                            { "ShipType": "SF2", "Amt": 6, "PathIndex": 0, "PathPreset": "CrissCross" }
                         ]
                     }
                 ]

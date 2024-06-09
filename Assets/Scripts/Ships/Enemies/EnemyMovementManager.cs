@@ -4,10 +4,22 @@ using UnityEngine;
 public static class EnemyMovementManager
 {
     private static Dictionary<string, Dictionary<int, int>> lastUsedSpawnIndex = new Dictionary<string, Dictionary<int, int>>();
+    public class DeterminedPath
+    {
+        public int SpawnIndex;
+        public PathData PathData;
+    }
 
-    public static PathData GetPathData(string shipType, int pathIndex)
+    public static PathData GetPathData(string shipType, int pathIndex, string presetPath = null)
     {
         List<PathData> pathList;
+
+        if (!string.IsNullOrEmpty(presetPath) && GameConfig.EnemyPathPresets.TryGetValue(presetPath, out var presetPathData))
+        {
+            pathList = presetPathData;
+        }
+
+        
 
         switch (shipType)
         {
@@ -28,10 +40,14 @@ public static class EnemyMovementManager
             return null;
         }
 
-        return pathList[pathIndex];
+        return new DeterminedPath
+        {
+            SpawnIndex = spawnIndex,
+            PathData = pathData
+        };
     }
 
-    public static int GetSpawnIndex(string shipType, int pathIndex)
+    public static int GetSpawnIndex(string shipType, int pathIndex, string presetPath = null)
     {
         List<int> spawnList;
 

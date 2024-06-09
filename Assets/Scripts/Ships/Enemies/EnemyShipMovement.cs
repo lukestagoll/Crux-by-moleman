@@ -19,15 +19,18 @@ public class EnemyShipMovement : MonoBehaviour
 
     private Vector3 lastDirection;
     private float lastSpeedModifier;
-
-    public void InitialiseMovement(int pathIndex)
+    
+    public void InitialiseMovement(int pathIndex, string pathPreset)
     {
-        pathData = EnemyMovementManager.GetPathData(shipType, pathIndex);
-        SpawnIndex = EnemyMovementManager.GetSpawnIndex(shipType, pathIndex);
-        PlaceAtSpawnPoint();
-
         // Get the EnemyShip component
         enemyShip = GetComponent<EnemyShip>();
+
+        DeterminedPath DeterminedPath = EnemyMovementManager.GetPathData(shipType, pathIndex);
+
+        // pathData = EnemyMovementManager.GetPathData(shipType, pathIndex);
+        // SpawnIndex = EnemyMovementManager.GetSpawnIndex(shipType, pathIndex);
+
+        PlaceAtSpawnPoint();
 
         // Start the movement coroutine
         StartCoroutine(MoveAlongPath());
@@ -165,38 +168,6 @@ public class EnemyShipMovement : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    // private void FaceDirection(int faceDirection, Vector3 direction)
-    // {
-    //     switch (faceDirection)
-    //     {
-    //         case 0: // Face down
-    //             Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, 180f));
-    //             transform.rotation = SmoothRotate(transform.rotation, targetRotation, BaseSpeed);
-    //             break;
-    //         case 1: // Face Direction
-    //             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-    //             targetRotation = Quaternion.Euler(new Vector3(0, 0, angle + AngleOffset)); // Adjusting by AngleOffset
-    //             transform.rotation = SmoothRotate(transform.rotation, targetRotation, BaseSpeed);
-    //             break;
-    //         case 2: // Face Player
-    //             if (PlayerManager.Inst.ActivePlayerShip.transform != null)
-    //             {
-    //                 Vector3 playerDirection = PlayerManager.Inst.ActivePlayerShip.transform.position - transform.position;
-    //                 float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
-    //                 targetRotation = Quaternion.Euler(new Vector3(0, 0, playerAngle + AngleOffset)); // Adjusting by AngleOffset
-    //                 transform.rotation = SmoothRotate(transform.rotation, targetRotation, BaseSpeed);
-    //             }
-    //             break;
-    //     }
-    // }
-
-    private Quaternion SmoothRotate(Quaternion from, Quaternion to, float speed)
-    {
-        float angle = Quaternion.Angle(from, to);
-        float t = Mathf.SmoothStep(0, 1, angle / 180f); // SmoothStep for ease-in, ease-out effect
-        return Quaternion.RotateTowards(from, to, speed * t * Time.deltaTime);
     }
     
     private Quaternion SmoothRotateDirection(Quaternion from, Quaternion to, float maxSpeed, float easeRate = 2f, float initialSpeed = 0.1f)

@@ -17,6 +17,7 @@ public class Wave : MonoBehaviour
     {
         public string ShipType { get; set; }
         public int PathIndex { get; set; }
+        public string PathPreset { get; set; }
     }
 
     public void Initialise(WaveData waveData)
@@ -36,7 +37,7 @@ public class Wave : MonoBehaviour
         {
             for (int i = 0; i < enemy.Amt; i++)
             {
-                SpawnQueue.Enqueue(new SpawnItem { ShipType = enemy.ShipType, PathIndex = enemy.PathIndex });
+                SpawnQueue.Enqueue(new SpawnItem { ShipType = enemy.ShipType, PathIndex = enemy.PathIndex, PathPreset = enemy.PathPreset });
             }
         }
     }
@@ -67,7 +68,7 @@ public class Wave : MonoBehaviour
             EnemyShipMovement shipMovement = ship.GetComponent<EnemyShipMovement>();
             if (shipMovement != null)
             {
-                shipMovement.InitialiseMovement(nextSpawn.PathIndex);
+                shipMovement.InitialiseMovement(nextSpawn.PathIndex, nextSpawn.PathPreset);
             }
             else
             {
