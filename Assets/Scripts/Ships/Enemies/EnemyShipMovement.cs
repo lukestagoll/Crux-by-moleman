@@ -25,10 +25,10 @@ public class EnemyShipMovement : MonoBehaviour
         // Get the EnemyShip component
         enemyShip = GetComponent<EnemyShip>();
 
-        DeterminedPath DeterminedPath = EnemyMovementManager.GetPathData(shipType, pathIndex);
+        var determinedPath = EnemyMovementManager.GetPathData(shipType, pathIndex, pathPreset);
 
-        // pathData = EnemyMovementManager.GetPathData(shipType, pathIndex);
-        // SpawnIndex = EnemyMovementManager.GetSpawnIndex(shipType, pathIndex);
+        pathData = determinedPath.pathData;
+        SpawnIndex = determinedPath.spawnIndex;
 
         PlaceAtSpawnPoint();
 

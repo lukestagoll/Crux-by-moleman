@@ -4,87 +4,68 @@ using UnityEngine;
 public static class EnemyMovementManager
 {
     private static Dictionary<string, Dictionary<int, int>> lastUsedSpawnIndex = new Dictionary<string, Dictionary<int, int>>();
-    public class DeterminedPath
-    {
-        public int SpawnIndex;
-        public PathData PathData;
-    }
 
-    public static PathData GetPathData(string shipType, int pathIndex, string presetPath = null)
+    public static DeterminedPath GetPathData(string shipType, int pathIndex, string presetPath = null)
     {
+        PathData pathData;
+        List<int> spawnList;
+        int spawnIndex;
         List<PathData> pathList;
+        string indexKey;
 
         if (!string.IsNullOrEmpty(presetPath) && GameConfig.EnemyPathPresets.TryGetValue(presetPath, out var presetPathData))
         {
-            pathList = presetPathData;
+            pathData = presetPathData;
+            indexKey = presetPath;
         }
-
-        
-
-        switch (shipType)
+        else
         {
-            case "SF1":
-                pathList = GameConfig.EnemyPaths.SF1;
-                break;
-            case "SF2":
-                pathList = GameConfig.EnemyPaths.SF2;
-                break;
-            default:
-                Debug.LogError($"No path data found for ship type: {shipType}");
+            switch (shipType) // ! Refactor to name field to prevent adding to switch case, although there should be default behaviour...
+            {
+                case "SF1":
+                    pathList = GameConfig.EnemyPaths.SF1;
+                    break;
+                case "SF2":
+                    pathList = GameConfig.EnemyPaths.SF2;
+                    break;
+                default:
+                    Debug.LogError($"No path data found for ship type: {shipType}");
+                    return null;
+            }
+
+            if (pathList == null || pathList.Count == 0)
+            {
+                Debug.LogError($"Path list is empty for ship type: {shipType}");
                 return null;
+            }
+
+            pathData = pathList[pathIndex];
+            indexKey = shipType;
         }
 
-        if (pathList == null || pathList.Count == 0)
+        spawnList = pathData.spawns;
+
+        if (!lastUsedSpawnIndex.ContainsKey(indexKey))
         {
-            Debug.LogError($"Path list is empty for ship type: {shipType}");
-            return null;
+            lastUsedSpawnIndex[indexKey] = new Dictionary<int, int>();
         }
+
+        if (!lastUsedSpawnIndex[indexKey].ContainsKey(pathIndex))
+        {
+            lastUsedSpawnIndex[indexKey][pathIndex] = -1;
+        }
+
+        int lastIndex = lastUsedSpawnIndex[indexKey][pathIndex];
+        int nextIndex = (lastIndex + 1) % spawnList.Count;
+
+        lastUsedSpawnIndex[indexKey][pathIndex] = nextIndex;
+
+        spawnIndex = spawnList[nextIndex];
 
         return new DeterminedPath
         {
-            SpawnIndex = spawnIndex,
-            PathData = pathData
+            spawnIndex = spawnIndex,
+            pathData = pathData
         };
-    }
-
-    public static int GetSpawnIndex(string shipType, int pathIndex, string presetPath = null)
-    {
-        List<int> spawnList;
-
-        switch (shipType)
-        {
-            case "SF1":
-                spawnList = GameConfig.EnemyPaths.SF1[pathIndex].spawns;
-                break;
-            case "SF2":
-                spawnList = GameConfig.EnemyPaths.SF2[pathIndex].spawns;
-                break;
-            default:
-                Debug.LogError($"No spawn data found for ship type: {shipType}");
-                return -1;
-        }
-
-        if (spawnList == null || spawnList.Count == 0)
-        {
-            Debug.LogError($"Spawn list is empty for ship type: {shipType}");
-            return -1;
-        }
-
-        if (!lastUsedSpawnIndex.ContainsKey(shipType))
-        {
-            lastUsedSpawnIndex[shipType] = new Dictionary<int, int>();
-        }
-
-        if (!lastUsedSpawnIndex[shipType].ContainsKey(pathIndex))
-        {
-            lastUsedSpawnIndex[shipType][pathIndex] = -1;
-        }
-
-        int lastIndex = lastUsedSpawnIndex[shipType][pathIndex];
-        int nextIndex = (lastIndex + 1) % spawnList.Count;
-
-        lastUsedSpawnIndex[shipType][pathIndex] = nextIndex;
-
-        return spawnList[nextIndex];
     }
 }

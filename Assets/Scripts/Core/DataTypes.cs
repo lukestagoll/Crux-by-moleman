@@ -62,6 +62,12 @@ public class EnemyPaths
     public List<PathData> SF2;
 }
 
+public class DeterminedPath
+{
+    public int spawnIndex;
+    public PathData pathData;
+}
+
 [System.Serializable]
 public class Positions
 {

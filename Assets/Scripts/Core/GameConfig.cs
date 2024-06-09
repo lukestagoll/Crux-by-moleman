@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public static class GameConfig
 {
@@ -80,8 +80,7 @@ public static class GameConfig
             Debug.LogError("Failed to load enemy path presets data!");
             return;
         }
-
-        PathData[] pathPresets = JsonUtility.FromJson<PathData[]>(jsonData.text);
+        List<PathData> pathPresets = JsonConvert.DeserializeObject<List<PathData>>(jsonData.text);
 
         foreach (PathData preset in pathPresets)
         {
