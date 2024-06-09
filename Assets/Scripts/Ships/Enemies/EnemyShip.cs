@@ -52,7 +52,6 @@ public class EnemyShip : BaseShip
     void OnTriggerEnter2D(Collider2D other)
     {
         string tag = other.gameObject.tag;
-        Debug.Log("EnemyShip OnTriggerEnter2D: " + tag);
 
         // Code to execute when an object enters the trigger
         if (tag == "Player")
