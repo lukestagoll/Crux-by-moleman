@@ -202,8 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minBatchDelay: 0.5
   maxBatchDelay: 1
-  minShootDuration: 3
-  maxShootDuration: 4
+  minShootDuration: 2
+  maxShootDuration: 3
   yShootThreshold: 6
 --- !u!114 &151631735378979785
 MonoBehaviour:

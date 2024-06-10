@@ -36,7 +36,6 @@ public class EnemyShooting : MonoBehaviour
             else
             {
                 // Once shooting duration is over, start waiting
-                isShooting = false;
                 CalculateNextBatch();
             }
             return;
@@ -51,8 +50,9 @@ public class EnemyShooting : MonoBehaviour
         }
     }
 
-    void CalculateNextBatch()
+    public void CalculateNextBatch()
     {
+        isShooting = false;
         shootDuration = Random.Range(minShootDuration, maxShootDuration);
         batchDelay = Random.Range(minBatchDelay, maxBatchDelay);
     }

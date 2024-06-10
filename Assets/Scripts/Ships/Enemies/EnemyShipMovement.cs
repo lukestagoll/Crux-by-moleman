@@ -13,6 +13,7 @@ public class EnemyShipMovement : MonoBehaviour
     public float BaseSpeed = 1.0f; // Public variable for base speed
     public float TargetOffset = 0.5f;
     private EnemyShip enemyShip; // Reference to the EnemyShip component
+    private EnemyShooting enemyShooting;
 
     [Tooltip("Angle offset to adjust the ship's facing direction. Adjust this value if the ship is not facing correctly.")]
     private float AngleOffset = -90f; // Default to -90 degrees, adjust as needed
@@ -24,6 +25,7 @@ public class EnemyShipMovement : MonoBehaviour
     {
         // Get the EnemyShip component
         enemyShip = GetComponent<EnemyShip>();
+        enemyShooting = GetComponent<EnemyShooting>();
 
         var determinedPath = EnemyMovementManager.GetPathData(shipType, pathIndex, pathPreset);
 
@@ -90,8 +92,9 @@ public class EnemyShipMovement : MonoBehaviour
             }
 
             // Update shooting allowed status
-            if (enemyShip != null)
+            if (enemyShip != null && enemyShip.IsAllowedToShoot != pathPoint.sh)
             {
+                enemyShooting.CalculateNextBatch();
                 enemyShip.ToggleShooting();
             }
 
