@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8372314773359903132}
   - component: {fileID: 88921817624570800}
   m_Layer: 17
-  m_Name: Thrust
+  m_Name: PlayerThrust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
