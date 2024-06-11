@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5445096827595439550}
   - component: {fileID: 8605005487756436213}
+  - component: {fileID: 2397760949470224562}
   m_Layer: 0
   m_Name: CannonSmall
   m_TagString: Untagged
@@ -49,6 +50,33 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 7104521457958763231, guid: c1163ff07be973146a8910a1927e75ba, type: 3}
   FirePoint: {fileID: 9216333612096653711}
   BaseFireRate: 10
+--- !u!50 &2397760949470224562
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899441333729513566}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1236918301431211634
 GameObject:
   m_ObjectHideFlags: 0
