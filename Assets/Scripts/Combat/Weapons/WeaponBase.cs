@@ -2,13 +2,6 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
-    public enum RelativeSide
-    {
-        Left,
-        Right,
-        Center
-    }
-
     // Public variables to be set from the inspector in derived classes
     public GameObject ProjectilePrefab;
     public Transform FirePoint;
@@ -22,35 +15,6 @@ public abstract class WeaponBase : MonoBehaviour
 
     // Reference to the Rigidbody2D component of the weapon
     private Rigidbody2D rb;
-
-    // Field to store the relative side
-    public RelativeSide Side { get; private set; }
-
-    protected virtual void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null)
-        {
-            Debug.LogError("WeaponBase: No Rigidbody2D component found on the weapon.");
-        }
-
-        // Log the local position of the prefab
-        Vector3 localPosition = transform.localPosition;
-
-        // Set the relative side based on the localPosition.x value
-        if (localPosition.x < 0)
-        {
-            Side = RelativeSide.Left;
-        }
-        else if (localPosition.x > 0)
-        {
-            Side = RelativeSide.Right;
-        }
-        else
-        {
-            Side = RelativeSide.Center;
-        }
-    }
 
     // Abstract methods to be implemented by derived classes
     public virtual void Shoot(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
