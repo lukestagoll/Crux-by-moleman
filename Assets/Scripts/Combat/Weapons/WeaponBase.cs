@@ -2,6 +2,13 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
+    public enum RelativeSide
+    {
+        Left,
+        Right,
+        Center
+    }
+
     // Public variables to be set from the inspector in derived classes
     public GameObject ProjectilePrefab;
     public Transform FirePoint;
@@ -16,6 +23,9 @@ public abstract class WeaponBase : MonoBehaviour
     // Reference to the Rigidbody2D component of the weapon
     private Rigidbody2D rb;
 
+    // Field to store the relative side
+    public RelativeSide Side { get; private set; }
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,6 +33,29 @@ public abstract class WeaponBase : MonoBehaviour
         {
             Debug.LogError("WeaponBase: No Rigidbody2D component found on the weapon.");
         }
+
+        // Log the local position of the prefab
+        Vector3 localPosition = transform.localPosition;
+        Debug.Log(localPosition);
+
+        // Set the relative side based on the localPosition.x value
+        if (localPosition.x < 0)
+        {
+            Side = RelativeSide.Left;
+            Debug.Log("WeaponBase: Relative side - Left");
+        }
+        else if (localPosition.x > 0)
+        {
+            Side = RelativeSide.Right;
+            Debug.Log("WeaponBase: Relative side - Right");
+        }
+        else
+        {
+            Side = RelativeSide.Center;
+            Debug.Log("WeaponBase: Relative side - Center");
+        }
+
+        Debug.Log($"WeaponBase: Relative side - {Side}");
     }
 
     // Abstract methods to be implemented by derived classes
@@ -56,7 +89,7 @@ public abstract class WeaponBase : MonoBehaviour
             if (projectileScript != null)
             {
                 Vector2 initialVelocity = rb != null ? rb.velocity : Vector2.zero;
-                projectileScript.Initialize(isEnemy, bulletSpeedModifier, damageModifier, initialVelocity);
+                projectileScript.Initialize(isEnemy, bulletSpeedModifier, damageModifier, initialVelocity, Side);
             }
             else
             {

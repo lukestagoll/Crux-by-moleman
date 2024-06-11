@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Plasma : ProjectileBase
 {
-    private void Awake()
+    protected override void InitializeBehaviour(float speedModifier, Vector2 initialVelocity, WeaponBase.RelativeSide side)
     {
-        // Initialization can be done here if needed, but BaseDamage and BaseSpeed are now set from the inspector
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        // Set the velocity of the projectile
+        rb.velocity = initialVelocity + (Vector2)(transform.up * BaseSpeed * speedModifier);
     }
 }

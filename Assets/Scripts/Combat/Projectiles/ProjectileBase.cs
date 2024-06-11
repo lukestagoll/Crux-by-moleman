@@ -13,17 +13,17 @@ public abstract class ProjectileBase : MonoBehaviour
     private bool firedByEnemy;
 
     // Initialize method to set the projectile's properties
-    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, Vector2 initialVelocity)
+    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, Vector2 initialVelocity, WeaponBase.RelativeSide side)
     {
         firedByEnemy = isEnemy;
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
-        // Set the velocity of the projectile
-        rb.velocity = initialVelocity + (Vector2)(transform.up * BaseSpeed * speedModifier);
-
         // Set the damage of the projectile
         BaseDamage *= damageModifier;
+       // Call the specific behavior initialization
+        InitializeBehaviour(speedModifier, initialVelocity, side);
     }
+
+    // Abstract method to be implemented by specific projectiles
+    protected abstract void InitializeBehaviour(float speedModifier,  Vector2 initialVelocity, WeaponBase.RelativeSide side);
 
     // Method to handle collision with other objects
     void OnTriggerEnter2D(Collider2D other)
