@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -240190571
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1eceeaac854ade1409f54b92ac69a9a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b1740be7870bed64ba09ffa93dee75b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,10 +93,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2753053334027300419}
-  - component: {fileID: 621623106338170837}
-  - component: {fileID: 8890908432663946412}
+  - component: {fileID: 6502921823338364661}
+  - component: {fileID: 3445493918662094056}
   m_Layer: 0
-  m_Name: Cannon
+  m_Name: MissleLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ Transform:
   - {fileID: 4022715705528736429}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &621623106338170837
+--- !u!114 &6502921823338364661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,13 +128,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5063544706618338907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebf536a82fd1da24c8452d6ca2590bbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 71dda1c3051c27246918c6194949655a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 7104521457958763231, guid: 6295b4bb31ef8464a865a8ab35eaadad, type: 3}
+  ProjectilePrefab: {fileID: 7991152367493595656, guid: a04d760d6366c1e43a0363346c173ac7, type: 3}
   FirePoint: {fileID: 4022715705528736429}
-  BaseFireRate: 5
---- !u!50 &8890908432663946412
+  BaseFireRate: 1
+--- !u!50 &3445493918662094056
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ Transform:
   m_GameObject: {fileID: 6555685090883374098}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0.13, z: 0}
   m_LocalScale: {x: 1.6666665, y: 1.6666665, z: 1.6666665}
   m_ConstrainProportionsScale: 0
   m_Children: []
