@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5445096827595439550}
-  - component: {fileID: 8605005487756436213}
   - component: {fileID: 2397760949470224562}
+  - component: {fileID: 7304729914958465436}
   m_Layer: 0
   m_Name: CannonSmall
   m_TagString: Untagged
@@ -35,21 +35,6 @@ Transform:
   - {fileID: 9216333612096653711}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8605005487756436213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899441333729513566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebf536a82fd1da24c8452d6ca2590bbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 7104521457958763231, guid: c1163ff07be973146a8910a1927e75ba, type: 3}
-  FirePoint: {fileID: 9216333612096653711}
-  BaseFireRate: 10
 --- !u!50 &2397760949470224562
 Rigidbody2D:
   serializedVersion: 4
@@ -77,6 +62,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7304729914958465436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899441333729513566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a4580039e5ef249975f6300554d555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 7104521457958763231, guid: c1163ff07be973146a8910a1927e75ba, type: 3}
+  FirePoint: {fileID: 9216333612096653711}
+  BaseFireRate: 10
 --- !u!1 &1236918301431211634
 GameObject:
   m_ObjectHideFlags: 0

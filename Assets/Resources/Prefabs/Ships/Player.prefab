@@ -204,6 +204,8 @@ MonoBehaviour:
   FireRateModifier: 1
   DamageModifier: 1
   BulletSpeedModifier: 1
+  MovementSpeedModifier: 1
+  hitpoints: 0
   WeaponSlots: []
 --- !u!1001 &490145004813740687
 PrefabInstance:

@@ -21,14 +21,15 @@ public class PlayerManager : MonoBehaviour
         Inst = this;
     }
 
-    public void AttachWeapons(GameObject weaponPrefab, bool forceAttach)
+    public void IncrementLives(int amt)
     {
-        
+        Lives += amt;
+        HUDManager.Inst.UpdateLivesDisplay();
     }
 
     public void SpawnPlayer()
     {
-        ActivePlayerShip = Instantiate(GameConfig.PlayerPrefab, new Vector3(0, -4, 10), Quaternion.identity);
+        ActivePlayerShip = Instantiate(AssetManager.PlayerPrefab, new Vector3(0, -4, 10), Quaternion.identity);
     }
 
     public void HandlePlayerDestroyed()

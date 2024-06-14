@@ -6,26 +6,12 @@ public static class GameConfig
 {
     // GAME DATA
     public static bool HasBeenLoaded { get; private set; }
+
     public static GameData GameData { get; private set; }
     public static EnemyPaths EnemyPaths { get; private set; }
     public static Positions Positions { get; private set; }
     public static Dictionary<string, PathData> EnemyPathPresets { get; private set; } = new Dictionary<string, PathData>();
-
-    // PREFABS
-    public static Dictionary<string, EnemyShip> EnemyShipPrefabs { get; private set; } = new Dictionary<string, EnemyShip>();
-    public static ProjectileBase PlasmaPrefab { get; private set; }
-    public static PlayerShip PlayerPrefab { get; private set; }
-    public static Wave WavePrefab { get; private set; }
-    public static GameObject LifeIconPrefab { get; private set; }
-    public static GameObject StarMapPrefab { get; private set; }
-    public static GameObject DistantStarPrefab { get; private set; }
-    public static GameObject DistantPlanetPrefab { get; private set; }
-    public static GameObject PlanetPrefab { get; private set; }
-
-    // SPRITES
-    public static List<Sprite> DistantStarSprites { get; private set; } = new List<Sprite>();
-    public static List<Sprite> DistantPlanetSprites { get; private set; } = new List<Sprite>();
-    public static List<Sprite> PlanetSprites { get; private set; } = new List<Sprite>();
+    public static Dictionary<Effect, EffectData> EffectDataDictionary { get; private set; } = new Dictionary<Effect, EffectData>();
 
     // CONFIG
     public static float MaxPlayerHealth = 200;
@@ -39,14 +25,32 @@ public static class GameConfig
         LoadEnemyPaths();
         LoadEnemyPathPresets(); // New method
         LoadPositions();
-        CachePrefabs();
+        LoadEffectData();
+        AssetManager.CacheAssets();
         HasBeenLoaded = true;
     }
 
-    public static void ReloadEnemyPaths()
+    private static void LoadEffectData()
     {
-        LoadEnemyPaths();
-        LoadEnemyPathPresets();
+        TextAsset jsonData = Resources.Load<TextAsset>("effectData");
+        if (jsonData == null)
+        {
+            Debug.LogError("Failed to load effect data!");
+            return;
+        }
+    
+        List<EffectData> effectDataList = JsonConvert.DeserializeObject<List<EffectData>>(jsonData.text);
+    
+        if (effectDataList == null)
+        {
+            Debug.LogError("Failed to deserialize EffectData.");
+            return;
+        }
+
+        foreach (EffectData effectData in effectDataList)
+        {
+            EffectDataDictionary[effectData.name] = effectData;
+        }
     }
 
     private static void LoadGameData()
@@ -111,85 +115,4 @@ public static class GameConfig
         }
     }
 
-    private static void CachePrefabs()
-    {
-        // SHIPS
-        PlayerPrefab = Resources.Load<PlayerShip>("Prefabs/Ships/Player");
-        EnemyShipPrefabs.Add("SF1", Resources.Load<EnemyShip>("Prefabs/Ships/SF1"));
-        EnemyShipPrefabs.Add("SF2", Resources.Load<EnemyShip>("Prefabs/Ships/SF2"));
-        if (EnemyShipPrefabs["SF1"] == null)
-        {
-            Debug.LogError("Failed to load EnemyShip SF1 prefab!");
-        }
-        if (EnemyShipPrefabs["SF2"] == null)
-        {
-            Debug.LogError("Failed to load EnemyShip SF2 prefab!");
-        }
-        if (PlayerPrefab == null)
-        {
-            Debug.LogError("Failed to load Player prefab!");
-        }
-
-        // PROJECTILES
-        PlasmaPrefab = Resources.Load<ProjectileBase>("Prefabs/Combat/Projectiles/Plasma");
-        if (PlasmaPrefab == null)
-        {
-            Debug.LogError("Failed to load PlasmaPrefab!");
-        }
-
-        // CORE
-        WavePrefab = Resources.Load<Wave>("Prefabs/Game/Wave");
-        if (WavePrefab == null)
-        {
-            Debug.LogError("Failed to load Wave prefab!");
-        }
-
-        // UI
-        StarMapPrefab = Resources.Load<GameObject>("Prefabs/UI/StarMap");
-        LifeIconPrefab = Resources.Load<GameObject>("Prefabs/UI/ShipIcon");
-        if (LifeIconPrefab == null)
-        {
-            Debug.LogError("Failed to load ShipIcon prefab!");
-        }
-        if (StarMapPrefab == null)
-        {
-            Debug.LogError("Failed to load StarMap prefab!");
-        }
-
-        // Distant Object
-        DistantStarPrefab = Resources.Load<GameObject>("Prefabs/UI/DistantStar");
-        DistantPlanetPrefab = Resources.Load<GameObject>("Prefabs/UI/DistantPlanet");
-        if (DistantStarPrefab == null)
-        {
-            Debug.LogError("Failed to load DistantStarPrefab!");
-        }
-        if (DistantPlanetPrefab == null)
-        {
-            Debug.LogError("Failed to load DistantPlanetPrefab!");
-        }
-
-        PlanetPrefab = Resources.Load<GameObject>("Prefabs/UI/Planet");
-        if (PlanetPrefab == null)
-        {
-            Debug.LogError("Failed to load PlanetPrefab!");
-        }
-
-        // Load all sprites from the specified directories
-        DistantStarSprites.AddRange(Resources.LoadAll<Sprite>("Sprites/SPACE/DistantStars"));
-        DistantPlanetSprites.AddRange(Resources.LoadAll<Sprite>("Sprites/SPACE/DistantPlanets"));
-        PlanetSprites.AddRange(Resources.LoadAll<Sprite>("Sprites/SPACE/Planets"));
-        if (DistantStarSprites.Count == 0)
-        {
-            Debug.LogError("No distant star sprites found in the specified directory.");
-        }
-
-        if (DistantPlanetSprites.Count == 0)
-        {
-            Debug.LogError("No distant planet sprites found in the specified directory.");
-        }
-        if (PlanetSprites.Count == 0)
-        {
-            Debug.LogError("No planet sprites found in the specified directory.");
-        }
-    }
 }

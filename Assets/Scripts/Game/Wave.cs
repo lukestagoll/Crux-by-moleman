@@ -59,8 +59,9 @@ public class Wave : MonoBehaviour
 
     private void SpawnShip(SpawnItem nextSpawn)
     {
-        if (GameConfig.EnemyShipPrefabs.TryGetValue(nextSpawn.ShipType, out var prefab)) {
-            EnemyShip ship = Instantiate(prefab, new Vector3(0, 8, 10), Quaternion.Euler(0, 0, 180));
+        EnemyShip shipPrefab = AssetManager.GetEnemyShipPrefab(nextSpawn.ShipType);
+        if (shipPrefab) {
+            EnemyShip ship = Instantiate(shipPrefab, new Vector3(0, 8, 10), Quaternion.Euler(0, 0, 180));
             ship.OnDestroyed += OnEnemyDestroyed;
             WaveManager.Inst.TotalSpawnedEnemies++;
             

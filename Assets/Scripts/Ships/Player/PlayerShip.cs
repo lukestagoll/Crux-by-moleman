@@ -53,6 +53,12 @@ public class PlayerShip : BaseShip
         }
     }
 
+    public override void AddHitpoints(float amt)
+    {
+        hitpoints += amt;
+        HUDManager.Inst.UpdateHealthBar(hitpoints);
+    }
+
     public override void FireWeapons()
     {
         foreach (var weapon in AttachedWeapons)

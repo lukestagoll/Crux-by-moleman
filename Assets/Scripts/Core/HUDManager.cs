@@ -45,7 +45,7 @@ public class HUDManager : MonoBehaviour
         {
             for (int i = 0; i < -diff; i++)
             {
-                GameObject img = Instantiate(GameConfig.LifeIconPrefab, LivesDisplay);
+                GameObject img = Instantiate(AssetManager.LifeIconPrefab, LivesDisplay);
                 img.transform.localPosition = new Vector3(LivesDisplay.childCount * LifeIconSpacing, 0, 0);
             }
         }

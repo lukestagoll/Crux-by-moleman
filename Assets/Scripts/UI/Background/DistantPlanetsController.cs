@@ -14,13 +14,7 @@ public class DistantPlanetsController : MonoBehaviour, IBackgroundController
 
     private void Start()
     {
-        if (GameConfig.DistantPlanetPrefab == null)
-        {
-            Debug.LogError("DistantPlanetPrefab is not assigned in GameConfig.");
-            return;
-        }
-
-        if (GameConfig.DistantPlanetSprites.Count == 0)
+        if (AssetManager.DistantPlanetSprites.Count == 0)
         {
             Debug.LogError("No distant planet sprites assigned in GameConfig.");
             return;
@@ -54,10 +48,10 @@ public class DistantPlanetsController : MonoBehaviour, IBackgroundController
                     zAxisValue
                 );
 
-            var newObject = Instantiate(GameConfig.DistantPlanetPrefab, newPosition, Quaternion.identity);
+            var newObject = Instantiate(AssetManager.DistantPlanetPrefab, newPosition, Quaternion.identity);
 
             // Randomly choose a sprite and apply it to the new object
-            var randomSprite = GameConfig.DistantPlanetSprites[Random.Range(0, GameConfig.DistantPlanetSprites.Count)];
+            var randomSprite = AssetManager.DistantPlanetSprites[Random.Range(0, AssetManager.DistantPlanetSprites.Count)];
             var spriteRenderer = newObject.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {

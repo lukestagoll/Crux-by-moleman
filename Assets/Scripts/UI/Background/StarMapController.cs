@@ -16,7 +16,7 @@ public class StarMapController : MonoBehaviour, IBackgroundController
 
     private void Start()
     {
-        starMapPrefab = GameConfig.StarMapPrefab;
+        starMapPrefab = AssetManager.StarMapPrefab;
 
         if (starMapPrefab == null)
         {

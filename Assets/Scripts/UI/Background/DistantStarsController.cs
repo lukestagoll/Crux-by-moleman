@@ -14,13 +14,7 @@ public class DistantStarsController : MonoBehaviour, IBackgroundController
 
     private void Start()
     {
-        if (GameConfig.DistantStarPrefab == null)
-        {
-            Debug.LogError("DistantObjectPrefab is not assigned in GameConfig.");
-            return;
-        }
-
-        if (GameConfig.DistantStarSprites.Count == 0)
+        if (AssetManager.DistantStarSprites.Count == 0)
         {
             Debug.LogError("No distant star sprites assigned in GameConfig.");
             return;
@@ -70,10 +64,10 @@ public class DistantStarsController : MonoBehaviour, IBackgroundController
                 }
             } while (!positionIsValid);
 
-            var newObject = Instantiate(GameConfig.DistantStarPrefab, newPosition, Quaternion.identity);
+            var newObject = Instantiate(AssetManager.DistantStarPrefab, newPosition, Quaternion.identity);
 
             // Randomly choose a sprite and apply it to the new object
-            var randomSprite = GameConfig.DistantStarSprites[Random.Range(0, GameConfig.DistantStarSprites.Count)];
+            var randomSprite = AssetManager.DistantStarSprites[Random.Range(0, AssetManager.DistantStarSprites.Count)];
             var spriteRenderer = newObject.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {

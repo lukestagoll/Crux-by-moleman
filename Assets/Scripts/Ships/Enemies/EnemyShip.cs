@@ -4,7 +4,6 @@ public class EnemyShip : BaseShip
 {
     [SerializeField] protected int pointsOnKill;
     [SerializeField] protected int damageOnCollision = 10;
-    [SerializeField] protected new float hitpoints;
 
     public delegate void EnemyShipEvent(EnemyShip ship);
     public event EnemyShipEvent OnDestroyed;
@@ -36,6 +35,11 @@ public class EnemyShip : BaseShip
                 Die();
             }
         }
+    }
+
+    public override void AddHitpoints(float amt)
+    {
+        hitpoints += amt;
     }
 
     public override void FireWeapons()

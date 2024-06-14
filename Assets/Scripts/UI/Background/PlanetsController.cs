@@ -14,13 +14,7 @@ public class PlanetsController : MonoBehaviour, IBackgroundController
 
     private void Start()
     {
-        if (GameConfig.PlanetPrefab == null)
-        {
-            Debug.LogError("PlanetPrefab is not assigned in GameConfig.");
-            return;
-        }
-
-        if (GameConfig.PlanetSprites.Count == 0)
+        if (AssetManager.PlanetSprites.Count == 0)
         {
             Debug.LogError("No planet sprites assigned in GameConfig.");
             return;
@@ -64,10 +58,10 @@ public class PlanetsController : MonoBehaviour, IBackgroundController
                     zAxisValue
                 );
 
-            var newObject = Instantiate(GameConfig.PlanetPrefab, newPosition, Quaternion.identity);
+            var newObject = Instantiate(AssetManager.PlanetPrefab, newPosition, Quaternion.identity);
 
             // Randomly choose a sprite and apply it to the new object
-            var randomSprite = GameConfig.PlanetSprites[Random.Range(0, GameConfig.PlanetSprites.Count)];
+            var randomSprite = AssetManager.PlanetSprites[Random.Range(0, AssetManager.PlanetSprites.Count)];
             var spriteRenderer = newObject.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {

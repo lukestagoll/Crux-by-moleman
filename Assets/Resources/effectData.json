@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Speed",
+    "type": "",
+    "expiry": "never|time|death|gameOver",
+    "duration": 5,
+    "amt": 3
+  },
+  {
+    "name": "Weapon",
+    "type": "MissileLauncher",
+    "expiry": "never",
+    "duration": 5,
+    "amt": 3
+  }
+]

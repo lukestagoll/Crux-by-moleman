@@ -2,6 +2,36 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
+public class EffectData
+{
+    public Effect name;
+    public string type;
+    public string expiry;
+    public float duration;
+    public float amt;
+}
+
+// Enum for Effect Types
+public enum Effect
+{
+    Points,
+    Speed,
+    FireRate,
+    Lives,
+    Health,
+    Weapon
+}
+
+// Enum for Expiry Types
+public enum ExpiryType
+{
+    Never,
+    Time,
+    Death,
+    GameOver,
+}
+
+[Serializable]
 public class GameData
 {
     public StageData[] Stages;

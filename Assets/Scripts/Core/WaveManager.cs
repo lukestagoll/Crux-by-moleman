@@ -46,7 +46,7 @@ public class WaveManager : MonoBehaviour
 
     private Wave SpawnWave()
     {
-        Wave wave = Instantiate(GameConfig.WavePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Wave wave = Instantiate(AssetManager.WavePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         wave.Initialise(WaveData);
         return wave;
     }
