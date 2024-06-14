@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Plasma : ProjectileBase
 {
-    protected override void InitializeBehaviour(float speedModifier, Vector2 initialVelocity, WeaponBase.RelativeSide side)
+    protected override void InitializeBehaviour(float speedModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 

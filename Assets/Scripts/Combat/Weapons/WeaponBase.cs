@@ -16,6 +16,9 @@ public abstract class WeaponBase : MonoBehaviour
     // Reference to the Rigidbody2D component of the weapon
     private Rigidbody2D rb;
 
+    // Add the Side field
+    public AttachPoint.RelativeSide Side { get; set; }
+
     // Abstract methods to be implemented by derived classes
     public virtual void Shoot(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
     {

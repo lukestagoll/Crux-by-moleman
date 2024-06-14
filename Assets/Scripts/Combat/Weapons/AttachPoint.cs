@@ -9,8 +9,11 @@ public class AttachPoint : MonoBehaviour
         Center
     }
 
-    public RelativeSide Side;
+    public GameObject PreAttachedWeapon;
     public WeaponBase AttachedWeapon;
+
+    private RelativeSide Side;
+    private bool isSlotFilled = false;
 
     private void Awake()
     {
@@ -30,47 +33,59 @@ public class AttachPoint : MonoBehaviour
         {
             Side = RelativeSide.Center;
         }
+
+        if (PreAttachedWeapon != null)
+        {
+            AttachedWeapon = PreAttachedWeapon.GetComponent<WeaponBase>();
+            AttachedWeapon.Side = Side;
+            isSlotFilled = true;
+        }
     }
-    public void AttachWeapon(GameObject weaponPrefab, int quantity)
-  {
-      int slotsFilled = 0;
 
-      foreach (var slot in WeaponSlots)
-      {
-          if (slotsFilled >= quantity)
-              break;
+    public void AttachWeapon(GameObject weaponPrefab, bool forceAttach)
+    {
+        if (isSlotFilled)
+        {
+            if (forceAttach == true)
+            {
+                DetachWeapon();
+            }
+            else
+            {
+                Debug.LogWarning("The weapon slot is already filled.");
+                return;
+            }
+        }
 
-          // Check if the slot is empty
-          if (slot.childCount == 0)
-          {
-              GameObject weaponObject = Instantiate(weaponPrefab, slot.position, slot.rotation, slot);
-              WeaponBase weapon = weaponObject.GetComponent<WeaponBase>();
+        GameObject weaponObject = Instantiate(weaponPrefab, transform.position, transform.rotation, transform);
+        WeaponBase weapon = weaponObject.GetComponent<WeaponBase>();
 
-              if (weapon != null)
-              {
-                  // Get the AttachPoint component from the slot
-                  AttachPoint attachPoint = slot.GetComponent<AttachPoint>();
+        if (weapon != null)
+        {
+            // Set the Side property of the weapon based on the AttachPoint
+            weapon.Side = Side;
 
-                  if (attachPoint != null)
-                  {
-                      // Set the Side property of the weapon based on the AttachPoint
-                      weapon.Side = attachPoint.Side;
-                  }
+            AttachedWeapon = weapon;
+            isSlotFilled = true;
+        }
+        else
+        {
+            Debug.LogError("The weaponPrefab does not have a WeaponBase component.");
+            Destroy(weaponObject);
+        }
+    }
 
-                  AttachedWeapons.Add(weapon);
-                  slotsFilled++;
-              }
-              else
-              {
-                  Debug.LogError("The weaponPrefab does not have a WeaponBase component.");
-                  Destroy(weaponObject);
-              }
-          }
-      }
+    public void DetachWeapon()
+    {
+        if (!isSlotFilled)
+        {
+            Debug.LogWarning("No weapon is attached to this slot.");
+            return;
+        }
 
-      if (slotsFilled < quantity)
-      {
-          Debug.LogWarning("Not enough empty weapon slots to attach all weapons.");
-      }
-  }
+        // Destroy the GameObject the WeaponBase script is attached to
+        Destroy(AttachedWeapon.gameObject);
+        AttachedWeapon = null;
+        isSlotFilled = false;
+    }
 }

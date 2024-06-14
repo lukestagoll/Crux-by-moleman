@@ -13,7 +13,7 @@ public abstract class ProjectileBase : MonoBehaviour
     private bool firedByEnemy;
 
     // Initialize method to set the projectile's properties
-    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, Vector2 initialVelocity, WeaponBase.RelativeSide side)
+    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side)
     {
         firedByEnemy = isEnemy;
         // Set the damage of the projectile
@@ -23,7 +23,7 @@ public abstract class ProjectileBase : MonoBehaviour
     }
 
     // Abstract method to be implemented by specific projectiles
-    protected abstract void InitializeBehaviour(float speedModifier,  Vector2 initialVelocity, WeaponBase.RelativeSide side);
+    protected abstract void InitializeBehaviour(float speedModifier,  Vector2 initialVelocity, AttachPoint.RelativeSide side);
 
     // Method to handle collision with other objects
     void OnTriggerEnter2D(Collider2D other)
