@@ -11,6 +11,7 @@ public class EnemyShip : BaseShip
     protected override void Start()
     {
         base.Start(); // Call the base class Start method to initialize weapons
+        isEnemy = true;
     }
 
     public override void Die()
@@ -40,17 +41,6 @@ public class EnemyShip : BaseShip
     public override void AddHitpoints(float amt)
     {
         hitpoints += amt;
-    }
-
-    public override void FireWeapons()
-    {
-        if (IsAllowedToShoot)
-        {
-            foreach (var weapon in AttachedWeapons)
-            {
-                weapon.Shoot(true, FireRateModifier, DamageModifier, BulletSpeedModifier);
-            }
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

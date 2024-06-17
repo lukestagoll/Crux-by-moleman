@@ -58,12 +58,4 @@ public class PlayerShip : BaseShip
         hitpoints += amt;
         HUDManager.Inst.UpdateHealthBar(hitpoints);
     }
-
-    public override void FireWeapons()
-    {
-        foreach (var weapon in AttachedWeapons)
-        {
-            weapon.Shoot(false, FireRateModifier, DamageModifier, BulletSpeedModifier);
-        }
-    }
 }

@@ -11,9 +11,9 @@ public class AttachPoint : MonoBehaviour
 
     public GameObject PreAttachedWeapon;
     public WeaponBase AttachedWeapon;
+    public bool isSlotFilled = false;
 
     private RelativeSide Side;
-    private bool isSlotFilled = false;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class AttachPoint : MonoBehaviour
         }
     }
 
-    public void AttachWeapon(GameObject weaponPrefab, bool forceAttach)
+    public void AttachWeapon(WeaponBase weaponPrefabComponent, bool forceAttach)
     {
         if (isSlotFilled)
         {
@@ -57,15 +57,15 @@ public class AttachPoint : MonoBehaviour
             }
         }
 
-        GameObject weaponObject = Instantiate(weaponPrefab, transform.position, transform.rotation, transform);
-        WeaponBase weapon = weaponObject.GetComponent<WeaponBase>();
+        GameObject weaponObject = Instantiate(weaponPrefabComponent.gameObject, transform.position, transform.rotation, transform);
+        WeaponBase weaponComponent = weaponObject.GetComponent<WeaponBase>();
 
-        if (weapon != null)
+        if (weaponComponent != null)
         {
             // Set the Side property of the weapon based on the AttachPoint
-            weapon.Side = Side;
+            weaponComponent.Side = Side;
 
-            AttachedWeapon = weapon;
+            AttachedWeapon = weaponComponent;
             isSlotFilled = true;
         }
         else
@@ -87,5 +87,13 @@ public class AttachPoint : MonoBehaviour
         Destroy(AttachedWeapon.gameObject);
         AttachedWeapon = null;
         isSlotFilled = false;
+    }
+
+    public void FireWeapon(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
+    {
+        if (isSlotFilled)
+        {
+            AttachedWeapon.AttemptFire(isEnemy, fireRateModifier, bulletSpeedModifier, damageModifier);
+        }
     }
 }

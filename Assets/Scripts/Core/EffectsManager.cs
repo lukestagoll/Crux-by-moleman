@@ -15,7 +15,7 @@ public class EffectsManager : MonoBehaviour
         Inst = this;
     }
 
-    public void ActivateEffect(GameObject gameObject, EffectData effect)
+    public void ActivateEffect(GameObject target, EffectData effect)
     {
         switch (effect.name)
         {
@@ -26,16 +26,16 @@ public class EffectsManager : MonoBehaviour
                 PlayerManager.Inst.IncrementLives((int)effect.amt);
                 break;
             case Effect.Health:
-                ActivateHealthEffect(gameObject, effect);
+                ActivateHealthEffect(target, effect);
                 break;
             case Effect.Speed:
-                ActivateSpeedEffect(gameObject, effect);
+                ActivateSpeedEffect(target, effect);
                 break;
             case Effect.FireRate:
-                ActivateFireRateEffect(gameObject, effect);
+                ActivateFireRateEffect(target, effect);
                 break;
             case Effect.Weapon:
-                ActivateWeaponEffect(gameObject, effect);
+                ActivateWeaponEffect(target, effect);
                 break;
             default:
                 Debug.LogError("Unknown effect type");
@@ -43,27 +43,27 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    private void ActivateWeaponEffect(GameObject gameObject, EffectData effect)
+    private void ActivateWeaponEffect(GameObject targetShip, EffectData effect)
     {
-        WeaponBase weaponPrefab = AssetManager.GetWeaponPrefab(effect.type);
-        if (weaponPrefab != null)
+        WeaponBase weaponComponent = AssetManager.GetWeaponPrefab(effect.type);
+        if (weaponComponent != null)
         {
-            BaseShip ship = gameObject.GetComponent<BaseShip>();
-            ship.AttachWeapon(weaponPrefab);
+            BaseShip ship = targetShip.GetComponent<BaseShip>();
+            ship.AttachWeapon(weaponComponent);
         }
     }
 
-    private void ActivateHealthEffect(GameObject gameObject, EffectData effect)
+    private void ActivateHealthEffect(GameObject targetShip, EffectData effect)
     {
-        BaseShip ship = gameObject.GetComponent<BaseShip>();
+        BaseShip ship = targetShip.GetComponent<BaseShip>();
         ship.AddHitpoints(effect.amt);
     }
 
-    private void ActivateSpeedEffect(BaseShip ship, EffectData effect)
+    private void ActivateSpeedEffect(GameObject targetShip, EffectData effect)
     {
     }
 
-    private void ActivateFireRateEffect(BaseShip ship, EffectData effect)
+    private void ActivateFireRateEffect(GameObject targetShip, EffectData effect)
     {
     }
 }

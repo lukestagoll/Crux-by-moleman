@@ -20,7 +20,7 @@ public abstract class WeaponBase : MonoBehaviour
     public AttachPoint.RelativeSide Side { get; set; }
 
     // Abstract methods to be implemented by derived classes
-    public virtual void Shoot(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
+    public virtual void AttemptFire(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
     {
         CurrentFireRate = BaseFireRate * fireRateModifier;
 

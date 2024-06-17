@@ -44,9 +44,9 @@ public static class AssetManager
     // Fetch function for WeaponPrefabs
     public static WeaponBase GetWeaponPrefab(string key)
     {
-        if (WeaponPrefabs.TryGetValue(key, out var prefab))
+        if (WeaponPrefabs.TryGetValue(key, out var weaponPrefabComponent))
         {
-            return prefab;
+            return weaponPrefabComponent;
         }
         else
         {
@@ -94,10 +94,11 @@ public static class AssetManager
         // WEAPONS
         foreach (string weaponName in WeaponPrefabsToLoad)
         {
-            WeaponBase weaponPrefab = Resources.Load<WeaponBase>($"Prefabs/Weapons/{weaponName}");
+            WeaponBase weaponPrefab = Resources.Load<WeaponBase>($"Prefabs/Combat/Weapons/{weaponName}");
             if (weaponPrefab != null)
             {
                 WeaponPrefabs[weaponName] = weaponPrefab;
+                Debug.Log($"Loaded Weapon {weaponName} prefab.");
             }
             else
             {
