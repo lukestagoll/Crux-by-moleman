@@ -13,6 +13,8 @@ public abstract class WeaponBase : MonoBehaviour
     protected float CurrentFireRate;
     protected float fireRateTimer;
 
+    public SlotType SlotType;
+
     // Reference to the Rigidbody2D component of the weapon
     private Rigidbody2D rb;
 

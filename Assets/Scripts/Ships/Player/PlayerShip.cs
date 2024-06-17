@@ -19,8 +19,8 @@ public class PlayerShip : BaseShip
     {
         base.Start(); // Call the base class Start method to initialize weapons
 
-        hitpoints = GameConfig.MaxPlayerHealth; // Assign a default value or make this configurable via the Inspector
-        HUDManager.Inst.UpdateHealthBar(hitpoints);
+        Hitpoints = GameConfig.MaxPlayerHealth; // Assign a default value or make this configurable via the Inspector
+        HUDManager.Inst.UpdateHealthBar(Hitpoints);
     }
 
     void Update()
@@ -42,20 +42,20 @@ public class PlayerShip : BaseShip
     {
         if (!isDestroyed)
         {
-            hitpoints -= damage;
-            if (hitpoints <= 0) {
+            Hitpoints -= damage;
+            if (Hitpoints <= 0) {
                 isDestroyed = true;
                 HUDManager.Inst.UpdateHealthBar(0);
                 Die();
                 return;
             }
-            HUDManager.Inst.UpdateHealthBar(hitpoints);
+            HUDManager.Inst.UpdateHealthBar(Hitpoints);
         }
     }
 
     public override void AddHitpoints(float amt)
     {
-        hitpoints += amt;
-        HUDManager.Inst.UpdateHealthBar(hitpoints);
+        Hitpoints += amt;
+        HUDManager.Inst.UpdateHealthBar(Hitpoints);
     }
 }

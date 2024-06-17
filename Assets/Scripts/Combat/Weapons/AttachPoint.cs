@@ -42,11 +42,11 @@ public class AttachPoint : MonoBehaviour
         }
     }
 
-    public void AttachWeapon(WeaponBase weaponPrefabComponent, bool forceAttach)
+    public void AttachWeapon(WeaponBase weaponPrefabComponent, bool force)
     {
         if (isSlotFilled)
         {
-            if (forceAttach == true)
+            if (force == true)
             {
                 DetachWeapon();
             }

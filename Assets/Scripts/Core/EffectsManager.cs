@@ -49,7 +49,7 @@ public class EffectsManager : MonoBehaviour
         if (weaponComponent != null)
         {
             BaseShip ship = targetShip.GetComponent<BaseShip>();
-            ship.AttachWeapon(weaponComponent);
+            // ship.AttachWeapon(weaponComponent);
         }
     }
 

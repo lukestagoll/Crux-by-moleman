@@ -29,8 +29,8 @@ public class EnemyShip : BaseShip
     {
         if (!isDestroyed)
         {
-            hitpoints -= damage;
-            if (hitpoints <= 0)
+            Hitpoints -= damage;
+            if (Hitpoints <= 0)
             {
                 isDestroyed = true;
                 Die();
@@ -40,7 +40,7 @@ public class EnemyShip : BaseShip
 
     public override void AddHitpoints(float amt)
     {
-        hitpoints += amt;
+        Hitpoints += amt;
     }
 
     void OnTriggerEnter2D(Collider2D other)

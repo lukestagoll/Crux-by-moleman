@@ -1,16 +1,16 @@
 [
   {
-    "name": "Speed",
-    "type": "",
+    "type": "Passive",
+    "subType": "Speed",
     "expiry": "never|time|death|gameOver",
     "duration": 5,
     "amt": 3
   },
   {
-    "name": "Weapon",
-    "type": "MissileLauncher",
+    "type": "Weapon",
+    "subType": "MissileLauncher",
     "expiry": "never",
-    "duration": 5,
+    "duration": 0,
     "amt": 3
   }
 ]

@@ -51,6 +51,7 @@ public static class GameConfig
         {
             EffectDataDictionary[effectData.name] = effectData;
         }
+        // ! THis doesnt work with new json because it is now located with two coordinate
     }
 
     private static void LoadGameData()
