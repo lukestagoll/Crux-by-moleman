@@ -4,23 +4,30 @@ using System.Collections.Generic;
 [Serializable]
 public class EffectData
 {
-    public Effect name;
-    public string type;
-    public string expiry;
-    public float duration;
-    public float amt;
+    public EffectType Type;
+    public string SubType;
+    public string Expiry;
+    public float Duration;
+    public float Amt;
 }
 
 // Enum for Effect Types
-public enum Effect
+public enum EffectType
 {
-    Points,
-    Speed,
-    FireRate,
-    Lives,
-    Health,
-    Weapon
+    Passive,
+    Weapon,
+    Instant
 }
+
+// public enum EffectSubType
+// {
+//     Points,
+//     Speed,
+//     FireRate,
+//     Lives,
+//     Health,
+//     Weapon
+// }
 
 // Enum for Expiry Types
 public enum ExpiryType

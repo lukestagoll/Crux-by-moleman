@@ -9,9 +9,9 @@ public class AttachPoint : MonoBehaviour
         Center
     }
 
-    public GameObject PreAttachedWeapon;
+    // public GameObject PreAttachedWeapon;
     public WeaponBase AttachedWeapon;
-    public bool isSlotFilled = false;
+    [HideInInspector] public bool IsEmpty = true;
 
     private RelativeSide Side;
 
@@ -33,18 +33,22 @@ public class AttachPoint : MonoBehaviour
         {
             Side = RelativeSide.Center;
         }
+    }
 
-        if (PreAttachedWeapon != null)
+    public bool InitialiseAttachPoint()
+    {
+        if (AttachedWeapon != null)
         {
-            AttachedWeapon = PreAttachedWeapon.GetComponent<WeaponBase>();
+            // AttachedWeapon = PreAttachedWeapon.GetComponent<WeaponBase>();
             AttachedWeapon.Side = Side;
-            isSlotFilled = true;
+            IsEmpty = false;
         }
+        return IsEmpty;
     }
 
     public void AttachWeapon(WeaponBase weaponPrefabComponent, bool force)
     {
-        if (isSlotFilled)
+        if (!IsEmpty)
         {
             if (force == true)
             {
@@ -66,7 +70,7 @@ public class AttachPoint : MonoBehaviour
             weaponComponent.Side = Side;
 
             AttachedWeapon = weaponComponent;
-            isSlotFilled = true;
+            IsEmpty = false;
         }
         else
         {
@@ -77,7 +81,7 @@ public class AttachPoint : MonoBehaviour
 
     public void DetachWeapon()
     {
-        if (!isSlotFilled)
+        if (IsEmpty)
         {
             Debug.LogWarning("No weapon is attached to this slot.");
             return;
@@ -86,12 +90,12 @@ public class AttachPoint : MonoBehaviour
         // Destroy the GameObject the WeaponBase script is attached to
         Destroy(AttachedWeapon.gameObject);
         AttachedWeapon = null;
-        isSlotFilled = false;
+        IsEmpty = true;
     }
 
     public void FireWeapon(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
     {
-        if (isSlotFilled)
+        if (!IsEmpty)
         {
             AttachedWeapon.AttemptFire(isEnemy, fireRateModifier, bulletSpeedModifier, damageModifier);
         }

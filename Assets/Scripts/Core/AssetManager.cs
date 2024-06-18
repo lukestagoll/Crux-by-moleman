@@ -98,7 +98,6 @@ public static class AssetManager
             if (weaponPrefab != null)
             {
                 WeaponPrefabs[weaponName] = weaponPrefab;
-                Debug.Log($"Loaded Weapon {weaponName} prefab.");
             }
             else
             {

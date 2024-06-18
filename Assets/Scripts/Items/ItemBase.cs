@@ -1,8 +1,21 @@
 using UnityEngine;
 
-public abstract class ItemDrop : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class ItemDrop : MonoBehaviour
 {
     private EffectData AssignedEffectData;
+
+    [SerializeField]
+    private float Speed = 1.0f; // Speed of the downward movement, accessible in the inspector
+
+    private Rigidbody2D rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(0, -Speed); // Set the initial downward velocity
+        InitialiseItem(EffectType.Weapon , "MissileLauncher"); // ! REMOVE HARDCODE
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,11 +26,14 @@ public abstract class ItemDrop : MonoBehaviour
         }
     }
     
-    public void InitialiseItem(Effect effectName)
+    public void InitialiseItem(EffectType type, string subType)
     {
-      if (GameConfig.EffectDataDictionary.TryGetValue(effectName, out var effectData))
+      AssignedEffectData = GameConfig.EffectDataList.Find(x => x.Type == type && x.SubType.ToString() == subType);
+
+      if (AssignedEffectData == null)
       {
-        AssignedEffectData = effectData;
+        Debug.LogError("EffectData not found");
+        Destroy(gameObject);
       }
     }
 

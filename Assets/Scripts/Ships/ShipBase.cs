@@ -13,8 +13,7 @@ public enum SlotType
 [Serializable]
 public class WeaponSlot
 {
-    [HideInInspector]
-    public bool IsEmpty = true;
+    [HideInInspector] public bool IsEmpty = true;
 
     public SlotType Type;
 
@@ -23,16 +22,17 @@ public class WeaponSlot
 
 public abstract class BaseShip : MonoBehaviour
 {
-    protected bool isDestroyed;
     [SerializeField] protected List<WeaponSlot> WeaponSlots;
-    protected List<AttachPoint> ActiveAttachPoints;
     [SerializeField] protected GameObject ExplosionPrefab;
     [SerializeField] protected float FireRateModifier = 1f; // These should be visible in the Inspector
     [SerializeField] protected float DamageModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float BulletSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float MovementSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float Hitpoints;
+
     protected bool isEnemy;
+    protected bool isDestroyed;
+    private List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
     public bool IsAllowedToShoot { get; set; }
 
     protected virtual void Start()
@@ -49,11 +49,11 @@ public abstract class BaseShip : MonoBehaviour
     {
         foreach (WeaponSlot weaponSlot in WeaponSlots)
         {
-            if (weaponSlot.AttachPoints.Count > 0)
+            foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
             {
-                weaponSlot.IsEmpty = false;
-
-                ActiveAttachPoints.AddRange(weaponSlot.AttachPoints);
+                attachPoint.InitialiseAttachPoint();
+                weaponSlot.IsEmpty = attachPoint.IsEmpty;
+                ActiveAttachPoints.Add(attachPoint);
             }
         }
     }
@@ -66,6 +66,15 @@ public abstract class BaseShip : MonoBehaviour
             {
                 return weaponSlot;
             }
+        }
+        return null;
+    }
+
+    public WeaponSlot GetWeaponSlot(SlotType type)
+    {
+        foreach(WeaponSlot weaponSlot in WeaponSlots)
+        {
+            if (weaponSlot.Type == type) return weaponSlot;
         }
         return null;
     }
@@ -86,10 +95,6 @@ public abstract class BaseShip : MonoBehaviour
         }
     }
 
-    public abstract void Die();
-    public abstract void TakeDamage(float damage);
-    public abstract void AddHitpoints(float amt);
-
     public void Explode()
     {
         // Instantiate the explosion prefab at the projectile's position
@@ -100,16 +105,52 @@ public abstract class BaseShip : MonoBehaviour
     public void AttemptWeaponAttachment(WeaponBase weaponPrefabComponent, bool force)
     {
         // Is weapon SINGLE, DUAL, OR SYSTEM?
-        // Fetch all attachPoints with that side that are free
-        foreach(WeaponSlot weaponSlot in WeaponSlots)
+        // Attempt to fetch an empty slot of that type
+        WeaponSlot emptySlot = GetEmptyWeaponSlot(weaponPrefabComponent.SlotType);
+        if (emptySlot != null)
         {
-            if (weaponSlot.IsEmpty && weaponSlot.Type == weaponPrefabComponent.SlotType )
+            AttachWeaponsToSlot(weaponPrefabComponent, emptySlot);
+        }
+        else if (emptySlot == null && force)
+        {
+            WeaponSlot weaponSlot = GetWeaponSlot(weaponPrefabComponent.SlotType);
+            if (weaponSlot == null)
             {
-                WeaponSlot emptySlot = GetEmptyWeaponSlot(weaponSlot.Type);
-                // attachPoint.AttachWeapon(weaponPrefabComponent, force);
+                Debug.LogWarning("No weapon slot of type " + weaponPrefabComponent.SlotType + " found!");
                 return;
             }
+            AttachWeaponsToSlot(weaponPrefabComponent, weaponSlot);
         }
-        Debug.Log("All weapon slots are filled!");
+        else
+        {
+            Debug.Log("All weapon slots are filled!");
+        }
     }
+
+    public void DetachWeaponsFromSlot(WeaponSlot weaponSlot)
+    {
+        foreach(AttachPoint attachPoint in weaponSlot.AttachPoints)
+        {
+            if (!attachPoint.IsEmpty)
+            {
+                attachPoint.DetachWeapon();
+                ActiveAttachPoints.Remove(attachPoint);
+            }
+        }
+        weaponSlot.IsEmpty = true;
+    }
+
+    private void AttachWeaponsToSlot(WeaponBase weaponPrefabComponent, WeaponSlot weaponSlot)
+    {
+        foreach(AttachPoint attachPoint in weaponSlot.AttachPoints)
+        {
+                attachPoint.AttachWeapon(weaponPrefabComponent, true);
+                ActiveAttachPoints.Add(attachPoint);
+        }
+        weaponSlot.IsEmpty = false;
+    }
+
+    public abstract void Die();
+    public abstract void TakeDamage(float damage);
+    public abstract void AddHitpoints(float amt);
 }

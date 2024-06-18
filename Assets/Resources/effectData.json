@@ -1,16 +1,16 @@
 [
   {
-    "type": "Passive",
-    "subType": "Speed",
-    "expiry": "never|time|death|gameOver",
-    "duration": 5,
-    "amt": 3
+    "Type": "Passive",
+    "SubType": "Speed",
+    "Expiry": "never|time|death|gameOver",
+    "Duration": 5,
+    "Amt": 3
   },
   {
-    "type": "Weapon",
-    "subType": "MissileLauncher",
-    "expiry": "never",
-    "duration": 0,
-    "amt": 3
+    "Type": "Weapon",
+    "SubType": "MissileLauncher",
+    "Expiry": "never",
+    "Duration": 0,
+    "Amt": 3
   }
 ]

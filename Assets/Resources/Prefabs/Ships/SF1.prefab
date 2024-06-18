@@ -219,16 +219,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8338e60047d2b942b83c0645fe130ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttachPoints:
-  - {fileID: 2158907539854311504}
-  - {fileID: 1924739772942403903}
-  - {fileID: 3213643142021286017}
+  WeaponSlots:
+  - IsEmpty: 0
+    Type: 0
+    AttachPoints:
+    - {fileID: 2158907539854311504}
+  - IsEmpty: 0
+    Type: 1
+    AttachPoints:
+    - {fileID: 1924739772942403903}
+    - {fileID: 3213643142021286017}
   ExplosionPrefab: {fileID: 4267334171517905716, guid: 5c82ac8d7392f574a8d1904bbcc82189, type: 3}
   FireRateModifier: 0.25
   DamageModifier: 0.5
   BulletSpeedModifier: 0.75
   MovementSpeedModifier: 1
-  hitpoints: 40
+  Hitpoints: 0
   pointsOnKill: 50
   damageOnCollision: 10
 --- !u!114 &5882347149641705893
@@ -303,6 +309,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71a598d5ca5429c4fa9f016244c4dc3e, type: 3}
+--- !u!114 &1425194636216024737 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 621623106338170837, guid: 71a598d5ca5429c4fa9f016244c4dc3e, type: 3}
+  m_PrefabInstance: {fileID: 1974613016309963124}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711048469388146479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf536a82fd1da24c8452d6ca2590bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4419143357316626231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2753053334027300419, guid: 71a598d5ca5429c4fa9f016244c4dc3e, type: 3}
@@ -438,6 +455,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AttachPoint 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
+      propertyPath: AttachedWeapon
+      value: 
+      objectReference: {fileID: 1425194636216024737}
     - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: PreAttachedWeapon
       value: 

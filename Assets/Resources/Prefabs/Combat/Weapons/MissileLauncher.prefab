@@ -134,6 +134,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 7991152367493595656, guid: a04d760d6366c1e43a0363346c173ac7, type: 3}
   FirePoint: {fileID: 4022715705528736429}
   BaseFireRate: 4
+  SlotType: 1
 --- !u!50 &3445493918662094056
 Rigidbody2D:
   serializedVersion: 4

@@ -11,7 +11,8 @@ public static class GameConfig
     public static EnemyPaths EnemyPaths { get; private set; }
     public static Positions Positions { get; private set; }
     public static Dictionary<string, PathData> EnemyPathPresets { get; private set; } = new Dictionary<string, PathData>();
-    public static Dictionary<Effect, EffectData> EffectDataDictionary { get; private set; } = new Dictionary<Effect, EffectData>();
+    // public static Dictionary<Effect, EffectData> EffectDataDictionary { get; private set; } = new Dictionary<Effect, EffectData>();
+    public static List<EffectData> EffectDataList = new List<EffectData>();
 
     // CONFIG
     public static float MaxPlayerHealth = 200;
@@ -28,6 +29,7 @@ public static class GameConfig
         LoadEffectData();
         AssetManager.CacheAssets();
         HasBeenLoaded = true;
+        Debug.Log("Game Config Loaded");
     }
 
     private static void LoadEffectData()
@@ -39,19 +41,13 @@ public static class GameConfig
             return;
         }
     
-        List<EffectData> effectDataList = JsonConvert.DeserializeObject<List<EffectData>>(jsonData.text);
+        EffectDataList = JsonConvert.DeserializeObject<List<EffectData>>(jsonData.text);
     
-        if (effectDataList == null)
+        if (EffectDataList == null || EffectDataList.Count == 0)
         {
             Debug.LogError("Failed to deserialize EffectData.");
             return;
         }
-
-        foreach (EffectData effectData in effectDataList)
-        {
-            EffectDataDictionary[effectData.name] = effectData;
-        }
-        // ! THis doesnt work with new json because it is now located with two coordinate
     }
 
     private static void LoadGameData()

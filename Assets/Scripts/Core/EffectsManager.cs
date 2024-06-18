@@ -15,27 +15,32 @@ public class EffectsManager : MonoBehaviour
         Inst = this;
     }
 
-    public void ActivateEffect(GameObject target, EffectData effect)
+    public void ActivateEffect(GameObject target, EffectData effectData)
     {
-        switch (effect.name)
+        Debug.Log(effectData);
+        switch (effectData.Type)
         {
-            case Effect.Points:
-                GameManager.IncrementScore((int)effect.amt);
+            // case Effect.Points:
+            //     GameManager.IncrementScore((int)effectData.Amt);
+            //     break;
+            // case Effect.Lives:
+            //     PlayerManager.Inst.IncrementLives((int)effectData.Amt);
+            //     break;
+            // case Effect.Health:
+            //     ActivateHealthEffect(target, effectData);
+            //     break;
+            // case Effect.Speed:
+            //     ActivateSpeedEffect(target, effectData);
+            //     break;
+            // case Effect.FireRate:
+            //     ActivateFireRateEffect(target, effectData);
+            //     break;
+            case EffectType.Passive:
                 break;
-            case Effect.Lives:
-                PlayerManager.Inst.IncrementLives((int)effect.amt);
+            case EffectType.Weapon:
+                ActivateWeaponEffect(target, effectData);
                 break;
-            case Effect.Health:
-                ActivateHealthEffect(target, effect);
-                break;
-            case Effect.Speed:
-                ActivateSpeedEffect(target, effect);
-                break;
-            case Effect.FireRate:
-                ActivateFireRateEffect(target, effect);
-                break;
-            case Effect.Weapon:
-                ActivateWeaponEffect(target, effect);
+            case EffectType.Instant:
                 break;
             default:
                 Debug.LogError("Unknown effect type");
@@ -43,20 +48,20 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    private void ActivateWeaponEffect(GameObject targetShip, EffectData effect)
+    private void ActivateWeaponEffect(GameObject targetShip, EffectData effectData)
     {
-        WeaponBase weaponComponent = AssetManager.GetWeaponPrefab(effect.type);
+        WeaponBase weaponComponent = AssetManager.GetWeaponPrefab(effectData.SubType);
         if (weaponComponent != null)
         {
             BaseShip ship = targetShip.GetComponent<BaseShip>();
-            // ship.AttachWeapon(weaponComponent);
+            ship.AttemptWeaponAttachment(weaponComponent, false);
         }
     }
 
     private void ActivateHealthEffect(GameObject targetShip, EffectData effect)
     {
         BaseShip ship = targetShip.GetComponent<BaseShip>();
-        ship.AddHitpoints(effect.amt);
+        ship.AddHitpoints(effect.Amt);
     }
 
     private void ActivateSpeedEffect(GameObject targetShip, EffectData effect)
