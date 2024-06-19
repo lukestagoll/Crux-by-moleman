@@ -80,7 +80,7 @@ public class Wave : MonoBehaviour
                 EnemyShip enemyShip = ship.GetComponent<EnemyShip>();
                 if (enemyShip != null)
                 {
-                    EffectData effectData = EffectsManager.FetchEffectBySubType(WaveData.Drops[Random.Range(0, WaveData.Drops.Count)]);
+                    EffectData effectData = GameConfig.FetchEffectDatatBySubType(WaveData.Drops[Random.Range(0, WaveData.Drops.Count)]);
                     enemyShip.AssignItemDrop(effectData);
                 }
             }

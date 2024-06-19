@@ -6,38 +6,9 @@ public class EffectData
 {
     public EffectType Type;
     public EffectSubType SubType;
-    public string Expiry;
+    public ExpiryType Expiry;
     public float Duration;
     public float Amt;
-}
-
-// Enum for Effect Types
-[Serializable]
-public enum EffectType
-{
-    Passive,
-    Weapon,
-    Instant
-}
-
-[Serializable]
-public enum EffectSubType
-{
-    // Points,
-    Speed,
-    // FireRate,
-    // Lives,
-    // Health,
-    MissileLauncher
-}
-
-// Enum for Expiry Types
-public enum ExpiryType
-{
-    Never,
-    Time,
-    Death,
-    GameOver,
 }
 
 [Serializable]

@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class ItemDrop : MonoBehaviour
 {
-    private EffectData AssignedEffectData;
+    private EffectBase AssignedEffect;
 
     [SerializeField]
     private float Speed = 1.0f; // Speed of the downward movement, accessible in the inspector
@@ -20,24 +20,48 @@ public class ItemDrop : MonoBehaviour
     {
       if (collision.gameObject.CompareTag("Player"))
       {
-        TriggerEffect(collision.gameObject);
+        AssignedEffect.Activate(collision.gameObject);
         Destroy(gameObject);
       }
     }
     
-    public void InitialiseItem(EffectType type, EffectSubType subType)
+    public void InitialiseItem(EffectData effectData)
     {
-      AssignedEffectData = GameConfig.EffectDataList.Find(x => x.Type == type && x.SubType == subType);
+      AssignedEffect = CreateEffect(effectData);
 
-      if (AssignedEffectData == null)
+      if (AssignedEffect == null)
       {
         Debug.LogError("EffectData not found");
         Destroy(gameObject);
       }
     }
 
-    protected void TriggerEffect(GameObject ship)
+    private EffectBase CreateEffect(EffectData effectData)
     {
-      EffectsManager.ActivateEffect(ship, AssignedEffectData);
+        EffectBase effect = null;
+
+        switch (effectData.Type)
+        {
+            case EffectType.Weapon:
+                effect = gameObject.AddComponent<WeaponEffect>();
+                break;
+            case EffectType.Passive:
+                effect = gameObject.AddComponent<ShipEffect>();
+                break;
+            default:
+                Debug.LogError("Unknown effect type");
+                break;
+        }
+
+        if (effect != null)
+        {
+            effect.Type = effectData.Type;
+            effect.SubType = effectData.SubType;
+            effect.Expiry = effectData.Expiry;
+            effect.Duration = effectData.Duration;
+            effect.Amt = effectData.Amt;
+        }
+
+        return effect;
     }
 }

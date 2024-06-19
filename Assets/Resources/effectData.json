@@ -1,16 +1,16 @@
 [
   {
     "Type": "Passive",
-    "SubType": "Speed",
-    "Expiry": "never|time|death|gameOver",
+    "SubType": "FireRate",
+    "Expiry": "Time",
     "Duration": 5,
-    "Amt": 3
+    "Amt": 1.5
   },
   {
     "Type": "Weapon",
     "SubType": "MissileLauncher",
-    "Expiry": "never",
+    "Expiry": "Never",
     "Duration": 0,
-    "Amt": 3
+    "Amt": 0
   }
 ]

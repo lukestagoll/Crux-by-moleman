@@ -4,10 +4,11 @@ public class EnemyShip : BaseShip
 {
     [SerializeField] protected int pointsOnKill;
     [SerializeField] protected int damageOnCollision = 10;
-    private EffectData AssignedEffectData;
-
+    
     public delegate void EnemyShipEvent(EnemyShip ship);
     public event EnemyShipEvent OnDestroyed;
+
+    private EffectData AssignedEffectData;
 
     protected override void Start()
     {
@@ -33,7 +34,7 @@ public class EnemyShip : BaseShip
             var itemDrop = Instantiate(AssetManager.ItemDropPrefab, transform.position, Quaternion.identity);
         
             // Initialize the item drop with the assigned effect data
-            itemDrop.InitialiseItem(AssignedEffectData.Type, AssignedEffectData.SubType);
+            itemDrop.InitialiseItem(AssignedEffectData);
         }
     }
 

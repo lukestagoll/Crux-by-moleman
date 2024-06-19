@@ -31,6 +31,11 @@ public static class GameConfig
         Debug.Log("Game Config Loaded");
     }
 
+    public static EffectData FetchEffectDatatBySubType(EffectSubType subType)
+    {
+        return EffectDataList.Find(v => v.SubType == subType);
+    }
+
     private static void LoadEffectData()
     {
         TextAsset jsonData = Resources.Load<TextAsset>("effectData");
