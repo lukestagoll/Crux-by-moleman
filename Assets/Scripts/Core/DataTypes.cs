@@ -5,13 +5,14 @@ using System.Collections.Generic;
 public class EffectData
 {
     public EffectType Type;
-    public string SubType;
+    public EffectSubType SubType;
     public string Expiry;
     public float Duration;
     public float Amt;
 }
 
 // Enum for Effect Types
+[Serializable]
 public enum EffectType
 {
     Passive,
@@ -19,15 +20,16 @@ public enum EffectType
     Instant
 }
 
-// public enum EffectSubType
-// {
-//     Points,
-//     Speed,
-//     FireRate,
-//     Lives,
-//     Health,
-//     Weapon
-// }
+[Serializable]
+public enum EffectSubType
+{
+    // Points,
+    Speed,
+    // FireRate,
+    // Lives,
+    // Health,
+    MissileLauncher
+}
 
 // Enum for Expiry Types
 public enum ExpiryType
@@ -62,6 +64,7 @@ public class WaveData
     public float SpawnCooldown;
     public EnemyData[] Enemies;
     public float WaveDelay;
+    public List<EffectSubType> Drops;
 }
 
 [Serializable]
@@ -73,7 +76,7 @@ public class EnemyData
     public string PathPreset;
 }
 
-[System.Serializable]
+[Serializable]
 public class PathPoint
 {
     public List<int> p; // Change from int to List<int>
@@ -84,7 +87,7 @@ public class PathPoint
     public bool c; // New field for curving allowed
 }
 
-[System.Serializable]
+[Serializable]
 public class PathData
 {
     public string name;
@@ -92,7 +95,7 @@ public class PathData
     public List<PathPoint> path;
 }
 
-[System.Serializable]
+[Serializable]
 public class EnemyPaths
 {
     public List<PathData> SF1;
@@ -105,14 +108,14 @@ public class DeterminedPath
     public PathData pathData;
 }
 
-[System.Serializable]
+[Serializable]
 public class Positions
 {
     public List<SpawnCoordinate> spawns;
     public List<PositionCoordinate> positions;
 }
 
-[System.Serializable]
+[Serializable]
 public class SpawnCoordinate
 {
     public int id;
@@ -120,7 +123,7 @@ public class SpawnCoordinate
     public float y;
 }
 
-[System.Serializable]
+[Serializable]
 public class PositionCoordinate
 {
     public int id;

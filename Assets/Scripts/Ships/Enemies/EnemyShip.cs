@@ -4,6 +4,7 @@ public class EnemyShip : BaseShip
 {
     [SerializeField] protected int pointsOnKill;
     [SerializeField] protected int damageOnCollision = 10;
+    private EffectData AssignedEffectData;
 
     public delegate void EnemyShipEvent(EnemyShip ship);
     public event EnemyShipEvent OnDestroyed;
@@ -14,10 +15,26 @@ public class EnemyShip : BaseShip
         isEnemy = true;
     }
 
+    public void AssignItemDrop(EffectData effectData)
+    {
+        if (effectData != null)
+        {
+            AssignedEffectData = effectData;
+        }
+    }
+
     public override void Die()
     {
         GameManager.IncrementScore(pointsOnKill);
         Explode();
+        if (AssignedEffectData != null)
+        {
+            // Instantiate the ItemDropPrefab at the enemy ship's position
+            var itemDrop = Instantiate(AssetManager.ItemDropPrefab, transform.position, Quaternion.identity);
+        
+            // Initialize the item drop with the assigned effect data
+            itemDrop.InitialiseItem(AssignedEffectData.Type, AssignedEffectData.SubType);
+        }
     }
 
     void OnDestroy()

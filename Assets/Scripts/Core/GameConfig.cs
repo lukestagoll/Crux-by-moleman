@@ -11,7 +11,6 @@ public static class GameConfig
     public static EnemyPaths EnemyPaths { get; private set; }
     public static Positions Positions { get; private set; }
     public static Dictionary<string, PathData> EnemyPathPresets { get; private set; } = new Dictionary<string, PathData>();
-    // public static Dictionary<Effect, EffectData> EffectDataDictionary { get; private set; } = new Dictionary<Effect, EffectData>();
     public static List<EffectData> EffectDataList = new List<EffectData>();
 
     // CONFIG
@@ -59,7 +58,7 @@ public static class GameConfig
             return;
         }
 
-        GameData = JsonUtility.FromJson<GameData>(jsonData.text);
+        GameData = JsonConvert.DeserializeObject<GameData>(jsonData.text);
     }
 
     private static void LoadEnemyPaths()

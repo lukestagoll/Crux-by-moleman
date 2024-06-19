@@ -4,13 +4,11 @@ using System.Collections.Generic;
 
 public class Wave : MonoBehaviour
 {
-    public float SpawnCooldown { get; set; }
-    public EnemyData[] Enemies { get; set; }
-    public float WaveDelay { get; set; }
-    
+    public WaveData WaveData { get; set; }
     private Coroutine SpawnCoroutine { get; set; }
     private int TotalDestroyed { get; set; }
     private int TotalEnemies { get; set; }
+    private int TotalSpawned { get; set; }
 
     private Queue<SpawnItem> SpawnQueue { get; set; }
     private class SpawnItem
@@ -22,9 +20,7 @@ public class Wave : MonoBehaviour
 
     public void Initialise(WaveData waveData)
     {
-        SpawnCooldown = waveData.SpawnCooldown;
-        Enemies = waveData.Enemies;
-        WaveDelay = waveData.WaveDelay;
+        WaveData = waveData;
         SetupQueue();
         TotalEnemies = SpawnQueue.Count;
         StartSpawnCoroutine();
@@ -33,7 +29,7 @@ public class Wave : MonoBehaviour
     private void SetupQueue()
     {
         SpawnQueue = new Queue<SpawnItem>();
-        foreach (var enemy in Enemies)
+        foreach (var enemy in WaveData.Enemies)
         {
             for (int i = 0; i < enemy.Amt; i++)
             {
@@ -53,18 +49,19 @@ public class Wave : MonoBehaviour
         {
             SpawnItem nextSpawn = SpawnQueue.Dequeue();
             SpawnShip(nextSpawn);
-            yield return new WaitForSeconds(SpawnCooldown);
+            yield return new WaitForSeconds(WaveData.SpawnCooldown);
         }
     }
 
     private void SpawnShip(SpawnItem nextSpawn)
     {
         EnemyShip shipPrefab = AssetManager.GetEnemyShipPrefab(nextSpawn.ShipType);
-        if (shipPrefab) {
+        if (shipPrefab)
+        {
             EnemyShip ship = Instantiate(shipPrefab, new Vector3(0, 8, 10), Quaternion.Euler(0, 0, 180));
             ship.OnDestroyed += OnEnemyDestroyed;
             WaveManager.Inst.TotalSpawnedEnemies++;
-            
+
             // Fetch the EnemyShipMovement script and call InitialiseMovement
             EnemyShipMovement shipMovement = ship.GetComponent<EnemyShipMovement>();
             if (shipMovement != null)
@@ -75,7 +72,21 @@ public class Wave : MonoBehaviour
             {
                 Debug.LogError("EnemyShipMovement script not found on the instantiated ship.");
             }
-        } else {
+
+            TotalSpawned++;
+
+            if (WaveData.Drops.Count > 0 && TotalSpawned == TotalEnemies)
+            {
+                EnemyShip enemyShip = ship.GetComponent<EnemyShip>();
+                if (enemyShip != null)
+                {
+                    EffectData effectData = EffectsManager.FetchEffectBySubType(WaveData.Drops[Random.Range(0, WaveData.Drops.Count)]);
+                    enemyShip.AssignItemDrop(effectData);
+                }
+            }
+        }
+        else
+        {
             Debug.LogError("Failed to load EnemyShipPrefab!");
         }
     }

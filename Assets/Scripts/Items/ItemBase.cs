@@ -12,23 +12,22 @@ public class ItemDrop : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(0, -Speed); // Set the initial downward velocity
-        InitialiseItem(EffectType.Weapon , "MissileLauncher"); // ! REMOVE HARDCODE
+      rb = GetComponent<Rigidbody2D>();
+      rb.velocity = new Vector2(0, -Speed); // Set the initial downward velocity
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            TriggerEffect(collision.gameObject);
-            Destroy(gameObject);
-        }
+      if (collision.gameObject.CompareTag("Player"))
+      {
+        TriggerEffect(collision.gameObject);
+        Destroy(gameObject);
+      }
     }
     
-    public void InitialiseItem(EffectType type, string subType)
+    public void InitialiseItem(EffectType type, EffectSubType subType)
     {
-      AssignedEffectData = GameConfig.EffectDataList.Find(x => x.Type == type && x.SubType.ToString() == subType);
+      AssignedEffectData = GameConfig.EffectDataList.Find(x => x.Type == type && x.SubType == subType);
 
       if (AssignedEffectData == null)
       {
@@ -39,6 +38,6 @@ public class ItemDrop : MonoBehaviour
 
     protected void TriggerEffect(GameObject ship)
     {
-      EffectsManager.Inst.ActivateEffect(ship, AssignedEffectData);
+      EffectsManager.ActivateEffect(ship, AssignedEffectData);
     }
 }

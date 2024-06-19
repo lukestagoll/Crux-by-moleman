@@ -1,23 +1,10 @@
 using UnityEngine;
 
-public class EffectsManager : MonoBehaviour
+public static class EffectsManager
 {
-    public static EffectsManager Inst { get; private set; }
-
-    void Awake()
+    public static void ActivateEffect(GameObject target, EffectData effectData)
     {
-        if (Inst != null && Inst != this)
-        {
-            Debug.Log("EffectsManager already exists");
-            Destroy(gameObject);
-            return;  // Ensure no further code execution in this instance
-        }
-        Inst = this;
-    }
-
-    public void ActivateEffect(GameObject target, EffectData effectData)
-    {
-        Debug.Log(effectData);
+        Debug.Log(effectData.Type);
         switch (effectData.Type)
         {
             // case Effect.Points:
@@ -48,9 +35,14 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    private void ActivateWeaponEffect(GameObject targetShip, EffectData effectData)
+    public static EffectData FetchEffectBySubType(EffectSubType subType)
     {
-        WeaponBase weaponComponent = AssetManager.GetWeaponPrefab(effectData.SubType);
+        return GameConfig.EffectDataList.Find(v => v.SubType == subType);
+    }
+
+    private static void ActivateWeaponEffect(GameObject targetShip, EffectData effectData)
+    {
+        WeaponBase weaponComponent = AssetManager.GetWeaponPrefab(effectData.SubType.ToString());
         if (weaponComponent != null)
         {
             BaseShip ship = targetShip.GetComponent<BaseShip>();
@@ -58,17 +50,17 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    private void ActivateHealthEffect(GameObject targetShip, EffectData effect)
-    {
-        BaseShip ship = targetShip.GetComponent<BaseShip>();
-        ship.AddHitpoints(effect.Amt);
-    }
+    // private static void ActivateHealthEffect(GameObject targetShip, EffectData effect)
+    // {
+    //     BaseShip ship = targetShip.GetComponent<BaseShip>();
+    //     ship.AddHitpoints(effect.Amt);
+    // }
 
-    private void ActivateSpeedEffect(GameObject targetShip, EffectData effect)
-    {
-    }
+    // private static void ActivateSpeedEffect(GameObject targetShip, EffectData effect)
+    // {
+    // }
 
-    private void ActivateFireRateEffect(GameObject targetShip, EffectData effect)
-    {
-    }
+    // private static void ActivateFireRateEffect(GameObject targetShip, EffectData effect)
+    // {
+    // }
 }

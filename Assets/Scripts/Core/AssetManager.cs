@@ -6,6 +6,7 @@ public static class AssetManager
     // PREFABS
     public static PlayerShip PlayerPrefab { get; private set; }
     public static Wave WavePrefab { get; private set; }
+    public static ItemDrop ItemDropPrefab { get; private set; }
     public static GameObject LifeIconPrefab { get; private set; }
     public static GameObject StarMapPrefab { get; private set; }
     public static GameObject DistantStarPrefab { get; private set; }
@@ -124,6 +125,13 @@ public static class AssetManager
         if (WavePrefab == null)
         {
             Debug.LogError("Failed to load Wave prefab!");
+        }
+
+        // GAME
+        ItemDropPrefab = Resources.Load<ItemDrop>("Prefabs/Game/ItemDrop");
+        if (ItemDropPrefab == null)
+        {
+            Debug.LogError("Failed to load ItemDrop prefab!");
         }
 
         // UI

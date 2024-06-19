@@ -57,7 +57,7 @@ public class WaveManager : MonoBehaviour
         {
             if (CurrentWaveIndex >= TotalWaves) break;
             Wave wave = SpawnWave();
-            yield return new WaitForSeconds(wave.WaveDelay);
+            yield return new WaitForSeconds(wave.WaveData.WaveDelay);
         }
     }
 
