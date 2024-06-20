@@ -8,6 +8,7 @@ public class HomingMissile : ProjectileBase
     public float initialRotationSpeed = 360f; // Degrees per second
     public float curveSpeed = 2f; // Speed at which the missile curves towards the target
     public float selfDestructTime = 10f; // Time after which the missile will self-destruct
+    public float initialAngle = 45f; // Configurable initial angle in degrees
 
     private Transform target;
 
@@ -20,8 +21,9 @@ public class HomingMissile : ProjectileBase
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
-        // Determine the initial direction based on the side
-        Vector2 initialDirection = (side == AttachPoint.RelativeSide.Left) ? new Vector2(-1, 1).normalized : new Vector2(1, 1).normalized;
+        // Determine the initial direction based on the side and initial angle
+        float angle = (side == AttachPoint.RelativeSide.Left) ? initialAngle : -initialAngle;
+        Vector2 initialDirection = Quaternion.Euler(0, 0, angle) * Vector2.up;
         rb.velocity = initialVelocity + initialDirection * BaseSpeed * speedModifier;
 
         // Initial rotation
@@ -52,8 +54,8 @@ public class HomingMissile : ProjectileBase
             }
 
             // Rotate to face the direction of movement
-            float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); // Adjust angle to match the missile's orientation
+            float currentAngle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle - 90)); // Adjust angle to match the missile's orientation
 
             elapsedTime += Time.deltaTime;
             yield return null;
