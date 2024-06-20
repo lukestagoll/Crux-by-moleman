@@ -11,6 +11,7 @@ public enum EffectSubType
     // Points,
     FireRate,
     // Lives,
+    Damage,
     Health,
     MissileLauncher
 }
@@ -32,6 +33,5 @@ public abstract class EffectBase : MonoBehaviour
     protected GameObject TargetShip;
 
     public abstract void Activate(GameObject target);
-    public abstract void DeActivate();
-
+    public abstract void Deactivate();
 }

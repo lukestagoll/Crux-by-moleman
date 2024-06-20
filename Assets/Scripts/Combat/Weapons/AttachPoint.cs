@@ -97,7 +97,7 @@ public class AttachPoint : MonoBehaviour
     {
         if (!IsEmpty)
         {
-            AttachedWeapon.AttemptFire(isEnemy, fireRateModifier, bulletSpeedModifier, damageModifier);
+            AttachedWeapon.AttemptFire(isEnemy, fireRateModifier, damageModifier, bulletSpeedModifier);
         }
     }
 }

@@ -7,6 +7,13 @@
     "Amt": 1.5
   },
   {
+    "Type": "Passive",
+    "SubType": "Damage",
+    "Expiry": "Time",
+    "Duration": 5,
+    "Amt": 1.5
+  },
+  {
     "Type": "Weapon",
     "SubType": "MissileLauncher",
     "Expiry": "Never",

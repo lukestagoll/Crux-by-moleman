@@ -51,6 +51,7 @@ public abstract class WeaponBase : MonoBehaviour
             var projectileScript = projectile.GetComponent<ProjectileBase>();
             if (projectileScript != null)
             {
+                // Use ships current velocity as the initial velocity of projectile
                 Vector2 initialVelocity = rb != null ? rb.velocity : Vector2.zero;
                 projectileScript.Initialize(isEnemy, bulletSpeedModifier, damageModifier, initialVelocity, Side);
             }

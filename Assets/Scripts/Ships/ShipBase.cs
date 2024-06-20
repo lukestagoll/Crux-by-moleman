@@ -24,8 +24,8 @@ public abstract class BaseShip : MonoBehaviour
 {
     [SerializeField] protected List<WeaponSlot> WeaponSlots;
     [SerializeField] protected GameObject ExplosionPrefab;
-    [SerializeField] protected float FireRateModifier = 1f; // These should be visible in the Inspector
-    [SerializeField] protected float DamageModifier = 1f;   // These should be visible in the Inspector
+    public float FireRateModifier = 1f; // These should be visible in the Inspector
+    public float DamageModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float BulletSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float MovementSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float Hitpoints;
@@ -102,7 +102,7 @@ public abstract class BaseShip : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void AttemptWeaponAttachment(WeaponBase weaponPrefabComponent, bool force)
+    public WeaponSlot AttemptWeaponAttachment(WeaponBase weaponPrefabComponent, bool force)
     {
         // Is weapon SINGLE, DUAL, OR SYSTEM?
         // Attempt to fetch an empty slot of that type
@@ -110,6 +110,7 @@ public abstract class BaseShip : MonoBehaviour
         if (emptySlot != null)
         {
             AttachWeaponsToSlot(weaponPrefabComponent, emptySlot);
+            return emptySlot;
         }
         else if (emptySlot == null && force)
         {
@@ -117,13 +118,15 @@ public abstract class BaseShip : MonoBehaviour
             if (weaponSlot == null)
             {
                 Debug.LogWarning("No weapon slot of type " + weaponPrefabComponent.SlotType + " found!");
-                return;
+                return null;
             }
             AttachWeaponsToSlot(weaponPrefabComponent, weaponSlot);
+            return weaponSlot;
         }
         else
         {
             Debug.Log("All weapon slots are filled!");
+            return null;
         }
     }
 

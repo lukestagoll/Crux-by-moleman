@@ -38,17 +38,17 @@ public class UIManager : MonoBehaviour
         
     }
 
-    private void DeActivateMainMenuUI()
+    private void DeactivateMainMenuUI()
     {
 
     }
 
-    private void DeActivateStageUI()
+    private void DeactivateStageUI()
     {
 
     }
 
-    private void DeActivatePauseUI()
+    private void DeactivatePauseUI()
     {
         
     }
