@@ -38,9 +38,14 @@ public abstract class ProjectileBase : MonoBehaviour
             {
                 ship.TakeDamage(BaseDamage);
             }
-            // Instantiate the explosion prefab at the projectile's position
-            Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            Explode();
         }
+    }
+
+    public void Explode()
+    {
+        // Instantiate the explosion prefab at the projectile's position
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

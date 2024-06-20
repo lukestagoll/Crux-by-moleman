@@ -19,5 +19,19 @@
     "Expiry": "Never",
     "Duration": 0,
     "Amt": 0
+  },
+  {
+    "Type": "Weapon",
+    "SubType": "Cannon",
+    "Expiry": "Never",
+    "Duration": 0,
+    "Amt": 0
+  },
+  {
+    "Type": "Weapon",
+    "SubType": "HomingMissileLauncher",
+    "Expiry": "Never",
+    "Duration": 0,
+    "Amt": 0
   }
 ]

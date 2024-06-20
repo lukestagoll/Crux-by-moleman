@@ -13,7 +13,9 @@ public enum EffectSubType
     // Lives,
     Damage,
     Health,
-    MissileLauncher
+    MissileLauncher,
+    HomingMissileLauncher,
+    Cannon,
 }
 
 public enum ExpiryType
