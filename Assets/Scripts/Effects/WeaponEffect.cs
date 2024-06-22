@@ -6,14 +6,14 @@ public class WeaponEffect : EffectBase
     public override void Activate(GameObject targetShip)
     {
         TargetShip = targetShip;
-        WeaponBase weaponComponent = AssetManager.GetWeaponPrefab(SubType.ToString());
-        if (weaponComponent == null)
+        GameObject weaponPrefab = AssetManager.GetWeaponPrefab(SubType.ToString());
+        if (weaponPrefab == null)
         {
            Debug.LogError("Weapon prefab not found for " + targetShip.name);
         }
 
-        BaseShip shipComponent = TargetShip.GetComponent<BaseShip>();
-        AssignedWeaponSlot = shipComponent.AttemptWeaponAttachment(weaponComponent, false);
+        ShipBase shipComponent = TargetShip.GetComponent<ShipBase>();
+        AssignedWeaponSlot = shipComponent.AttemptWeaponAttachment(weaponPrefab, false);
 
         if (Expiry == ExpiryType.Time && Duration > 0) {
             Debug.Log($"Expiry deteceted for {gameObject.name} with duration {Duration}");
@@ -23,7 +23,7 @@ public class WeaponEffect : EffectBase
     public override void Deactivate()
     {
         Debug.Log("Deactivating");
-        BaseShip shipComponent = TargetShip.GetComponent<BaseShip>();
+        ShipBase shipComponent = TargetShip.GetComponent<ShipBase>();
         shipComponent.DetachWeaponsFromSlot(AssignedWeaponSlot);
     }
 }

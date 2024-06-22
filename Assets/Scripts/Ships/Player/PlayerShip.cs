@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerShip : BaseShip
+public class PlayerShip : ShipBase
 {
     public static PlayerShip Inst { get; private set; }
 
@@ -25,10 +25,23 @@ public class PlayerShip : BaseShip
 
     void Update()
     {
+        if (GameManager.IsPaused) return;
         // Check if left mouse button is held down
-        if (Input.GetMouseButton(0) && !GameManager.IsPaused)
+        if (Input.GetMouseButton(0))
         {
-            FireWeapons();
+            FireWeapons(WeaponType.Primary);
+        }
+
+        // Check if spacebar is held down
+        if (Input.GetKey(KeyCode.Space) && !SpecialIsActivated)
+        {
+            Debug.Log("[PlayerShip] Special firing");
+            FireWeapons(WeaponType.Special);
+        }
+        else if (!Input.GetKey(KeyCode.Space) && SpecialIsActivated)
+        {
+            Debug.Log("[PlayerShip] Special ceasing");
+            CeaseFire(WeaponType.Special);
         }
     }
 

@@ -45,27 +45,27 @@ public class ShipEffect : EffectBase
 
     private void ActivateHealthEffect()
     {
-        BaseShip ship = TargetShip.GetComponent<BaseShip>();
+        ShipBase ship = TargetShip.GetComponent<ShipBase>();
         ship.AddHitpoints(Amt);
     }
 
     private void ActivateDamageEffect()
     {
-        TargetShip.GetComponent<BaseShip>().DamageModifier += Amt;
+        TargetShip.GetComponent<ShipBase>().DamageModifier += Amt;
     }
 
     private void DeactivateDamageEffect()
     {
-        TargetShip.GetComponent<BaseShip>().DamageModifier -= Amt;
+        TargetShip.GetComponent<ShipBase>().DamageModifier -= Amt;
     }
 
     private void ActivateFireRateEffect()
     {
-        TargetShip.GetComponent<BaseShip>().FireRateModifier += Amt;
+        TargetShip.GetComponent<ShipBase>().FireRateModifier += Amt;
     }
 
     private void DeactivateFireRateEffect()
     {
-        TargetShip.GetComponent<BaseShip>().FireRateModifier -= Amt;
+        TargetShip.GetComponent<ShipBase>().FireRateModifier -= Amt;
     }
 }

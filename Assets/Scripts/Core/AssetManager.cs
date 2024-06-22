@@ -15,7 +15,7 @@ public static class AssetManager
 
     // PREFAB DICTIONARIES
     public static Dictionary<string, EnemyShip> EnemyShipPrefabs { get; private set; } = new Dictionary<string, EnemyShip>();
-    public static Dictionary<string, WeaponBase> WeaponPrefabs { get; private set; } = new Dictionary<string, WeaponBase>();
+    public static Dictionary<string, GameObject> WeaponPrefabs { get; private set; } = new Dictionary<string, GameObject>();
     public static Dictionary<string, ProjectileBase> ProjectilePrefabs { get; private set; } = new Dictionary<string, ProjectileBase>();
 
     // SPRITES
@@ -24,7 +24,7 @@ public static class AssetManager
     public static List<Sprite> PlanetSprites { get; private set; } = new List<Sprite>();
 
     // SETTINGS
-    private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher" };
+    private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect" };
     private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "Missile", "HomingMissile" };
     private static List<string> EnemyShipsToLoad = new List<string> { "SF1", "SF2" };
 
@@ -43,7 +43,7 @@ public static class AssetManager
     }
 
     // Fetch function for WeaponPrefabs
-    public static WeaponBase GetWeaponPrefab(string key)
+    public static GameObject GetWeaponPrefab(string key)
     {
         if (WeaponPrefabs.TryGetValue(key, out var weaponPrefabComponent))
         {
@@ -95,7 +95,7 @@ public static class AssetManager
         // WEAPONS
         foreach (string weaponName in WeaponPrefabsToLoad)
         {
-            WeaponBase weaponPrefab = Resources.Load<WeaponBase>($"Prefabs/Combat/Weapons/{weaponName}");
+            GameObject weaponPrefab = Resources.Load<GameObject>($"Prefabs/Combat/Weapons/{weaponName}");
             if (weaponPrefab != null)
             {
                 WeaponPrefabs[weaponName] = weaponPrefab;

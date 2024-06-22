@@ -31,7 +31,7 @@ public class EnemyShooting : MonoBehaviour
             shootTimer += Time.deltaTime;
             if (shootTimer < shootDuration)
             {
-                enemyShip.FireWeapons();
+                enemyShip.FireWeapons(WeaponType.Primary);
             }
             else
             {

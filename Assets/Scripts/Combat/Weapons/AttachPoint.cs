@@ -10,7 +10,7 @@ public class AttachPoint : MonoBehaviour
     }
 
     // public GameObject PreAttachedWeapon;
-    public WeaponBase AttachedWeapon;
+    public GameObject AttachedWeapon;
     [HideInInspector] public bool IsEmpty = true;
 
     private RelativeSide Side;
@@ -35,18 +35,16 @@ public class AttachPoint : MonoBehaviour
         }
     }
 
-    public bool InitialiseAttachPoint()
+    public void InitialiseAttachPoint()
     {
         if (AttachedWeapon != null)
         {
-            // AttachedWeapon = PreAttachedWeapon.GetComponent<WeaponBase>();
-            AttachedWeapon.Side = Side;
+            AttachedWeapon.GetComponent<WeaponBase>().Side = Side;
             IsEmpty = false;
         }
-        return IsEmpty;
     }
 
-    public void AttachWeapon(WeaponBase weaponPrefabComponent, bool force)
+    public void AttachWeapon(GameObject weaponPrefab, bool force)
     {
         if (!IsEmpty)
         {
@@ -61,15 +59,14 @@ public class AttachPoint : MonoBehaviour
             }
         }
 
-        GameObject weaponObject = Instantiate(weaponPrefabComponent.gameObject, transform.position, transform.rotation, transform);
-        WeaponBase weaponComponent = weaponObject.GetComponent<WeaponBase>();
-
-        if (weaponComponent != null)
+        GameObject weaponObject = Instantiate(weaponPrefab, transform.position, transform.rotation, transform);
+        if (weaponObject != null)
         {
+            WeaponBase weaponComponent = weaponObject.GetComponent<WeaponBase>();
+
             // Set the Side property of the weapon based on the AttachPoint
             weaponComponent.Side = Side;
-
-            AttachedWeapon = weaponComponent;
+            AttachedWeapon = weaponObject;
             IsEmpty = false;
         }
         else
@@ -91,13 +88,5 @@ public class AttachPoint : MonoBehaviour
         Destroy(AttachedWeapon.gameObject);
         AttachedWeapon = null;
         IsEmpty = true;
-    }
-
-    public void FireWeapon(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
-    {
-        if (!IsEmpty)
-        {
-            AttachedWeapon.AttemptFire(isEnemy, fireRateModifier, damageModifier, bulletSpeedModifier);
-        }
     }
 }

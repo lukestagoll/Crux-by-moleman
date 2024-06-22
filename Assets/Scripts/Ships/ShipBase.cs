@@ -20,7 +20,7 @@ public class WeaponSlot
     public List<AttachPoint> AttachPoints;
 }
 
-public abstract class BaseShip : MonoBehaviour
+public abstract class ShipBase : MonoBehaviour
 {
     [SerializeField] protected List<WeaponSlot> WeaponSlots;
     [SerializeField] protected GameObject ExplosionPrefab;
@@ -34,6 +34,7 @@ public abstract class BaseShip : MonoBehaviour
     protected bool isDestroyed;
     private List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
     public bool IsAllowedToShoot { get; set; }
+    public bool SpecialIsActivated { get; set; }
 
     protected virtual void Start()
     {
@@ -53,7 +54,10 @@ public abstract class BaseShip : MonoBehaviour
             {
                 attachPoint.InitialiseAttachPoint();
                 weaponSlot.IsEmpty = attachPoint.IsEmpty;
-                ActiveAttachPoints.Add(attachPoint);
+                if (!attachPoint.IsEmpty)
+                {
+                    ActiveAttachPoints.Add(attachPoint);
+                }
             }
         }
     }
@@ -84,14 +88,26 @@ public abstract class BaseShip : MonoBehaviour
         IsAllowedToShoot = !IsAllowedToShoot;
     }
 
-    public void FireWeapons()
+    public void FireWeapons(WeaponType weaponType)
     {
         if (IsAllowedToShoot)
         {
             foreach (AttachPoint attachPoint in ActiveAttachPoints)
             {
-                attachPoint.FireWeapon(isEnemy, FireRateModifier, DamageModifier, BulletSpeedModifier);
+                WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
+                if (attachedWeapon.WeaponType != weaponType) continue;
+                attachedWeapon.AttemptFire(isEnemy, FireRateModifier, DamageModifier, BulletSpeedModifier);
             }
+        }
+    }
+
+    public void CeaseFire(WeaponType weaponType)
+    {
+        foreach (AttachPoint attachPoint in ActiveAttachPoints)
+        {
+            WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
+            if (attachedWeapon.WeaponType != weaponType) continue;
+            attachedWeapon.AttemptCeaseFire();
         }
     }
 
@@ -102,14 +118,15 @@ public abstract class BaseShip : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public WeaponSlot AttemptWeaponAttachment(WeaponBase weaponPrefabComponent, bool force)
+    public WeaponSlot AttemptWeaponAttachment(GameObject weaponPrefab, bool force)
     {
         // Is weapon SINGLE, DUAL, OR SYSTEM?
         // Attempt to fetch an empty slot of that type
+        WeaponBase weaponPrefabComponent = weaponPrefab.GetComponent<WeaponBase>();
         WeaponSlot emptySlot = GetEmptyWeaponSlot(weaponPrefabComponent.SlotType);
         if (emptySlot != null)
         {
-            AttachWeaponsToSlot(weaponPrefabComponent, emptySlot);
+            AttachWeaponsToSlot(weaponPrefab, emptySlot);
             return emptySlot;
         }
         else if (emptySlot == null && force)
@@ -120,7 +137,7 @@ public abstract class BaseShip : MonoBehaviour
                 Debug.LogWarning("No weapon slot of type " + weaponPrefabComponent.SlotType + " found!");
                 return null;
             }
-            AttachWeaponsToSlot(weaponPrefabComponent, weaponSlot);
+            AttachWeaponsToSlot(weaponPrefab, weaponSlot);
             return weaponSlot;
         }
         else
@@ -143,11 +160,11 @@ public abstract class BaseShip : MonoBehaviour
         weaponSlot.IsEmpty = true;
     }
 
-    private void AttachWeaponsToSlot(WeaponBase weaponPrefabComponent, WeaponSlot weaponSlot)
+    private void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot)
     {
         foreach(AttachPoint attachPoint in weaponSlot.AttachPoints)
         {
-                attachPoint.AttachWeapon(weaponPrefabComponent, true);
+                attachPoint.AttachWeapon(weaponPrefab, true);
                 ActiveAttachPoints.Add(attachPoint);
         }
         weaponSlot.IsEmpty = false;

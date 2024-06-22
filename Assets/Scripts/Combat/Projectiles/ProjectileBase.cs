@@ -33,12 +33,25 @@ public abstract class ProjectileBase : MonoBehaviour
         // Code to execute when an object enters the trigger
         if ((tag == "Enemy" && !firedByEnemy) || (tag == "Player" && firedByEnemy))
         {
-            BaseShip ship = other.GetComponent<BaseShip>();
+            ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
                 ship.TakeDamage(BaseDamage);
             }
             Explode();
+        }
+
+        if (tag == "Shield")
+        {
+            ElectroShieldEffect shield = other.GetComponent<ElectroShieldEffect>();
+            if (shield != null)
+            {
+                if (shield.IsEnemyShield != firedByEnemy)
+                {
+                    shield.AbsorbHit(BaseDamage);
+                    Explode();
+                }
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyShip : BaseShip
+public class EnemyShip : ShipBase
 {
     [SerializeField] protected int pointsOnKill;
     [SerializeField] protected int damageOnCollision = 10;
@@ -68,7 +68,7 @@ public class EnemyShip : BaseShip
         // Code to execute when an object enters the trigger
         if (tag == "Player")
         {
-            BaseShip ship = other.GetComponent<BaseShip>();
+            ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
                 ship.TakeDamage(damageOnCollision);
@@ -76,6 +76,18 @@ public class EnemyShip : BaseShip
             // Instantiate the explosion prefab at the projectile's position
             // Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             Die();
+        }
+        else if (tag == "Shield")
+        {
+            ElectroShieldEffect shield = other.GetComponent<ElectroShieldEffect>();
+            if (shield != null)
+            {
+                if (!shield.IsEnemyShield)
+                {
+                    shield.AbsorbHit(damageOnCollision);
+                    Explode();
+                }
+            }
         }
     }
 }

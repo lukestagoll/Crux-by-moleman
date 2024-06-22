@@ -9,7 +9,7 @@
                         "Enemies": [
                             { "ShipType": "SF1", "Amt": 8, "PathIndex": 0, "PathPreset": "VHS-Large" }
                         ],
-                        "Drops": ["HomingMissileLauncher"]
+                        "Drops": ["ElectroShield"]
                     },
                     {
                         "SpawnCooldown": 0.5,

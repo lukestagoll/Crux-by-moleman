@@ -1,5 +1,12 @@
 using UnityEngine;
 
+public enum WeaponType
+{
+    Primary,
+    Secondary,
+    Special
+}
+
 public abstract class WeaponBase : MonoBehaviour
 {
     // Public variables to be set from the inspector in derived classes
@@ -14,62 +21,23 @@ public abstract class WeaponBase : MonoBehaviour
     protected float fireRateTimer;
 
     public SlotType SlotType;
+    public WeaponType WeaponType;
 
     // Reference to the Rigidbody2D component of the weapon
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
     // Add the Side field
     public AttachPoint.RelativeSide Side { get; set; }
 
     // Abstract methods to be implemented by derived classes
-    public virtual void AttemptFire(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
-    {
-        CurrentFireRate = BaseFireRate * fireRateModifier;
-
-        if (fireRateTimer >= 1f / CurrentFireRate)
-        {
-            StartAnimation();
-            FireProjectile(isEnemy, bulletSpeedModifier, damageModifier);
-            fireRateTimer = 0f; // Reset timer after shooting
-        }
-    }
+    public abstract void AttemptFire(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier);
+    public abstract void AttemptCeaseFire();
 
     protected virtual void StartAnimation()
     {
         if (hasAnimation)
         {
             // Animation logic here
-        }
-    }
-
-    protected virtual void FireProjectile(bool isEnemy, float bulletSpeedModifier, float damageModifier)
-    {
-        if (ProjectilePrefab != null && FirePoint != null)
-        {
-            GameObject projectile = Instantiate(ProjectilePrefab, FirePoint.position, FirePoint.rotation);
-
-            var projectileScript = projectile.GetComponent<ProjectileBase>();
-            if (projectileScript != null)
-            {
-                // Use ships current velocity as the initial velocity of projectile
-                Vector2 initialVelocity = rb != null ? rb.velocity : Vector2.zero;
-                projectileScript.Initialize(isEnemy, bulletSpeedModifier, damageModifier, initialVelocity, Side);
-            }
-            else
-            {
-                Debug.LogError("Projectile does not have a ProjectileBase component.");
-            }
-        }
-        else
-        {
-            if (ProjectilePrefab == null)
-            {
-                Debug.LogError("ProjectilePrefab is not set in the inspector.");
-            }
-            if (FirePoint == null)
-            {
-                Debug.LogError("FirePoint is not set in the inspector.");
-            }
         }
     }
 

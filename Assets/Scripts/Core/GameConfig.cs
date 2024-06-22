@@ -31,7 +31,7 @@ public static class GameConfig
         Debug.Log("Game Config Loaded");
     }
 
-    public static EffectData FetchEffectDatatBySubType(EffectSubType subType)
+    public static EffectData FetchEffectDataBySubType(EffectSubType subType)
     {
         return EffectDataList.Find(v => v.SubType == subType);
     }
