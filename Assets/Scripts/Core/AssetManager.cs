@@ -16,7 +16,7 @@ public static class AssetManager
     // PREFAB DICTIONARIES
     public static Dictionary<string, EnemyShip> EnemyShipPrefabs { get; private set; } = new Dictionary<string, EnemyShip>();
     public static Dictionary<string, GameObject> WeaponPrefabs { get; private set; } = new Dictionary<string, GameObject>();
-    public static Dictionary<string, ProjectileBase> ProjectilePrefabs { get; private set; } = new Dictionary<string, ProjectileBase>();
+    public static Dictionary<string, GameObject> ProjectilePrefabs { get; private set; } = new Dictionary<string, GameObject>();
 
     // SPRITES
     public static List<Sprite> DistantStarSprites { get; private set; } = new List<Sprite>();
@@ -25,7 +25,7 @@ public static class AssetManager
 
     // SETTINGS
     private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect" };
-    private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "Missile", "HomingMissile" };
+    private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "Missile", "HomingMissile", "ElectricExplosion" };
     private static List<string> EnemyShipsToLoad = new List<string> { "SF1", "SF2" };
 
     // Fetch function for EnemyShipPrefabs
@@ -57,7 +57,7 @@ public static class AssetManager
     }
 
     // Fetch function for ProjectilePrefabs
-    public static ProjectileBase GetProjectilePrefab(string key)
+    public static GameObject GetProjectilePrefab(string key)
     {
         if (ProjectilePrefabs.TryGetValue(key, out var prefab))
         {
@@ -109,7 +109,7 @@ public static class AssetManager
         // PROJECTILES
         foreach (string projectileName in ProjectilesToLoad)
         {
-            ProjectileBase projectilePrefab = Resources.Load<ProjectileBase>($"Prefabs/Combat/Projectiles/{projectileName}");
+            GameObject projectilePrefab = Resources.Load<GameObject>($"Prefabs/Combat/Projectiles/{projectileName}");
             if (projectilePrefab != null)
             {
                 ProjectilePrefabs[projectileName] = projectilePrefab;

@@ -35,6 +35,7 @@ public abstract class ShipBase : MonoBehaviour
     private List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
     public bool IsAllowedToShoot { get; set; }
     public bool SpecialIsActivated { get; set; }
+    public bool SpecialIsCeasing { get; set; }
 
     protected virtual void Start()
     {

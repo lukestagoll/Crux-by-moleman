@@ -38,7 +38,7 @@ public class PlayerShip : ShipBase
             Debug.Log("[PlayerShip] Special firing");
             FireWeapons(WeaponType.Special);
         }
-        else if (!Input.GetKey(KeyCode.Space) && SpecialIsActivated)
+        else if (!Input.GetKey(KeyCode.Space) && SpecialIsActivated && !SpecialIsCeasing)
         {
             Debug.Log("[PlayerShip] Special ceasing");
             CeaseFire(WeaponType.Special);
