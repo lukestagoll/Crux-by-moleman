@@ -1,14 +1,10 @@
 using UnityEngine;
-using System;
 
-public class ElectricExplosion : MonoBehaviour
+public class ElectricExplosionChain : MonoBehaviour
 {
     private ParticleSystem particleSystem;
     private GameObject ElectricExplosionChainPrefab;
-
-    public event Action OnExplosionFinished;
-
-    public float Charge = 150;
+    public float Charge;
 
     void Awake()
     {
@@ -47,24 +43,25 @@ public class ElectricExplosion : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log("PARTICLE COLLISION WITH: " + other.name + other.tag);
+        Debug.Log("CHAIN PARTICLE COLLISION WITH: " + other.name + other.tag);
         if (other.CompareTag("Enemy"))
         {
             ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
-                //! Check if charge is high enough?
+              //! Put into own fn
+              if (Charge > 50) {
                 GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity, ship.transform);
                 ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
-                explosionChainScript.Charge = Charge / 5;
-                ship.TakeDamage(Charge / 5);
+                explosionChainScript.Charge = Charge / 1.25f;
+              }
+              ship.TakeDamage(Charge);
             }
         }
     }
 
     void OnParticleSystemStopped()
     {
-        OnExplosionFinished?.Invoke();
         Destroy(gameObject);
     }
 }

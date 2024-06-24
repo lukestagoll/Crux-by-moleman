@@ -281,4 +281,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxPitch: 4.5
+  CurrentCharge: 150
   IsEnemyShield: 0

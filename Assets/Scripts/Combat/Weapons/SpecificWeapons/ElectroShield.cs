@@ -51,20 +51,30 @@ public class ElectroShield : ToggleFireWeaponBase
     {
         if (ElectricExplosionPrefab != null)
         {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.time = 0.5f;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogError("AudioSource component not found!");
+            }
             // Instantiate the ElectricExplosion at the center of the parent ship
             ShipBase parentShip = GetComponentInParent<ShipBase>();
             if (parentShip != null)
             {
-                Debug.Log("Spawning ElectricExplosion");
                 GameObject electricExplosion = Instantiate(ElectricExplosionPrefab, parentShip.transform.position, Quaternion.identity, parentShip.transform);
                 ElectricExplosion explosionScript = electricExplosion.GetComponent<ElectricExplosion>();
+                explosionScript.Charge = Shield.GetComponent<ElectroShieldEffect>().CurrentCharge;
                 if (explosionScript != null)
                 {
                     explosionScript.OnExplosionFinished += () =>
                     {
-                        Destroy(Shield);
                         onCompleted?.Invoke();
                     };
+                    Destroy(Shield);
                 }
             }
             else

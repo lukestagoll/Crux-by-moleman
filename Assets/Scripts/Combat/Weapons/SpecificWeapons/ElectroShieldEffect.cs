@@ -6,7 +6,8 @@ using UnityEngine;
 public class ElectroShieldEffect : MonoBehaviour
 {
     public float MaxPitch = 3.0f; // Maximum pitch value to prevent endless growth
-    private float charge = 0.1f; // Increment value for pitch
+    public float CurrentCharge = 150;
+    private float MaxCharge = 500;
     private AudioSource audioSource;
     public bool IsEnemyShield;
 
@@ -17,32 +18,32 @@ public class ElectroShieldEffect : MonoBehaviour
         {
             Debug.LogError("AudioSource component not found on the GameObject.");
         }
-
-        Collider2D collider = GetComponent<Collider2D>();
-        if (collider != null)
-        {
-            collider.isTrigger = true; // Ensure the collider is set to trigger
-        }
-        else
-        {
-            Debug.LogError("Collider2D component not found on the GameObject.");
-        }
     }
 
     public void AbsorbHit(float damage) {
+        CurrentCharge += damage;
+        Debug.Log("CHARGE: " + CurrentCharge);
+        if (CurrentCharge > MaxCharge)
+        {
+            CurrentCharge = MaxCharge;
+        }
         if (audioSource != null)
         {
-            audioSource.pitch = Mathf.Min(audioSource.pitch + charge, MaxPitch);
-            Debug.Log("Collision detected. New pitch: " + audioSource.pitch);
+            audioSource.pitch = 3 * (CurrentCharge / MaxCharge);
         }
     }
 
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (audioSource != null)
-    //     {
-    //         audioSource.pitch = Mathf.Min(audioSource.pitch + charge, MaxPitch);
-    //         Debug.Log("Collision detected. New pitch: " + audioSource.pitch);
-    //     }
-    // }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        string tag = other.gameObject.tag;
+        if (tag == "Enemy" && !IsEnemyShield)
+        {
+            EnemyShip enemyShip = other.GetComponent<EnemyShip>();
+            if (enemyShip != null)
+            {
+                AbsorbHit(enemyShip.damageOnCollision);
+                enemyShip.Die();
+            }
+        }
+    }
 }

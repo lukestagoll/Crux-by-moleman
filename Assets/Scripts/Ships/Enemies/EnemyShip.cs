@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyShip : ShipBase
 {
     [SerializeField] protected int pointsOnKill;
-    [SerializeField] protected int damageOnCollision = 10;
+    public int damageOnCollision = 10;
     
     public delegate void EnemyShipEvent(EnemyShip ship);
     public event EnemyShipEvent OnDestroyed;
@@ -59,35 +59,5 @@ public class EnemyShip : ShipBase
     public override void AddHitpoints(float amt)
     {
         Hitpoints += amt;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        string tag = other.gameObject.tag;
-
-        // Code to execute when an object enters the trigger
-        if (tag == "Player")
-        {
-            ShipBase ship = other.GetComponent<ShipBase>();
-            if (ship != null)
-            {
-                ship.TakeDamage(damageOnCollision);
-            }
-            // Instantiate the explosion prefab at the projectile's position
-            // Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
-            Die();
-        }
-        else if (tag == "Shield")
-        {
-            ElectroShieldEffect shield = other.GetComponent<ElectroShieldEffect>();
-            if (shield != null)
-            {
-                if (!shield.IsEnemyShield)
-                {
-                    shield.AbsorbHit(damageOnCollision);
-                    Explode();
-                }
-            }
-        }
     }
 }

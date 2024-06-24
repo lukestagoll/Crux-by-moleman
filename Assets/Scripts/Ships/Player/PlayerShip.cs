@@ -35,12 +35,10 @@ public class PlayerShip : ShipBase
         // Check if spacebar is held down
         if (Input.GetKey(KeyCode.Space) && !SpecialIsActivated)
         {
-            Debug.Log("[PlayerShip] Special firing");
             FireWeapons(WeaponType.Special);
         }
         else if (!Input.GetKey(KeyCode.Space) && SpecialIsActivated && !SpecialIsCeasing)
         {
-            Debug.Log("[PlayerShip] Special ceasing");
             CeaseFire(WeaponType.Special);
         }
     }
@@ -70,5 +68,23 @@ public class PlayerShip : ShipBase
     {
         Hitpoints += amt;
         HUDManager.Inst.UpdateHealthBar(Hitpoints);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        string tag = other.gameObject.tag;
+
+        // Code to execute when an object enters the trigger
+        if (tag == "Enemy")
+        {
+            EnemyShip enemyShip = other.GetComponent<EnemyShip>();
+            if (enemyShip != null)
+            {
+                TakeDamage(enemyShip.damageOnCollision);
+                enemyShip.Die();
+            }
+            // Instantiate the explosion prefab at the projectile's position
+            // Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
