@@ -8,7 +8,7 @@ public class ElectricExplosion : MonoBehaviour
 
     public event Action OnExplosionFinished;
 
-    public float Charge = 150;
+    public float Charge;
 
     void Awake()
     {
@@ -18,6 +18,11 @@ public class ElectricExplosion : MonoBehaviour
         {
             Debug.LogError("Failed to load ElectricExplosion prefab!");
         }
+    }
+
+    public void Initialise(float charge)
+    {
+        Charge = charge;
         // Fetch the ParticleSystem component
         particleSystem = GetComponent<ParticleSystem>();
 
@@ -47,16 +52,17 @@ public class ElectricExplosion : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log("PARTICLE COLLISION WITH: " + other.name + other.tag);
+        Debug.Log("EXPLOSION PARTICLE COLLISION WITH: " + other.name + other.tag);
         if (other.CompareTag("Enemy"))
         {
             ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
+                Debug.Log("ATTEMPTING TO SPAWN INITIAL CHAIN");
                 //! Check if charge is high enough?
-                GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity, ship.transform);
+                GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity);
                 ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
-                explosionChainScript.Charge = Charge / 5;
+                explosionChainScript.Initialise(Charge, 0);
                 ship.TakeDamage(Charge / 5);
             }
         }

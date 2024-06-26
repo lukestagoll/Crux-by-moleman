@@ -7,6 +7,7 @@ public class ElectroShield : ToggleFireWeaponBase
     private GameObject Shield;
     private GameObject ElectroShieldEffectPrefab;
     private GameObject ElectricExplosionPrefab;
+    public float InitialCharge = 60;
 
     protected void Awake()
     {
@@ -38,7 +39,9 @@ public class ElectroShield : ToggleFireWeaponBase
             if (parentShip != null)
             {
                 Shield = Instantiate(ElectroShieldEffectPrefab, parentShip.transform.position, Quaternion.identity, parentShip.transform);
-                Shield.GetComponent<ElectroShieldEffect>().IsEnemyShield = isEnemy;
+                ElectroShieldEffect ElectroShieldEffectComponent = Shield.GetComponent<ElectroShieldEffect>();
+                ElectroShieldEffectComponent.Initialise(isEnemy, InitialCharge);
+                
             }
             else
             {
@@ -67,7 +70,7 @@ public class ElectroShield : ToggleFireWeaponBase
             {
                 GameObject electricExplosion = Instantiate(ElectricExplosionPrefab, parentShip.transform.position, Quaternion.identity, parentShip.transform);
                 ElectricExplosion explosionScript = electricExplosion.GetComponent<ElectricExplosion>();
-                explosionScript.Charge = Shield.GetComponent<ElectroShieldEffect>().CurrentCharge;
+                explosionScript.Initialise(Shield.GetComponent<ElectroShieldEffect>().CurrentCharge);
                 if (explosionScript != null)
                 {
                     explosionScript.OnExplosionFinished += () =>

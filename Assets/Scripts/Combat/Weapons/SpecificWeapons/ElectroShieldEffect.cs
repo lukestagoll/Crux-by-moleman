@@ -6,18 +6,24 @@ using UnityEngine;
 public class ElectroShieldEffect : MonoBehaviour
 {
     public float MaxPitch = 3.0f; // Maximum pitch value to prevent endless growth
-    public float CurrentCharge = 150;
+    public float CurrentCharge;
     private float MaxCharge = 500;
     private AudioSource audioSource;
     public bool IsEnemyShield;
 
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             Debug.LogError("AudioSource component not found on the GameObject.");
         }
+    }
+
+    public void Initialise(bool isEnemy, float charge)
+    {
+        IsEnemyShield = isEnemy;
+        CurrentCharge = charge;
     }
 
     public void AbsorbHit(float damage) {
@@ -29,7 +35,7 @@ public class ElectroShieldEffect : MonoBehaviour
         }
         if (audioSource != null)
         {
-            audioSource.pitch = 3 * (CurrentCharge / MaxCharge);
+            audioSource.pitch = 3 * (CurrentCharge / MaxCharge) + 1;
         }
     }
 
