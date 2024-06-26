@@ -605,7 +605,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 1
-    maxNumParticles: 20
+    maxNumParticles: 25
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -4903,3 +4903,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Charge: 50
+  lowColor: {r: 0.2971698, g: 0.82737505, b: 1, a: 1}
+  highColor: {r: 1, g: 0.46563667, b: 0.25, a: 1}

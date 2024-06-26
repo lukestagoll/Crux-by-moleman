@@ -6,6 +6,8 @@ public class ElectricExplosionChain : MonoBehaviour
     private GameObject ElectricExplosionChainPrefab;
     public float Charge;
     private int ChainCount = 0;
+    private Color LowColor;
+    private Color HighColor;
 
     void Awake()
     {
@@ -17,10 +19,12 @@ public class ElectricExplosionChain : MonoBehaviour
         }
     }
 
-    public void Initialise(float charge, int chainCount)
+    public void Initialise(float charge, int chainCount, Color lowColor, Color highColor)
     {
         ChainCount = chainCount + 1;
         Charge = charge;
+        LowColor = lowColor;
+        HighColor = highColor;
         Debug.Log("chain count: " + ChainCount + " charge: " + Charge);
         // Fetch the ParticleSystem component
         particleSystem = GetComponent<ParticleSystem>();
@@ -36,6 +40,9 @@ public class ElectricExplosionChain : MonoBehaviour
             collision.mode = ParticleSystemCollisionMode.Collision2D;
             collision.sendCollisionMessages = true;
 
+            // Set the particle color based on the charge
+            SetParticleColor(charge, lowColor, highColor);
+
             // Play the ParticleSystem
             particleSystem.Play();
 
@@ -49,6 +56,18 @@ public class ElectricExplosionChain : MonoBehaviour
         }
     }
 
+    private void SetParticleColor(float charge, Color lowColor, Color highColor)
+    {
+        var main = particleSystem.main;
+
+        // Calculate the color based on the charge value
+        float t = Mathf.Clamp01(charge / 500f);
+        Color particleColor = Color.Lerp(lowColor, highColor, t);
+
+        // Apply the calculated color to the particle system
+        main.startColor = particleColor;
+    }
+
     void OnParticleCollision(GameObject other)
     {
         Debug.Log("CHAIN PARTICLE COLLISION WITH: " + other.name + other.tag);
@@ -57,14 +76,15 @@ public class ElectricExplosionChain : MonoBehaviour
             ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
-              //! Put into own fn
-              if (Charge > 50f) {
-                Debug.Log("ATTEMPTING TO SPAWN NEXT CHAIN");
-                GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity, ship.transform);
-                ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
-                explosionChainScript.Initialise(Charge - 50f, ChainCount);
-              }
-              ship.TakeDamage(Charge);
+                //! Put into own fn
+                if (Charge > 50f)
+                {
+                    Debug.Log("ATTEMPTING TO SPAWN NEXT CHAIN");
+                    GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity);
+                    ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
+                    explosionChainScript.Initialise(Charge - 50f, ChainCount, LowColor, HighColor);
+                }
+                ship.TakeDamage(Charge);
             }
             else
             {
