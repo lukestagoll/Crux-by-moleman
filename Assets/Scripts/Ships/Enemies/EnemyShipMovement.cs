@@ -157,20 +157,30 @@ public class EnemyShipMovement : MonoBehaviour
                 transform.rotation = SmoothRotateDirection(transform.rotation, targetRotation, 10f, 3f, 15f);
                 break;
             case 1: // Face Direction
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                targetRotation = Quaternion.Euler(new Vector3(0, 0, angle + AngleOffset));
-                transform.rotation = SmoothRotateDirection(transform.rotation, targetRotation, 10f, 3f, 10f); // Use easeRate = 2f and initialSpeed = 0.5f
+                FaceDir(direction);
                 break;
             case 2: // Face Player
-                if (PlayerManager.Inst.ActivePlayerShip.transform != null)
+                if (PlayerManager.Inst.ActivePlayerShip != null)
                 {
                     Vector3 playerDirection = PlayerManager.Inst.ActivePlayerShip.transform.position - transform.position;
                     float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
                     targetRotation = Quaternion.Euler(new Vector3(0, 0, playerAngle + AngleOffset)); // Adjusting by AngleOffset
                     transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 4f);
                 }
+                else
+                {
+                    FaceDir(direction);
+                    break;
+                }
                 break;
         }
+    }
+
+    private void FaceDir(Vector3 direction)
+    {
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle + AngleOffset));
+        transform.rotation = SmoothRotateDirection(transform.rotation, targetRotation, 10f, 3f, 10f); // Use easeRate = 2f and initialSpeed = 0.5f
     }
     
     private Quaternion SmoothRotateDirection(Quaternion from, Quaternion to, float maxSpeed, float easeRate = 2f, float initialSpeed = 0.1f)

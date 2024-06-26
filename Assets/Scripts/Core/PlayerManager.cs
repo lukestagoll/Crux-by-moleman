@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("Player destroyed");
         Lives -= 1;
+        ActivePlayerShip = null;
         if (Lives > 0)
         {
             HUDManager.Inst.UpdateLivesDisplay();
@@ -46,6 +47,11 @@ public class PlayerManager : MonoBehaviour
             // Game Over
             GameManager.HandleGameOver();
         }
+    }
+
+    public void SetActiveShipToNull()
+    {
+        ActivePlayerShip = null;
     }
 
     // Coroutine to delay the respawn
