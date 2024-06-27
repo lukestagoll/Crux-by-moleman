@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -8,8 +10,10 @@ public class ElectroShieldEffect : MonoBehaviour
     public float MaxPitch = 3.0f; // Maximum pitch value to prevent endless growth
     public float CurrentCharge;
     private float MaxCharge = 500;
+    private float Health;
     private AudioSource audioSource;
     public bool IsEnemyShield;
+    private ToggleFireWeaponBase ElectroShieldComponent; 
 
     void Awake()
     {
@@ -20,10 +24,12 @@ public class ElectroShieldEffect : MonoBehaviour
         }
     }
 
-    public void Initialise(bool isEnemy, float charge)
+    public void Initialise(bool isEnemy, float charge, float initialHealth, ToggleFireWeaponBase electroShieldComponent)
     {
         IsEnemyShield = isEnemy;
         CurrentCharge = charge;
+        Health = initialHealth;
+        ElectroShieldComponent = electroShieldComponent;
     }
 
     public void AbsorbHit(float damage) {
@@ -39,6 +45,19 @@ public class ElectroShieldEffect : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+        Debug.Log("Shield taken damage" + damage + "Health:" + Health);
+        if (Health <= 0)
+        {
+            Debug.Log("Shield broken!");
+            // Do shield break stuff
+            // Play break sound
+            ElectroShieldComponent.AttemptCeaseFire();
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         string tag = other.gameObject.tag;
@@ -47,7 +66,7 @@ public class ElectroShieldEffect : MonoBehaviour
             EnemyShip enemyShip = other.GetComponent<EnemyShip>();
             if (enemyShip != null)
             {
-                AbsorbHit(enemyShip.damageOnCollision);
+                TakeDamage(enemyShip.damageOnCollision);
                 enemyShip.Die();
             }
         }

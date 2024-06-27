@@ -22,7 +22,7 @@ public class ElectricExplosionChain : MonoBehaviour
     public void Initialise(float charge, int chainCount, Color lowColor, Color highColor)
     {
         ChainCount = chainCount + 1;
-        Charge = charge;
+        Charge = charge * 0.7f;
         LowColor = lowColor;
         HighColor = highColor;
         Debug.Log("chain count: " + ChainCount + " charge: " + Charge);
@@ -77,12 +77,12 @@ public class ElectricExplosionChain : MonoBehaviour
             if (ship != null)
             {
                 //! Put into own fn
-                if (Charge > 50f)
+                if (Charge > 100f)
                 {
                     Debug.Log("ATTEMPTING TO SPAWN NEXT CHAIN");
                     GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity);
                     ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
-                    explosionChainScript.Initialise(Charge - 50f, ChainCount, LowColor, HighColor);
+                    explosionChainScript.Initialise(Charge - 100f, ChainCount, LowColor, HighColor);
                 }
                 ship.TakeDamage(Charge);
             }

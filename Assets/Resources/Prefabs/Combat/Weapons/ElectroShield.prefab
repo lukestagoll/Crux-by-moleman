@@ -79,6 +79,7 @@ MonoBehaviour:
   SlotType: 2
   WeaponType: 2
   Cooldown: 3
+  InitialCharge: 10
 --- !u!82 &715950773391962034
 AudioSource:
   m_ObjectHideFlags: 0

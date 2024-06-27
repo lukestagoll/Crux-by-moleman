@@ -250,7 +250,7 @@ MonoBehaviour:
   MovementSpeedModifier: 1
   Hitpoints: 100
   pointsOnKill: 150
-  damageOnCollision: 15
+  damageOnCollision: 50
 --- !u!1001 &381958800251290800
 PrefabInstance:
   m_ObjectHideFlags: 0

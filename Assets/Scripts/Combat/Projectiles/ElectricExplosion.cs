@@ -70,13 +70,11 @@ public class ElectricExplosion : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log("EXPLOSION PARTICLE COLLISION WITH: " + other.name + other.tag);
         if (other.CompareTag("Enemy"))
         {
             ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
-                Debug.Log("ATTEMPTING TO SPAWN INITIAL CHAIN");
                 //! Check if charge is high enough?
                 GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity);
                 ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();

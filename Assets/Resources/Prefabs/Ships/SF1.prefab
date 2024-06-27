@@ -236,7 +236,7 @@ MonoBehaviour:
   MovementSpeedModifier: 1
   Hitpoints: 50
   pointsOnKill: 50
-  damageOnCollision: 10
+  damageOnCollision: 35
 --- !u!114 &5882347149641705893
 MonoBehaviour:
   m_ObjectHideFlags: 0
