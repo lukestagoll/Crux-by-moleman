@@ -13,6 +13,7 @@ public enum SlotType
 [Serializable]
 public class WeaponSlot
 {
+    public string PrefabName;
     [HideInInspector] public bool IsEmpty = true;
 
     public SlotType Type;
@@ -22,7 +23,7 @@ public class WeaponSlot
 
 public abstract class ShipBase : MonoBehaviour
 {
-    [SerializeField] protected List<WeaponSlot> WeaponSlots;
+    public List<WeaponSlot> WeaponSlots;
     [SerializeField] protected GameObject ExplosionPrefab;
     public float FireRateModifier = 1f; // These should be visible in the Inspector
     public float DamageModifier = 1f;   // These should be visible in the Inspector
@@ -43,7 +44,8 @@ public abstract class ShipBase : MonoBehaviour
         // It is used to ensure the variables are set to the right things
         // WeaponSlots will have a list but a bool that needs to be set
         InitialiseWeaponSlots();
-
+        SpecialIsActivated = false;
+        SpecialIsCeasing = false;
         IsAllowedToShoot = true;
     }
 
@@ -51,6 +53,7 @@ public abstract class ShipBase : MonoBehaviour
     {
         foreach (WeaponSlot weaponSlot in WeaponSlots)
         {
+            bool hasActiveAttachPoint = false;
             foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
             {
                 attachPoint.InitialiseAttachPoint();
@@ -58,7 +61,12 @@ public abstract class ShipBase : MonoBehaviour
                 if (!attachPoint.IsEmpty)
                 {
                     ActiveAttachPoints.Add(attachPoint);
+                    hasActiveAttachPoint = true;
                 }
+            }
+            if (hasActiveAttachPoint)
+            {
+                  
             }
         }
     }

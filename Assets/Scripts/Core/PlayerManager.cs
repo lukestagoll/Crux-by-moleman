@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -9,6 +10,10 @@ public class PlayerManager : MonoBehaviour
     // Player Data
     public int Lives { get; set; }
     public PlayerShip ActivePlayerShip { get; set; }
+    private AudioSource AudioSource;
+
+    // Store active weapon prefabs
+    private List<string> ActiveWeaponPrefabs = new List<string>();
 
     void Awake()
     {
@@ -19,6 +24,7 @@ public class PlayerManager : MonoBehaviour
             return;  // Ensure no further code execution in this instance
         }
         Inst = this;
+        AudioSource = GetComponent<AudioSource>();
     }
 
     public void IncrementLives(int amt)
@@ -27,14 +33,52 @@ public class PlayerManager : MonoBehaviour
         HUDManager.Inst.UpdateLivesDisplay();
     }
 
+    private void PlayExplosionSound()
+    {
+        if(AudioSource != null)
+        {
+            AudioSource.Play();
+        }
+    }
+
     public void SpawnPlayer()
     {
         ActivePlayerShip = Instantiate(AssetManager.PlayerPrefab, new Vector3(0, -4, 10), Quaternion.identity);
+
+        // Reattach saved weapon prefabs
+        foreach (string weaponPrefabName in ActiveWeaponPrefabs)
+        {
+            GameObject weaponPrefab = AssetManager.GetWeaponPrefab(weaponPrefabName);
+            if (weaponPrefab != null)
+            {
+                ActivePlayerShip.AttemptWeaponAttachment(weaponPrefab, true);
+            }
+        }
     }
 
     public void HandlePlayerDestroyed()
     {
         Debug.Log("Player destroyed");
+        PlayExplosionSound();
+        ActivePlayerShip.ToggleShooting();
+        // Save active weapon prefabs
+        ActiveWeaponPrefabs.Clear();
+        foreach (WeaponSlot weaponSlot in ActivePlayerShip.WeaponSlots)
+        {
+            foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
+            {
+                if (!attachPoint.IsEmpty)
+                {
+                    WeaponBase weapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
+                    if (weapon != null)
+                    {
+                        string weaponPrefabName = weapon.name.Replace("(Clone)", "").Trim();
+                        ActiveWeaponPrefabs.Add(weaponPrefabName);
+                    }
+                }
+            }
+        }
+
         Lives -= 1;
         ActivePlayerShip = null;
         if (Lives > 0)

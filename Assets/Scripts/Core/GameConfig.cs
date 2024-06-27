@@ -14,7 +14,7 @@ public static class GameConfig
     public static List<EffectData> EffectDataList = new List<EffectData>();
 
     // CONFIG
-    public static float MaxPlayerHealth = 200;
+    public static float MaxPlayerHealth = 250;
     public static int InitialLives = 3;
     public static int InitialScore = 0;
     public static float RespawnTimer = 2;
