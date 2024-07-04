@@ -31,11 +31,12 @@ public class EnemyShooting : MonoBehaviour
             shootTimer += Time.deltaTime;
             if (shootTimer < shootDuration)
             {
-                enemyShip.FireWeapons(WeaponType.Primary);
+                enemyShip.EnablePrimaryFire();
             }
             else
             {
                 // Once shooting duration is over, start waiting
+                enemyShip.DisablePrimaryFire();
                 CalculateNextBatch();
             }
             return;

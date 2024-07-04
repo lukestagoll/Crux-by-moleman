@@ -12,11 +12,6 @@ public class PlayerManager : MonoBehaviour
     public PlayerShip ActivePlayerShip { get; set; }
     private AudioSource AudioSource;
 
-    // Weapon States
-    private bool PrimaryFireEnabled = false;
-    private bool SpecialFireEnabled = false;
-    private bool SpecialFireCeasing = false;
-
     // Store active weapon prefabs
     private List<string> ActiveWeaponPrefabs = new List<string>();
 
@@ -32,93 +27,30 @@ public class PlayerManager : MonoBehaviour
         AudioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
+    public void HandlePlayerDestroyed()
     {
-        if (GameManager.IsPaused) return;
-        if (PrimaryFireEnabled) ActivePlayerShip.FireWeapons(WeaponType.Primary);
-    }
+        PlayExplosionSound();
+        ActivePlayerShip.DisablePrimaryFire();
+        ActivePlayerShip.DisableSpecialFire();
+        ActivePlayerShip.DisableShooting();
+        SetActiveWeapons();
+        SetActiveShipToNull();
 
-    public void EnablePrimaryFire()
-    {
-        if (ActivePlayerShip == null || SpecialFireEnabled) return;
-        if (!ActivePlayerShip.HasActiveAttachPoint(WeaponType.Primary)) return;
-        PrimaryFireEnabled = true;
-    }
-    public void DisablePrimaryFire()
-    {
-        if (ActivePlayerShip == null || !PrimaryFireEnabled) return;
-        PrimaryFireEnabled = false;
-    }
-    public void EnableSpecialFire()
-    {
-        if (ActivePlayerShip == null || SpecialFireEnabled) return;
-        if (!ActivePlayerShip.HasActiveAttachPoint(WeaponType.Special)) return;
-        DisablePrimaryFire();
-        ActivePlayerShip.FireWeapons(WeaponType.Special);
-        SpecialFireEnabled = true;
-    }
-    public void DisableSpecialFire()
-    {
-        if (!SpecialFireEnabled || SpecialFireCeasing) return;
-        if (!ActivePlayerShip.HasActiveAttachPoint(WeaponType.Special))
+        Lives -= 1;
+        if (Lives > 0)
         {
-            HandleSpecialFireCeased();
-            return;
-        };
-        SpecialFireCeasing = true;
-        ActivePlayerShip.CeaseFire(WeaponType.Special);
-    }
-    public void HandleSpecialFireCeased()
-    {
-        SpecialFireCeasing = false;
-        SpecialFireEnabled = false;
-    }
-
-    public void IncrementLives(int amt)
-    {
-        Lives += amt;
-        HUDManager.Inst.UpdateLivesDisplay();
-    }
-
-    private void PlayExplosionSound()
-    {
-        if(AudioSource != null)
+            HUDManager.Inst.UpdateLivesDisplay();
+            RespawnPlayer();
+        }
+        else
         {
-            AudioSource.Play();
+            // Game Over
+            GameManager.HandleGameOver();
         }
     }
 
-    public void SpawnPlayer()
+    private void SetActiveWeapons()
     {
-        ActivePlayerShip = Instantiate(AssetManager.PlayerPrefab, new Vector3(0, -4, 10), Quaternion.identity);
-        PrimaryFireEnabled = false;
-        SpecialFireEnabled = false;
-        SpecialFireCeasing = false;
-        // Reattach saved weapon prefabs
-        // foreach (string weaponPrefabName in ActiveWeaponPrefabs)
-        // {
-        //     GameObject weaponPrefab = AssetManager.GetWeaponPrefab(weaponPrefabName);
-        //     if (weaponPrefab != null)
-        //     {
-        //         ActivePlayerShip.AttemptWeaponAttachment(weaponPrefab, true);
-        //     }
-        // }
-
-            GameObject weaponPrefab = AssetManager.GetWeaponPrefab("ElectroShield");
-            if (weaponPrefab != null)
-            {
-                ActivePlayerShip.AttemptWeaponAttachment(weaponPrefab, false);
-            }
-    }
-
-    public void HandlePlayerDestroyed()
-    {
-        Debug.Log("HandlePlayerDestroyed");
-        PlayExplosionSound();
-        DisablePrimaryFire();
-        DisableSpecialFire();
-        ActivePlayerShip.DisableShooting();
-        // Save active weapon prefabs
         ActiveWeaponPrefabs.Clear();
         foreach (WeaponSlot weaponSlot in ActivePlayerShip.WeaponSlots)
         {
@@ -135,24 +67,13 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-
-        Lives -= 1;
-        ActivePlayerShip = null;
-        if (Lives > 0)
-        {
-            HUDManager.Inst.UpdateLivesDisplay();
-            RespawnPlayer();
-        }
-        else
-        {
-            // Game Over
-            GameManager.HandleGameOver();
-        }
     }
 
-    public void SetActiveShipToNull()
+    // Function called when the player is destroyed
+    public void RespawnPlayer()
     {
-        ActivePlayerShip = null;
+        Debug.Log("Player destroyed. Respawning in 2 seconds...");
+        StartCoroutine(DelayedRespawn(GameConfig.RespawnTimer)); // 2 seconds delay
     }
 
     // Coroutine to delay the respawn
@@ -162,10 +83,36 @@ public class PlayerManager : MonoBehaviour
         SpawnPlayer();
     }
 
-    // Function called when the player is destroyed
-    public void RespawnPlayer()
+    public void SpawnPlayer()
     {
-        Debug.Log("Player destroyed. Respawning in 2 seconds...");
-        StartCoroutine(DelayedRespawn(GameConfig.RespawnTimer)); // 2 seconds delay
+        ActivePlayerShip = Instantiate(AssetManager.PlayerPrefab, new Vector3(0, -4, 10), Quaternion.identity);
+        // Reattach saved weapon prefabs
+        foreach (string weaponPrefabName in ActiveWeaponPrefabs)
+        {
+            GameObject weaponPrefab = AssetManager.GetWeaponPrefab(weaponPrefabName);
+            if (weaponPrefab != null)
+            {
+                ActivePlayerShip.AttemptWeaponAttachment(weaponPrefab, true);
+            }
+        }
+    }
+
+    private void PlayExplosionSound()
+    {
+        if(AudioSource != null)
+        {
+            AudioSource.Play();
+        }
+    }
+
+    public void IncrementLives(int amt)
+    {
+        Lives += amt;
+        HUDManager.Inst.UpdateLivesDisplay();
+    }
+
+    public void SetActiveShipToNull()
+    {
+        ActivePlayerShip = null;
     }
 }

@@ -1,21 +1,37 @@
 using UnityEngine;
+using System.Collections;
 
 public abstract class SingleFireWeaponBase : WeaponBase
 {
+    private Coroutine fireCoroutine;
+
     public override void AttemptFire(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
     {
+        // ! This wont update if a modifyer is picked up during the Coroutine.
+        // ! Update to check the modifier of the ship that called it.
         CurrentFireRate = BaseFireRate * fireRateModifier;
 
-        if (fireRateTimer >= 1f / CurrentFireRate)
+        fireCoroutine ??= StartCoroutine(FireCoroutine(isEnemy, damageModifier, bulletSpeedModifier));
+    }
+
+    public override void AttemptCeaseFire()
+    {
+        if (fireCoroutine != null)
         {
-            StartAnimation();
-            Fire(isEnemy, bulletSpeedModifier, damageModifier);
-            fireRateTimer = 0f; // Reset timer after shooting
+            StopCoroutine(fireCoroutine);
+            fireCoroutine = null;
         }
     }
 
-    // Unecessary for this weapon type
-    public override void AttemptCeaseFire() {}
+    private IEnumerator FireCoroutine(bool isEnemy, float damageModifier, float bulletSpeedModifier)
+    {
+        while (true)
+        {
+            StartAnimation();
+            Fire(isEnemy, bulletSpeedModifier, damageModifier);
+            yield return new WaitForSeconds(1f / CurrentFireRate);
+        }
+    }
 
     protected void Fire(bool isEnemy, float bulletSpeedModifier, float damageModifier)
     {
@@ -26,7 +42,7 @@ public abstract class SingleFireWeaponBase : WeaponBase
             var projectileScript = projectile.GetComponent<ProjectileBase>();
             if (projectileScript != null)
             {
-                // Use ships current velocity as the initial velocity of projectile
+                // Use ship's current velocity as the initial velocity of the projectile
                 Vector2 initialVelocity = rb != null ? rb.velocity : Vector2.zero;
                 projectileScript.Initialize(isEnemy, bulletSpeedModifier, damageModifier, initialVelocity, Side);
             }

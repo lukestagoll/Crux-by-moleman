@@ -35,15 +35,58 @@ public abstract class ShipBase : MonoBehaviour
     protected bool isDestroyed;
     private List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
     public bool IsAllowedToShoot { get; set; }
-    public bool SpecialIsActivated { get; set; }
-    public bool SpecialIsCeasing { get; set; }
+
+    // Weapon States
+    private bool PrimaryFireEnabled = false;
+    private bool SpecialFireEnabled = false;
+    private bool SpecialFireCeasing = false;
 
     void Awake()
     {
         InitialiseWeaponSlots();
-        SpecialIsActivated = false;
-        SpecialIsCeasing = false;
+        PrimaryFireEnabled = false;
+        SpecialFireEnabled = false;
+        SpecialFireCeasing = false;
         IsAllowedToShoot = true;
+    }
+
+    public void EnablePrimaryFire()
+    {
+        if (SpecialFireEnabled) return;
+        if (!HasActiveAttachPoint(WeaponType.Primary)) return;
+        FireWeapons(WeaponType.Primary);
+        PrimaryFireEnabled = true;
+    }
+    public void DisablePrimaryFire()
+    {
+        if (!PrimaryFireEnabled) return;
+        CeaseFire(WeaponType.Primary);
+        PrimaryFireEnabled = false;
+    }
+    public void EnableSpecialFire()
+    {
+        if (SpecialFireEnabled) return;
+        if (!HasActiveAttachPoint(WeaponType.Special)) return;
+        DisablePrimaryFire();
+        FireWeapons(WeaponType.Special);
+        SpecialFireEnabled = true;
+    }
+    public void DisableSpecialFire()
+    {
+        if (!SpecialFireEnabled || SpecialFireCeasing) return;
+        if (!HasActiveAttachPoint(WeaponType.Special))
+        {
+            HandleSpecialFireCeased();
+            return;
+        };
+        SpecialFireCeasing = true;
+        CeaseFire(WeaponType.Special);
+        // SpecialFireEnabled is set to false by the cease fire method
+    }
+    public void HandleSpecialFireCeased()
+    {
+        SpecialFireCeasing = false;
+        SpecialFireEnabled = false;
     }
 
     public void InitialiseWeaponSlots()

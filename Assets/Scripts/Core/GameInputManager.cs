@@ -35,21 +35,25 @@ public class GameInputHandler : MonoBehaviour
 
     private void OnPrimaryAttackPerformed()
     {
-        PlayerManager.Inst.EnablePrimaryFire();
+        PlayerShip playerShip = PlayerManager.Inst.ActivePlayerShip;
+        if (playerShip != null) playerShip.EnablePrimaryFire();
     }
 
     private void OnPrimaryAttackCanceled()
     {
-        PlayerManager.Inst.DisablePrimaryFire();
+        PlayerShip playerShip = PlayerManager.Inst.ActivePlayerShip;
+        if (playerShip != null) playerShip.DisablePrimaryFire();
     }
 
     private void OnSpecialAttackPerformed()
     {
-        PlayerManager.Inst.EnableSpecialFire();
+        PlayerShip playerShip = PlayerManager.Inst.ActivePlayerShip;
+        if (playerShip != null) playerShip.EnableSpecialFire();
     }
 
     private void OnSpecialAttackCanceled()
     {
-        PlayerManager.Inst.DisableSpecialFire();
+        PlayerShip playerShip = PlayerManager.Inst.ActivePlayerShip;
+        if (playerShip != null) playerShip.DisableSpecialFire();
     }
 }
