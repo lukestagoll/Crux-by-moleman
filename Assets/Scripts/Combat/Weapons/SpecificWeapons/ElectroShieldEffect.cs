@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -34,7 +32,6 @@ public class ElectroShieldEffect : MonoBehaviour
 
     public void AbsorbHit(float damage) {
         CurrentCharge += damage;
-        Debug.Log("CHARGE: " + CurrentCharge);
         if (CurrentCharge > MaxCharge)
         {
             CurrentCharge = MaxCharge;
@@ -48,7 +45,6 @@ public class ElectroShieldEffect : MonoBehaviour
     public void TakeDamage(float damage)
     {
         Health -= damage;
-        Debug.Log("Shield taken damage" + damage + "Health:" + Health);
         if (Health <= 0)
         {
             Debug.Log("Shield broken!");

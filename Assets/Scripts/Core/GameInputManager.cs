@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameInputHandler : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class GameInputHandler : MonoBehaviour
     {
         controls = new GameControls();
         controls.Gameplay.Pause.performed += _ => TogglePause();
+        controls.Gameplay.PrimaryAttack.performed += ctx => OnPrimaryAttackPerformed();
+        controls.Gameplay.PrimaryAttack.canceled += ctx => OnPrimaryAttackCanceled();
+        controls.Gameplay.SpecialAttack.performed += ctx => OnSpecialAttackPerformed();
+        controls.Gameplay.SpecialAttack.canceled += ctx => OnSpecialAttackCanceled();
     }
 
     private void OnEnable()
@@ -22,10 +27,29 @@ public class GameInputHandler : MonoBehaviour
 
     private void TogglePause()
     {
-        Debug.Log("TOGGLE PAUSE");
         if (GameManager.IsPaused)
             PauseMenu.Inst.Resume();
         else
             PauseMenu.Inst.Pause();
+    }
+
+    private void OnPrimaryAttackPerformed()
+    {
+        PlayerManager.Inst.EnablePrimaryFire();
+    }
+
+    private void OnPrimaryAttackCanceled()
+    {
+        PlayerManager.Inst.DisablePrimaryFire();
+    }
+
+    private void OnSpecialAttackPerformed()
+    {
+        PlayerManager.Inst.EnableSpecialFire();
+    }
+
+    private void OnSpecialAttackCanceled()
+    {
+        PlayerManager.Inst.DisableSpecialFire();
     }
 }

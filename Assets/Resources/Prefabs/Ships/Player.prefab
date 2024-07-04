@@ -202,21 +202,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSlots:
-  - IsEmpty: 0
+  - PrefabName: 
+    IsEmpty: 0
     Type: 1
     AttachPoints:
     - {fileID: 7558957778143088505}
     - {fileID: 7975341754432945662}
-  - IsEmpty: 0
+  - PrefabName: 
+    IsEmpty: 0
     Type: 1
     AttachPoints:
     - {fileID: 3655100284684669810}
     - {fileID: 3102627931846489602}
-  - IsEmpty: 0
+  - PrefabName: 
+    IsEmpty: 0
     Type: 0
     AttachPoints:
     - {fileID: 8262282640515556916}
-  - IsEmpty: 0
+  - PrefabName: 
+    IsEmpty: 0
     Type: 2
     AttachPoints:
     - {fileID: 4353434679015148768}
@@ -276,7 +280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804016732810071630, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_Name
-      value: AttachPoint 5
+      value: AttPoint 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -411,7 +415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804016732810071630, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_Name
-      value: AttachPoint 2
+      value: AttPoint 2
       objectReference: {fileID: 0}
     - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: AttachedWeapon
@@ -491,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804016732810071630, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_Name
-      value: AttachPoint 1
+      value: AttPoint 1
       objectReference: {fileID: 0}
     - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: AttachedWeapon
@@ -642,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804016732810071630, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_Name
-      value: AttachPoint 3
+      value: AttPoint 3
       objectReference: {fileID: 0}
     - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: PreAttachedWeapon
@@ -719,7 +723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804016732810071630, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_Name
-      value: AttachPoint 6
+      value: AttPoint 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -863,7 +867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804016732810071630, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_Name
-      value: AttachPoint 4
+      value: AttPoint 4
       objectReference: {fileID: 0}
     - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: PreAttachedWeapon

@@ -38,11 +38,8 @@ public abstract class ShipBase : MonoBehaviour
     public bool SpecialIsActivated { get; set; }
     public bool SpecialIsCeasing { get; set; }
 
-    protected virtual void Start()
+    void Awake()
     {
-        // This is the initial check when starting.
-        // It is used to ensure the variables are set to the right things
-        // WeaponSlots will have a list but a bool that needs to be set
         InitialiseWeaponSlots();
         SpecialIsActivated = false;
         SpecialIsCeasing = false;
@@ -51,24 +48,20 @@ public abstract class ShipBase : MonoBehaviour
 
     public void InitialiseWeaponSlots()
     {
-        foreach (WeaponSlot weaponSlot in WeaponSlots)
-        {
-            bool hasActiveAttachPoint = false;
-            foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
+            foreach (WeaponSlot weaponSlot in WeaponSlots)
             {
-                attachPoint.InitialiseAttachPoint();
-                weaponSlot.IsEmpty = attachPoint.IsEmpty;
-                if (!attachPoint.IsEmpty)
+                bool hasActiveAttachPoint = false;
+                foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
                 {
-                    ActiveAttachPoints.Add(attachPoint);
-                    hasActiveAttachPoint = true;
+                    attachPoint.InitialiseAttachPoint();
+                    if (!attachPoint.IsEmpty)
+                    {
+                        ActiveAttachPoints.Add(attachPoint);
+                        hasActiveAttachPoint = true;
+                    }
                 }
+                weaponSlot.IsEmpty = !hasActiveAttachPoint;
             }
-            if (hasActiveAttachPoint)
-            {
-                  
-            }
-        }
     }
 
     public WeaponSlot GetEmptyWeaponSlot(SlotType type)
@@ -92,9 +85,29 @@ public abstract class ShipBase : MonoBehaviour
         return null;
     }
 
+    public bool HasActiveAttachPoint(WeaponType weaponType)
+    {
+        foreach (AttachPoint attachPoint in ActiveAttachPoints)
+            {
+                WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
+                if (attachedWeapon.WeaponType == weaponType) return true;
+            }
+        return false;
+    }
+
     public virtual void ToggleShooting()
     {
         IsAllowedToShoot = !IsAllowedToShoot;
+    }
+
+    public virtual void DisableShooting()
+    {
+        IsAllowedToShoot = false;
+    }
+
+    public virtual void EnableShooting()
+    {
+        IsAllowedToShoot = false;
     }
 
     public void FireWeapons(WeaponType weaponType)
@@ -132,6 +145,7 @@ public abstract class ShipBase : MonoBehaviour
         // Is weapon SINGLE, DUAL, OR SYSTEM?
         // Attempt to fetch an empty slot of that type
         WeaponBase weaponPrefabComponent = weaponPrefab.GetComponent<WeaponBase>();
+        Debug.Log("FETCHING SLOTTYPE:" + weaponPrefabComponent.SlotType);
         WeaponSlot emptySlot = GetEmptyWeaponSlot(weaponPrefabComponent.SlotType);
         if (emptySlot != null)
         {

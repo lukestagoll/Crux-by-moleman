@@ -10,9 +10,8 @@ public class EnemyShip : ShipBase
 
     private EffectData AssignedEffectData;
 
-    protected override void Start()
+    void Start()
     {
-        base.Start(); // Call the base class Start method to initialize weapons
         isEnemy = true;
     }
 

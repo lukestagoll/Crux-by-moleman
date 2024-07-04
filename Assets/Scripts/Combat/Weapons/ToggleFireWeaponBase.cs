@@ -20,9 +20,9 @@ public abstract class ToggleFireWeaponBase : WeaponBase
 
     protected abstract void Fire(bool isEnemy, float bulletSpeedModifier, float damageModifier);
     protected abstract void CeaseFire(Action onCompleted);
-
     protected virtual void OnCeaseFireCompleted()
     {
+        PlayerManager.Inst.HandleSpecialFireCeased();
         ShipBase ship = GetComponentInParent<ShipBase>();
         if (ship != null)
         {

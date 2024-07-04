@@ -169,8 +169,8 @@ PolygonCollider2D:
       - {x: -0.32688072, y: -0.07058544}
       - {x: -0.491449, y: -0.2516328}
       - {x: -0.491449, y: -0.38191825}
-      - {x: -0.4375, y: -0.4791667}
-      - {x: 0.375, y: -0.4791667}
+      - {x: -0.36325046, y: -0.45844582}
+      - {x: 0.37672672, y: -0.45844603}
       - {x: 0.4871734, y: -0.38564944}
       - {x: 0.48717344, y: -0.23025519}
   m_UseDelaunayMesh: 0
@@ -238,7 +238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSlots:
-  - IsEmpty: 0
+  - PrefabName: 
+    IsEmpty: 0
     Type: 1
     AttachPoints:
     - {fileID: 9134242409523907484}

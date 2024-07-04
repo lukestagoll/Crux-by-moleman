@@ -10,8 +10,8 @@ public class ElectricExplosion : MonoBehaviour
 
     public float Charge;
 
-    [SerializeField] private Color lowColor = new Color(0.678f, 0.847f, 0.902f); // Pale light blue
-    [SerializeField] private Color highColor = new Color(1.0f, 0.0f, 0.0f); // Bright red
+    [SerializeField] private Color LowColor = new Color(0.678f, 0.847f, 0.902f); // Pale light blue
+    [SerializeField] private Color HighColor = new Color(1.0f, 0.0f, 0.0f); // Bright red
 
     void Awake()
     {
@@ -62,7 +62,7 @@ public class ElectricExplosion : MonoBehaviour
 
         // Calculate the color based on the charge value
         float t = Mathf.Clamp01(charge / 500f);
-        Color particleColor = Color.Lerp(lowColor, highColor, t);
+        Color particleColor = Color.Lerp(LowColor, HighColor, t);
 
         // Apply the calculated color to the particle system
         main.startColor = particleColor;
@@ -78,7 +78,7 @@ public class ElectricExplosion : MonoBehaviour
                 //! Check if charge is high enough?
                 GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity);
                 ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
-                explosionChainScript.Initialise(Charge, 0, lowColor, highColor);
+                explosionChainScript.Initialise(Charge, 0, LowColor, HighColor);
                 ship.TakeDamage(Charge / 5);
             }
         }

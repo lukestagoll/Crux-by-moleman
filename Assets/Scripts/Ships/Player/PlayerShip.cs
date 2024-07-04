@@ -2,45 +2,11 @@ using UnityEngine;
 
 public class PlayerShip : ShipBase
 {
-    public static PlayerShip Inst { get; private set; }
-
-    void Awake()
+    void Start()
     {
-        if (Inst != null && Inst != this)
-        {
-            Debug.Log("PlayerShip already exists");
-            Destroy(gameObject);
-            return;  // Ensure no further code execution in this instance
-        }
-        Inst = this;
-    }
-
-    protected override void Start()
-    {
-        base.Start(); // Call the base class Start method to initialize weapons
 
         Hitpoints = GameConfig.MaxPlayerHealth; // Assign a default value or make this configurable via the Inspector
         HUDManager.Inst.UpdateHealthBar(Hitpoints);
-    }
-
-    void Update()
-    {
-        if (GameManager.IsPaused) return;
-        // Check if left mouse button is held down
-        if (Input.GetMouseButton(0))
-        {
-            FireWeapons(WeaponType.Primary);
-        }
-
-        // Check if spacebar is held down
-        if (Input.GetKey(KeyCode.Space) && !SpecialIsActivated)
-        {
-            FireWeapons(WeaponType.Special);
-        }
-        else if (!Input.GetKey(KeyCode.Space) && SpecialIsActivated && !SpecialIsCeasing)
-        {
-            CeaseFire(WeaponType.Special);
-        }
     }
 
     public override void Die()

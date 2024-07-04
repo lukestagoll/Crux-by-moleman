@@ -164,11 +164,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.0052227974, y: 0.5181128}
+    - - {x: -0.00064319745, y: 0.5455903}
       - {x: -0.5378529, y: 0.13692532}
-      - {x: -0.48136204, y: -0.19748196}
-      - {x: 0.0041008145, y: -0.498281}
-      - {x: 0.46594927, y: -0.23802504}
+      - {x: -0.43785587, y: -0.21351057}
+      - {x: -0.0027685855, y: -0.46164435}
+      - {x: 0.43160218, y: -0.23115554}
       - {x: 0.53259015, y: 0.14381212}
   m_UseDelaunayMesh: 0
 --- !u!114 &4220676921612873312
@@ -220,11 +220,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponSlots:
-  - IsEmpty: 0
+  - PrefabName: 
+    IsEmpty: 0
     Type: 0
     AttachPoints:
     - {fileID: 2158907539854311504}
-  - IsEmpty: 0
+  - PrefabName: 
+    IsEmpty: 0
     Type: 1
     AttachPoints:
     - {fileID: 1924739772942403903}

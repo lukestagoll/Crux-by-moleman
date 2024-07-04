@@ -14,7 +14,6 @@ public class ElectroShield : ToggleFireWeaponBase
     {
         hasAnimation = false;
         CurrentFireRate = BaseFireRate;
-        WeaponType = WeaponType.Special;
 
         // Fetch the ElectroShieldEffect prefab from the AssetManager
         ElectroShieldEffectPrefab = AssetManager.GetWeaponPrefab("ElectroShieldEffect");

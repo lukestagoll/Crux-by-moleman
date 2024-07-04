@@ -25,7 +25,6 @@ public class ElectricExplosionChain : MonoBehaviour
         Charge = charge * 0.7f;
         LowColor = lowColor;
         HighColor = highColor;
-        Debug.Log("chain count: " + ChainCount + " charge: " + Charge);
         // Fetch the ParticleSystem component
         particleSystem = GetComponent<ParticleSystem>();
 
@@ -41,7 +40,7 @@ public class ElectricExplosionChain : MonoBehaviour
             collision.sendCollisionMessages = true;
 
             // Set the particle color based on the charge
-            SetParticleColor(charge, lowColor, highColor);
+            SetParticleColor();
 
             // Play the ParticleSystem
             particleSystem.Play();
@@ -56,13 +55,13 @@ public class ElectricExplosionChain : MonoBehaviour
         }
     }
 
-    private void SetParticleColor(float charge, Color lowColor, Color highColor)
+    private void SetParticleColor()
     {
         var main = particleSystem.main;
 
         // Calculate the color based on the charge value
-        float t = Mathf.Clamp01(charge / 500f);
-        Color particleColor = Color.Lerp(lowColor, highColor, t);
+        float t = Mathf.Clamp01(Charge / 500f);
+        Color particleColor = Color.Lerp(LowColor, HighColor, t);
 
         // Apply the calculated color to the particle system
         main.startColor = particleColor;
@@ -70,7 +69,6 @@ public class ElectricExplosionChain : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log("CHAIN PARTICLE COLLISION WITH: " + other.name + other.tag);
         if (other.CompareTag("Enemy"))
         {
             ShipBase ship = other.GetComponent<ShipBase>();
@@ -79,7 +77,6 @@ public class ElectricExplosionChain : MonoBehaviour
                 //! Put into own fn
                 if (Charge > 100f)
                 {
-                    Debug.Log("ATTEMPTING TO SPAWN NEXT CHAIN");
                     GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity);
                     ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
                     explosionChainScript.Initialise(Charge - 100f, ChainCount, LowColor, HighColor);
