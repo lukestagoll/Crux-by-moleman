@@ -8,12 +8,12 @@ public class Missile : ProjectileBase
     public float forwardDuration = 2f;
     public float BaseSideSpeed = 1f;
 
-    protected override void InitializeBehaviour(float speedModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side)
+    protected override void InitializeBehaviour(Vector2 initialVelocity, AttachPoint.RelativeSide side, Vector2? direction)
     {
-        StartCoroutine(MoveMissile(initialVelocity, speedModifier, side));
+        StartCoroutine(MoveMissile(initialVelocity, side));
     }
 
-    private IEnumerator MoveMissile(Vector2 initialVelocity, float speedModifier, AttachPoint.RelativeSide side)
+    private IEnumerator MoveMissile(Vector2 initialVelocity, AttachPoint.RelativeSide side)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
@@ -36,7 +36,7 @@ public class Missile : ProjectileBase
         float elapsedTime = 0f;
         while (elapsedTime < sideDuration)
         {
-            rb.velocity = initialVelocity + sideDirection * BaseSideSpeed * speedModifier * (elapsedTime / sideDuration);
+            rb.velocity = initialVelocity + sideDirection * BaseSideSpeed * SpeedModifier * (elapsedTime / sideDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -45,14 +45,14 @@ public class Missile : ProjectileBase
         elapsedTime = 0f;
         while (elapsedTime < sideEaseDuration)
         {
-            float sideMomentum = BaseSideSpeed * speedModifier * (1 - (elapsedTime / sideEaseDuration));
-            float forwardMomentum = BaseSpeed * speedModifier * Mathf.Min(1, elapsedTime / sideEaseDuration); // Accelerate faster
+            float sideMomentum = BaseSideSpeed * SpeedModifier * (1 - (elapsedTime / sideEaseDuration));
+            float forwardMomentum = BaseSpeed * SpeedModifier * Mathf.Min(1, elapsedTime / sideEaseDuration); // Accelerate faster
             rb.velocity = initialVelocity + sideDirection * sideMomentum + (Vector2)(transform.up * forwardMomentum);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         // Ensure the missile continues moving forward at full speed after acceleration
-        rb.velocity = initialVelocity + (Vector2)(transform.up * BaseSpeed * speedModifier);
+        rb.velocity = initialVelocity + (Vector2)(transform.up * BaseSpeed * SpeedModifier);
     }
 }

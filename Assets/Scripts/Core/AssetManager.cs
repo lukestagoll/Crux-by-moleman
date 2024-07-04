@@ -25,8 +25,8 @@ public static class AssetManager
 
     // SETTINGS
     private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect" };
-    private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "Missile", "HomingMissile", "ElectricExplosion", "ElectricExplosionChain" };
-    private static List<string> EnemyShipsToLoad = new List<string> { "SF1", "SF2" };
+    private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "PlasmaHeavy", "Missile", "HomingMissile", "ElectricExplosion", "ElectricExplosionChain" };
+    private static List<string> EnemyShipsToLoad = new List<string> { "SF1", "SF2", "SF3" };
 
     // Fetch function for EnemyShipPrefabs
     public static EnemyShip GetEnemyShipPrefab(string key)

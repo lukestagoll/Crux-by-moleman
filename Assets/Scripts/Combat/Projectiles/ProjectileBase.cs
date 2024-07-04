@@ -10,20 +10,24 @@ public abstract class ProjectileBase : MonoBehaviour
     [SerializeField]
     protected GameObject ExplosionPrefab;
 
-    private bool firedByEnemy;
+    protected bool FiredByEnemy;
+    protected float SpeedModifier;
+    protected float DamageModifier;
 
     // Initialize method to set the projectile's properties
-    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side)
+    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side, Vector2? direction = null)
     {
-        firedByEnemy = isEnemy;
+        FiredByEnemy = isEnemy;
+        SpeedModifier = speedModifier;
+        DamageModifier = damageModifier;
         // Set the damage of the projectile
         BaseDamage *= damageModifier;
        // Call the specific behavior initialization
-        InitializeBehaviour(speedModifier, initialVelocity, side);
+        InitializeBehaviour(initialVelocity, side, direction);
     }
 
     // Abstract method to be implemented by specific projectiles
-    protected abstract void InitializeBehaviour(float speedModifier,  Vector2 initialVelocity, AttachPoint.RelativeSide side);
+    protected abstract void InitializeBehaviour(Vector2 initialVelocity, AttachPoint.RelativeSide side, Vector2? direction);
 
     // Method to handle collision with other objects
     void OnTriggerEnter2D(Collider2D other)
@@ -31,7 +35,7 @@ public abstract class ProjectileBase : MonoBehaviour
         string tag = other.gameObject.tag;
 
         // Code to execute when an object enters the trigger
-        if ((tag == "Enemy" && !firedByEnemy) || (tag == "Player" && firedByEnemy))
+        if ((tag == "Enemy" && !FiredByEnemy) || (tag == "Player" && FiredByEnemy))
         {
             ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
@@ -46,7 +50,7 @@ public abstract class ProjectileBase : MonoBehaviour
             ElectroShieldEffect shield = other.GetComponent<ElectroShieldEffect>();
             if (shield != null)
             {
-                if (shield.IsEnemyShield != firedByEnemy)
+                if (shield.IsEnemyShield != FiredByEnemy)
                 {
                     shield.AbsorbHit(BaseDamage);
                     Explode();

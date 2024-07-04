@@ -161,6 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a291808eda79c46a0d352c057b3e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseDamage: 3
-  BaseSpeed: 1
-  ExplosionPrefab: {fileID: 0}
+  BaseDamage: 30
+  BaseSpeed: 5
+  ExplosionPrefab: {fileID: 2348020836707875027, guid: 147c065368efc9046bd2e770bcad4795, type: 3}
+  SplitTime: 0.5
+  PlasmaCount: 4
+  PlasmaPrefab: {fileID: 0}

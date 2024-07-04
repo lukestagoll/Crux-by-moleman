@@ -12,19 +12,19 @@ public class HomingMissile : ProjectileBase
 
     private Transform target;
 
-    protected override void InitializeBehaviour(float speedModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side)
+    protected override void InitializeBehaviour(Vector2 initialVelocity, AttachPoint.RelativeSide side, Vector2? direction)
     {
-        StartCoroutine(MoveMissile(initialVelocity, speedModifier, side));
+        StartCoroutine(MoveMissile(initialVelocity, side));
     }
 
-    private IEnumerator MoveMissile(Vector2 initialVelocity, float speedModifier, AttachPoint.RelativeSide side)
+    private IEnumerator MoveMissile(Vector2 initialVelocity, AttachPoint.RelativeSide side)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
         // Determine the initial direction based on the side and initial angle
         float angle = (side == AttachPoint.RelativeSide.Left) ? initialAngle : -initialAngle;
         Vector2 initialDirection = Quaternion.Euler(0, 0, angle) * Vector2.up;
-        rb.velocity = initialVelocity + initialDirection * BaseSpeed * speedModifier;
+        rb.velocity = initialVelocity + initialDirection * BaseSpeed * SpeedModifier;
 
         // Initial rotation
         float distanceTraveled = 0f;
@@ -49,7 +49,7 @@ public class HomingMissile : ProjectileBase
             {
                 // Move towards the target in a curved path
                 Vector2 directionToTarget = (target.position - transform.position).normalized;
-                Vector2 newVelocity = Vector2.Lerp(rb.velocity, directionToTarget * BaseSpeed * speedModifier, curveSpeed * Time.deltaTime);
+                Vector2 newVelocity = Vector2.Lerp(rb.velocity, directionToTarget * BaseSpeed * SpeedModifier, curveSpeed * Time.deltaTime);
                 rb.velocity = newVelocity;
             }
 
