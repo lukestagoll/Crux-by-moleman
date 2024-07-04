@@ -50,6 +50,10 @@ public abstract class ShipBase : MonoBehaviour
         IsAllowedToShoot = true;
     }
 
+    public abstract void Die();
+    public abstract void TakeDamage(float damage);
+    public abstract void AddHitpoints(float amt);
+
     public void EnablePrimaryFire()
     {
         if (SpecialFireEnabled) return;
@@ -153,7 +157,7 @@ public abstract class ShipBase : MonoBehaviour
         IsAllowedToShoot = false;
     }
 
-    public void FireWeapons(WeaponType weaponType)
+    private void FireWeapons(WeaponType weaponType)
     {
         if (IsAllowedToShoot)
         {
@@ -161,12 +165,12 @@ public abstract class ShipBase : MonoBehaviour
             {
                 WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
                 if (attachedWeapon.WeaponType != weaponType) continue;
-                attachedWeapon.AttemptFire(isEnemy, FireRateModifier, DamageModifier, BulletSpeedModifier);
+                attachedWeapon.AttemptFire(isEnemy, DamageModifier, BulletSpeedModifier);
             }
         }
     }
 
-    public void CeaseFire(WeaponType weaponType)
+    private void CeaseFire(WeaponType weaponType)
     {
         foreach (AttachPoint attachPoint in ActiveAttachPoints)
         {
@@ -235,8 +239,4 @@ public abstract class ShipBase : MonoBehaviour
         }
         weaponSlot.IsEmpty = false;
     }
-
-    public abstract void Die();
-    public abstract void TakeDamage(float damage);
-    public abstract void AddHitpoints(float amt);
 }

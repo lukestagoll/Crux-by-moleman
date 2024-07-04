@@ -2,7 +2,7 @@ using System;
 
 public abstract class ToggleFireWeaponBase : WeaponBase
 {
-    public override void AttemptFire(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
+    public override void AttemptFire(bool isEnemy, float damageModifier, float bulletSpeedModifier)
     {
         Fire(isEnemy, bulletSpeedModifier, damageModifier);
     }

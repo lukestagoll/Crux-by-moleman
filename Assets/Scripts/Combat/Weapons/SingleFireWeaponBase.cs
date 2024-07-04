@@ -5,12 +5,8 @@ public abstract class SingleFireWeaponBase : WeaponBase
 {
     private Coroutine fireCoroutine;
 
-    public override void AttemptFire(bool isEnemy, float fireRateModifier, float damageModifier, float bulletSpeedModifier)
+    public override void AttemptFire(bool isEnemy, float damageModifier, float bulletSpeedModifier)
     {
-        // ! This wont update if a modifyer is picked up during the Coroutine.
-        // ! Update to check the modifier of the ship that called it.
-        CurrentFireRate = BaseFireRate * fireRateModifier;
-
         fireCoroutine ??= StartCoroutine(FireCoroutine(isEnemy, damageModifier, bulletSpeedModifier));
     }
 
@@ -29,7 +25,21 @@ public abstract class SingleFireWeaponBase : WeaponBase
         {
             StartAnimation();
             Fire(isEnemy, bulletSpeedModifier, damageModifier);
-            yield return new WaitForSeconds(1f / CurrentFireRate);
+            yield return new WaitForSeconds(1f / DetermineCurrentFireRate());
+        }
+    }
+
+    private float DetermineCurrentFireRate()
+    {
+        // Fetch the fireRateModifier from the parent ShipBase
+        ShipBase parentShip = GetComponentInParent<ShipBase>();
+        if (parentShip != null)
+        {
+            return BaseFireRate * parentShip.FireRateModifier;
+        }
+        else
+        {
+            return BaseFireRate;
         }
     }
 
