@@ -16,7 +16,8 @@ public enum EffectSubType
     MissileLauncher,
     HomingMissileLauncher,
     Cannon,
-    ElectroShield
+    ElectroShield,
+    TurretSmall
 }
 
 public enum ExpiryType

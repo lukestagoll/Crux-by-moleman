@@ -192,7 +192,6 @@ public abstract class ShipBase : MonoBehaviour
         // Is weapon SINGLE, DUAL, OR SYSTEM?
         // Attempt to fetch an empty slot of that type
         WeaponBase weaponPrefabComponent = weaponPrefab.GetComponent<WeaponBase>();
-        Debug.Log("FETCHING SLOTTYPE:" + weaponPrefabComponent.SlotType);
         WeaponSlot emptySlot = GetEmptyWeaponSlot(weaponPrefabComponent.SlotType);
         if (emptySlot != null)
         {

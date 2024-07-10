@@ -236,7 +236,7 @@ MonoBehaviour:
   DamageModifier: 0.5
   BulletSpeedModifier: 0.75
   MovementSpeedModifier: 1
-  Hitpoints: 50
+  Hitpoints: 30
   pointsOnKill: 50
   damageOnCollision: 35
 --- !u!114 &5882347149641705893

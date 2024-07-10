@@ -40,5 +40,12 @@
     "Expiry": "Never",
     "Duration": 0,
     "Amt": 0
+  },
+  {
+    "Type": "Weapon",
+    "SubType": "TurretSmall",
+    "Expiry": "Never",
+    "Duration": 0,
+    "Amt": 0
   }
 ]

@@ -161,14 +161,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.35020515, y: -0.3570134}
-      - {x: 0.3454724, y: -0.3571609}
+    - - {x: -0.35496658, y: -0.3571609}
+      - {x: 0.35499513, y: -0.3571609}
       - {x: 0.46530014, y: -0.18053631}
       - {x: 0.46520036, y: -0.06094265}
       - {x: 0.13781361, y: 0.26290235}
       - {x: 0.00012883544, y: 0.39909762}
-      - {x: -0.47401685, y: -0.060171664}
-      - {x: -0.47367263, y: -0.17958924}
+      - {x: -0.46608123, y: -0.061758794}
+      - {x: -0.46732417, y: -0.17641498}
   m_UseDelaunayMesh: 0
 --- !u!114 &6137365156224511852
 MonoBehaviour:
@@ -225,7 +225,7 @@ MonoBehaviour:
   DamageModifier: 1
   BulletSpeedModifier: 1
   MovementSpeedModifier: 1
-  Hitpoints: 150
+  Hitpoints: 90
   pointsOnKill: 300
   damageOnCollision: 50
 --- !u!1001 &767730775929882407

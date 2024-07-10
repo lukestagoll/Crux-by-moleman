@@ -24,7 +24,7 @@ public static class AssetManager
     public static List<Sprite> PlanetSprites { get; private set; } = new List<Sprite>();
 
     // SETTINGS
-    private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect" };
+    private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect", "TurretSmall" };
     private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "PlasmaHeavy", "Missile", "HomingMissile", "ElectricExplosion", "ElectricExplosionChain" };
     private static List<string> EnemyShipsToLoad = new List<string> { "SF1", "SF2", "SF3" };
 

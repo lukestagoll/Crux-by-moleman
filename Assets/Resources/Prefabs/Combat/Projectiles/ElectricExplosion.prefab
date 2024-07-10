@@ -223,7 +223,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 1, b: 1, a: 1}
+      minColor: {r: 0.9386792, g: 0.119548775, b: 0.119548775, a: 1}
       maxColor: {r: 0.2783019, g: 0.8918362, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -4903,5 +4903,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Charge: 50
-  lowColor: {r: 0.2971698, g: 0.82737505, b: 1, a: 1}
-  highColor: {r: 1, g: 0.46563667, b: 0.25, a: 1}
+  LowColor: {r: 0.678, g: 0.847, b: 0.902, a: 1}
+  HighColor: {r: 1, g: 0, b: 0, a: 1}

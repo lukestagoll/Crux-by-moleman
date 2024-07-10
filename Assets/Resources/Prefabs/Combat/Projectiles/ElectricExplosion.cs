@@ -10,8 +10,8 @@ public class ElectricExplosion : MonoBehaviour
 
     public float Charge;
 
-    [SerializeField] private Color LowColor = new Color(0.678f, 0.847f, 0.902f); // Pale light blue
-    [SerializeField] private Color HighColor = new Color(1.0f, 0.0f, 0.0f); // Bright red
+    [SerializeField] private Color LowColor;
+    [SerializeField] private Color HighColor;
 
     void Awake()
     {
@@ -33,6 +33,11 @@ public class ElectricExplosion : MonoBehaviour
         // Check if the ParticleSystem component is found
         if (particleSystem != null)
         {
+            LowColor = particleSystem.main.startColor.colorMin;
+            Debug.Log(LowColor);
+            HighColor = particleSystem.main.startColor.colorMax;
+            Debug.Log(HighColor);
+
             // Enable collision module
             var collision = particleSystem.collision;
             collision.enabled = true;

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5445096827595439550}
   - component: {fileID: 2397760949470224562}
-  - component: {fileID: 7304729914958465436}
+  - component: {fileID: 8043100364340219125}
   m_Layer: 0
-  m_Name: CannonSmall
+  m_Name: TurretSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.82, y: 0.82, z: 0.82}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7768458830238047843}
@@ -62,7 +62,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7304729914958465436
+--- !u!114 &8043100364340219125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 899441333729513566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4a4580039e5ef249975f6300554d555, type: 3}
+  m_Script: {fileID: 11500000, guid: dd90e21f4db8d1144a473b38d26bc39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 7104521457958763231, guid: c1163ff07be973146a8910a1927e75ba, type: 3}
@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7768458830238047843}
   - component: {fileID: 7397442897769273998}
+  - component: {fileID: 1898934506939201601}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -163,6 +164,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1898934506939201601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236918301431211634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd90e21f4db8d1144a473b38d26bc39a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 7104521457958763231, guid: c1163ff07be973146a8910a1927e75ba, type: 3}
+  FirePoint: {fileID: 9216333612096653711}
+  BaseFireRate: 7.5
+  SlotType: 1
+  WeaponType: 0
 --- !u!1 &6087468563522105933
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 6087468563522105933}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.24, z: 0}
   m_LocalScale: {x: 1.6666665, y: 1.6666665, z: 1.6666665}
   m_ConstrainProportionsScale: 0
   m_Children: []

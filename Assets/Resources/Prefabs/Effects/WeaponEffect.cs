@@ -16,9 +16,10 @@ public class WeaponEffect : EffectBase
         AssignedWeaponSlot = shipComponent.AttemptWeaponAttachment(weaponPrefab, false);
 
         if (Expiry == ExpiryType.Time && Duration > 0) {
-            Debug.Log($"Expiry deteceted for {gameObject.name} with duration {Duration}");
+            Debug.Log($"Expiry detected for {gameObject.name} with duration {Duration}");
             CoroutineManager.Inst.DeactivateEffectAfterDelay(this, Duration);
         }
+        Debug.Log($"Atached {SubType}");
     }
     public override void Deactivate()
     {
