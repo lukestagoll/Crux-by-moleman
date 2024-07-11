@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class HUDManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI ScoreDisplay;
     public Transform LivesDisplay;
     private float LifeIconSpacing = 35f;
+
+    private Coroutine scoreUpdateCoroutine;
+    private float currentDisplayedScore;
+
 
     void Awake()
     {
@@ -35,7 +40,31 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateScoreDisplay()
     {
-        ScoreDisplay.text = $"{GameManager.Score}"; 
+        if (scoreUpdateCoroutine != null)
+        {
+            StopCoroutine(scoreUpdateCoroutine);
+        }
+        scoreUpdateCoroutine = StartCoroutine(AnimateScoreChange());
+    }
+
+    private IEnumerator AnimateScoreChange()
+    {
+        float targetScore = GameManager.Score;
+        float animationDuration = Mathf.Clamp(Mathf.Abs(targetScore - currentDisplayedScore) / 100f, 0.5f, 2f);
+        float elapsedTime = 0f;
+
+        while (elapsedTime < animationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / animationDuration;
+            currentDisplayedScore = Mathf.Lerp(currentDisplayedScore, targetScore, t);
+            ScoreDisplay.text = Mathf.RoundToInt(currentDisplayedScore).ToString();
+            yield return null;
+        }
+
+        currentDisplayedScore = targetScore;
+        ScoreDisplay.text = targetScore.ToString();
+        scoreUpdateCoroutine = null;
     }
 
     public void UpdateLivesDisplay()
