@@ -12,7 +12,7 @@ public class DistantStarsController : MonoBehaviour, IBackgroundController
 
     private List<GameObject> activeObjects = new List<GameObject>();
 
-    private void Start()
+    void Awake()
     {
         if (AssetManager.DistantStarSprites.Count == 0)
         {
@@ -21,7 +21,7 @@ public class DistantStarsController : MonoBehaviour, IBackgroundController
         }
     }
 
-    private void Update()
+    void Update()
     {
         InitiateScrolling();
     }

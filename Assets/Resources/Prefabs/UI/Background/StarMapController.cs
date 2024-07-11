@@ -14,7 +14,7 @@ public class StarMapController : MonoBehaviour, IBackgroundController
     private List<GameObject> activeStarMaps = new List<GameObject>();
     private bool isUpsideDown = false; // Flag to track the orientation of the next star map
 
-    private void Start()
+    void Awake()
     {
         starMapPrefab = AssetManager.StarMapPrefab;
 
@@ -34,7 +34,7 @@ public class StarMapController : MonoBehaviour, IBackgroundController
         activeStarMaps.Add(initialStarMap);
     }
 
-    private void Update()
+    void Update()
     {
         InitiateScrolling();
     }

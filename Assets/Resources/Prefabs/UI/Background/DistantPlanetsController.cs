@@ -12,7 +12,7 @@ public class DistantPlanetsController : MonoBehaviour, IBackgroundController
 
     private List<GameObject> activeObjects = new List<GameObject>();
 
-    private void Start()
+    void Awake()
     {
         if (AssetManager.DistantPlanetSprites.Count == 0)
         {
@@ -21,7 +21,7 @@ public class DistantPlanetsController : MonoBehaviour, IBackgroundController
         }
     }
 
-    private void Update()
+    void Update()
     {
         InitiateScrolling();
     }
