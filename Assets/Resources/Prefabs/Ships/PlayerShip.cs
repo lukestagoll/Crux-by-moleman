@@ -4,8 +4,9 @@ public class PlayerShip : ShipBase
 {
     void Start()
     {
-
         Hitpoints = GameConfig.MaxPlayerHealth; // Assign a default value or make this configurable via the Inspector
+        Shield = GameConfig.MaxPlayerShield;
+        HUDManager.Inst.UpdateShieldBar(Shield);
         HUDManager.Inst.UpdateHealthBar(Hitpoints);
     }
 
@@ -15,19 +16,39 @@ public class PlayerShip : ShipBase
         Explode();
     }
 
-    public override void TakeDamage(float damage)
+    public override float SubtractShield(float damage)
     {
-        if (!isDestroyed)
-        {
-            Hitpoints -= damage;
-            if (Hitpoints <= 0) {
-                isDestroyed = true;
-                HUDManager.Inst.UpdateHealthBar(0);
-                Die();
-                return;
-            }
-            HUDManager.Inst.UpdateHealthBar(Hitpoints);
+        if (Shield <= 0) return damage;
+
+        Shield -= damage;
+
+        if (Shield < 0) {
+            HUDManager.Inst.UpdateShieldBar(0);
+            return damage + Shield;
         }
+        else
+        {
+            HUDManager.Inst.UpdateShieldBar(Shield);
+            return 0;
+        }
+    }
+
+    public override void SubtractHitpoints(float damage)
+    {
+        Hitpoints -= damage;
+        if (Hitpoints <= 0) {
+            isDestroyed = true;
+            HUDManager.Inst.UpdateHealthBar(0);
+            Die();
+            return;
+        }
+        HUDManager.Inst.UpdateHealthBar(Hitpoints);
+    }
+
+    public override void AddShield(float amt)
+    {
+        Shield += amt;
+        HUDManager.Inst.UpdateShieldBar(Shield);
     }
 
     public override void AddHitpoints(float amt)

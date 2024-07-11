@@ -42,17 +42,29 @@ public class EnemyShip : ShipBase
         OnDestroyed?.Invoke(this);
     }
 
-    public override void TakeDamage(float damage)
+    public override void SubtractHitpoints(float damage)
     {
-        if (!isDestroyed)
+        Hitpoints -= damage;
+        if (Hitpoints <= 0)
         {
-            Hitpoints -= damage;
-            if (Hitpoints <= 0)
-            {
-                isDestroyed = true;
-                Die();
-            }
+            isDestroyed = true;
+            Die();
         }
+    }
+
+    public override void AddShield(float amt)
+    {
+        Shield += amt;
+    }
+
+    public override float SubtractShield(float damage)
+    {
+        if (Shield <= 0) return damage;
+
+        Shield -= damage;
+
+        if (Shield < 0) return damage + Shield;
+        else return 0;
     }
 
     public override void AddHitpoints(float amt)

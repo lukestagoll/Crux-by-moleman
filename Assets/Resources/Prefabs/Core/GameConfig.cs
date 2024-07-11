@@ -14,7 +14,8 @@ public static class GameConfig
     public static List<EffectData> EffectDataList = new List<EffectData>();
 
     // CONFIG
-    public static float MaxPlayerHealth = 250;
+    public static float MaxPlayerHealth = 100;
+    public static float MaxPlayerShield = 150;
     public static int InitialLives = 3;
     public static int InitialScore = 0;
     public static float RespawnTimer = 2;
@@ -29,6 +30,7 @@ public static class GameConfig
         AssetManager.CacheAssets();
         HasBeenLoaded = true;
         Debug.Log("Game Config Loaded");
+        
     }
 
     public static EffectData FetchEffectDataBySubType(EffectSubType subType)

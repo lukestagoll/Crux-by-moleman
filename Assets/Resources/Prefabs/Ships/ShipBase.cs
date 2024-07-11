@@ -30,6 +30,7 @@ public abstract class ShipBase : MonoBehaviour
     [SerializeField] protected float BulletSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float MovementSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float Hitpoints;
+    [SerializeField] protected float Shield;
 
     protected bool isEnemy;
     protected bool isDestroyed;
@@ -51,8 +52,16 @@ public abstract class ShipBase : MonoBehaviour
     }
 
     public abstract void Die();
-    public abstract void TakeDamage(float damage);
+    public void TakeDamage(float damage)
+    {
+        if (isDestroyed) return;
+        float excessDamage = SubtractShield(damage);
+        if (excessDamage > 0) SubtractHitpoints(excessDamage);
+    }
+    public abstract void AddShield(float amt);
+    public abstract float SubtractShield(float amt);
     public abstract void AddHitpoints(float amt);
+    public abstract void SubtractHitpoints(float amt);
 
     public void EnablePrimaryFire()
     {

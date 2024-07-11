@@ -7,6 +7,7 @@ public class HUDManager : MonoBehaviour
 {
     public static HUDManager Inst { get; private set; }
     public Slider healthBar;
+    public Slider shieldBar;
     public TextMeshProUGUI ScoreDisplay;
     public Transform LivesDisplay;
     private float LifeIconSpacing = 35f;
@@ -29,13 +30,21 @@ public class HUDManager : MonoBehaviour
     void Start()
     {
         healthBar.maxValue = 100; // percentage
+        shieldBar.maxValue = 100; // percentage
         UpdateLivesDisplay();
     }
 
-    public void UpdateHealthBar(float currentHitpoints)
+    public void UpdateHealthBar(float amt)
     {
-        float percentage = currentHitpoints / GameConfig.MaxPlayerHealth * 100;
+        float percentage = amt / GameConfig.MaxPlayerHealth * 100;
         healthBar.value = percentage;
+    }
+
+    public void UpdateShieldBar(float amt)
+    {
+        float percentage = amt / GameConfig.MaxPlayerShield * 100;
+        Debug.Log(percentage);
+        shieldBar.value = percentage;
     }
 
     public void UpdateScoreDisplay()
