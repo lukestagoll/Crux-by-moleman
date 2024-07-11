@@ -33,11 +33,6 @@ public class ElectricExplosion : MonoBehaviour
         // Check if the ParticleSystem component is found
         if (particleSystem != null)
         {
-            LowColor = particleSystem.main.startColor.colorMin;
-            Debug.Log(LowColor);
-            HighColor = particleSystem.main.startColor.colorMax;
-            Debug.Log(HighColor);
-
             // Enable collision module
             var collision = particleSystem.collision;
             collision.enabled = true;

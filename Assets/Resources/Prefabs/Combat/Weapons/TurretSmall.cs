@@ -3,8 +3,11 @@ using UnityEngine;
 public class TurretSmall : SingleFireWeaponBase
 {
     private Transform target;
-    private float rotationSpeed = 5f; // Adjust this value to change rotation speed
+    public float rotationSpeed = 5f; // Adjust this value to change rotation speed
     public float MaxTargetRange = 6f;
+    public float LeadTime = 0.5f; // Public variable for adjusting how far ahead to aim
+
+    private Rigidbody2D targetRigidbody;
 
     protected override void Update()
     {
@@ -27,6 +30,7 @@ public class TurretSmall : SingleFireWeaponBase
                     if (distance < MaxTargetRange)
                     {
                         target = enemy.transform;
+                        targetRigidbody = enemy.GetComponent<Rigidbody2D>();
                         break;
                     }
                 }
@@ -34,15 +38,17 @@ public class TurretSmall : SingleFireWeaponBase
             else
             {
                 target = null;
+                targetRigidbody = null;
             }
         }
     }
 
     private void AimAtTarget()
     {
-        if (target != null)
+        if (target != null && targetRigidbody != null)
         {
-            Vector3 direction = target.position - transform.position;
+            Vector3 predictedPosition = PredictTargetPosition();
+            Vector3 direction = predictedPosition - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
@@ -52,5 +58,11 @@ public class TurretSmall : SingleFireWeaponBase
             // Point forward if no target is found
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotationSpeed * Time.deltaTime);
         }
+    }
+
+    private Vector3 PredictTargetPosition()
+    {
+        Vector3 targetVelocity = targetRigidbody.velocity;
+        return target.position + targetVelocity * LeadTime;
     }
 }

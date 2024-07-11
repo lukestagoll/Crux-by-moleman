@@ -79,6 +79,9 @@ MonoBehaviour:
   BaseFireRate: 10
   SlotType: 1
   WeaponType: 0
+  rotationSpeed: 10
+  MaxTargetRange: 8
+  LeadTime: 0.5
 --- !u!1 &1236918301431211634
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +184,9 @@ MonoBehaviour:
   BaseFireRate: 7.5
   SlotType: 1
   WeaponType: 0
+  rotationSpeed: 5
+  MaxTargetRange: 6
+  LeadTime: 0.5
 --- !u!1 &6087468563522105933
 GameObject:
   m_ObjectHideFlags: 0
