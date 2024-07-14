@@ -81,7 +81,7 @@ MonoBehaviour:
   WeaponType: 0
   rotationSpeed: 10
   MaxTargetRange: 8
-  LeadTime: 0.5
+  LeadTime: 10
 --- !u!1 &1236918301431211634
 GameObject:
   m_ObjectHideFlags: 0
