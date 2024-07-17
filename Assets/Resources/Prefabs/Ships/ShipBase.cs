@@ -32,6 +32,7 @@ public abstract class ShipBase : MonoBehaviour
     [SerializeField] protected float Hitpoints;
     [SerializeField] protected float Shield;
     protected bool ShieldIsActive;
+    public Material DefaultMaterial;
 
     protected bool isEnemy;
     protected bool isDestroyed;

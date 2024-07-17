@@ -66,22 +66,9 @@ public class PlayerShip : ShipBase
         Shield = 0;
         HUDManager.Inst.UpdateShieldBar(0);
         MusicManager.Inst.PlayAudioFile("ShieldPowerDown2", 1f);
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.material = DefaultMaterial;
     }
-
-    // public void PlayAudioFile(string key)
-    // {
-    //     var audioSource = GetComponent<AudioSource>();
-    //     Debug.Log("Attempting to play" + key);
-    //     if (AssetManager.AudioClips.TryGetValue(key, out var audioClip))
-    //     {
-    //         Debug.Log($"Playing audio file '{key}'");
-    //         audioSource.PlayOneShot(audioClip);
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError($"Audio file with key '{key}' not found.");
-    //     }
-    // }
 
     void OnTriggerEnter2D(Collider2D other)
     {

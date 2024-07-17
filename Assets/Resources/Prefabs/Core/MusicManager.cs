@@ -6,19 +6,6 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Inst { get; private set; }
     private List<AudioSource> audioSources = new List<AudioSource>();
 
-    // private void Start()
-    // {
-    //     // Cache audio sources from children
-    //     foreach (Transform child in transform)
-    //     {
-    //         AudioSource audioSource = child.GetComponent<AudioSource>();
-    //         if (audioSource != null)
-    //         {
-    //             audioSources.Add(audioSource);
-    //         }
-    //     }
-    // }
-
     void Awake()
     {
         if (Inst != null && Inst != this)
