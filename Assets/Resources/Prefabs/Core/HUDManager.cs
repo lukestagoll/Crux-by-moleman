@@ -43,7 +43,6 @@ public class HUDManager : MonoBehaviour
     public void UpdateShieldBar(float amt)
     {
         float percentage = amt / GameConfig.MaxPlayerShield * 100;
-        Debug.Log(percentage);
         shieldBar.value = percentage;
     }
 

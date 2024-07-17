@@ -6,6 +6,7 @@ public class PlayerShip : ShipBase
     {
         Hitpoints = GameConfig.MaxPlayerHealth; // Assign a default value or make this configurable via the Inspector
         Shield = GameConfig.MaxPlayerShield;
+        ShieldIsActive = true;
         HUDManager.Inst.UpdateShieldBar(Shield);
         HUDManager.Inst.UpdateHealthBar(Hitpoints);
     }
@@ -16,14 +17,16 @@ public class PlayerShip : ShipBase
         Explode();
     }
 
-    public override float SubtractShield(float damage)
+    protected override float SubtractShield(float damage)
     {
-        if (Shield <= 0) return damage;
-
         Shield -= damage;
 
+        if (Shield == 0) {
+            DeactivateShield();
+            return 0;
+        }
         if (Shield < 0) {
-            HUDManager.Inst.UpdateShieldBar(0);
+            DeactivateShield();
             return damage + Shield;
         }
         else
@@ -33,7 +36,7 @@ public class PlayerShip : ShipBase
         }
     }
 
-    public override void SubtractHitpoints(float damage)
+    protected override void SubtractHitpoints(float damage)
     {
         Hitpoints -= damage;
         if (Hitpoints <= 0) {
@@ -45,7 +48,7 @@ public class PlayerShip : ShipBase
         HUDManager.Inst.UpdateHealthBar(Hitpoints);
     }
 
-    public override void AddShield(float amt)
+    protected override void AddShield(float amt)
     {
         Shield += amt;
         HUDManager.Inst.UpdateShieldBar(Shield);
@@ -56,6 +59,29 @@ public class PlayerShip : ShipBase
         Hitpoints += amt;
         HUDManager.Inst.UpdateHealthBar(Hitpoints);
     }
+
+    private void DeactivateShield()
+    {
+        ShieldIsActive = false;
+        Shield = 0;
+        HUDManager.Inst.UpdateShieldBar(0);
+        MusicManager.Inst.PlayAudioFile("ShieldPowerDown2", 1f);
+    }
+
+    // public void PlayAudioFile(string key)
+    // {
+    //     var audioSource = GetComponent<AudioSource>();
+    //     Debug.Log("Attempting to play" + key);
+    //     if (AssetManager.AudioClips.TryGetValue(key, out var audioClip))
+    //     {
+    //         Debug.Log($"Playing audio file '{key}'");
+    //         audioSource.PlayOneShot(audioClip);
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError($"Audio file with key '{key}' not found.");
+    //     }
+    // }
 
     void OnTriggerEnter2D(Collider2D other)
     {

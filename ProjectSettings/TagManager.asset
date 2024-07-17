@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Enemy
   - Shield
+  - Secondary Camera
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PostProcessing
   - Water
   - UI
   - 

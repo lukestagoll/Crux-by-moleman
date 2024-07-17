@@ -23,6 +23,9 @@ public static class AssetManager
     public static List<Sprite> DistantPlanetSprites { get; private set; } = new List<Sprite>();
     public static List<Sprite> PlanetSprites { get; private set; } = new List<Sprite>();
 
+    // AUDIO
+    public static Dictionary<string, AudioClip> AudioClips { get; private set; } = new Dictionary<string, AudioClip>();
+
     // SETTINGS
     private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect", "TurretSmall" };
     private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "PlasmaHeavy", "Missile", "HomingMissile", "ElectricExplosion", "ElectricExplosionChain" };
@@ -70,10 +73,37 @@ public static class AssetManager
         }
     }
 
-
     public static void CacheAssets()
     {
-        // SHIPS
+        CacheShipPrefabs();
+        CacheWeaponPrefabs();
+        CacheProjectilePrefabs();
+        CacheMiscAssets();
+        CacheBackgroundAssets();
+        CacheAudioAssets();
+    }
+
+    private static void CacheAudioAssets()
+    {
+        AudioClips.Clear(); // Clear the dictionary first
+
+        // Load all audio files from the specified directory
+        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("Audio");
+        foreach (AudioClip audioClip in audioClips)
+        {
+            string fileName = audioClip.name;
+            AudioClips[fileName] = audioClip;
+            Debug.Log("Loaded" + fileName);
+        }
+
+        if (AudioClips.Count == 0)
+        {
+            Debug.LogError("No audio files found in the specified directory.");
+        }
+    }
+
+    private static void CacheShipPrefabs()
+    {
         PlayerPrefab = Resources.Load<PlayerShip>("Prefabs/Ships/Player");
         foreach (string shipName in EnemyShipsToLoad)
         {
@@ -91,8 +121,10 @@ public static class AssetManager
         {
             Debug.LogError("Failed to load Player prefab!");
         }
+    }
 
-        // WEAPONS
+    private static void CacheWeaponPrefabs()
+    {
         foreach (string weaponName in WeaponPrefabsToLoad)
         {
             GameObject weaponPrefab = Resources.Load<GameObject>($"Prefabs/Combat/Weapons/{weaponName}");
@@ -105,8 +137,10 @@ public static class AssetManager
                 Debug.LogError($"Failed to load Weapon {weaponName} prefab!");
             }
         }
+    }
 
-        // PROJECTILES
+    private static void CacheProjectilePrefabs()
+    {
         foreach (string projectileName in ProjectilesToLoad)
         {
             GameObject projectilePrefab = Resources.Load<GameObject>($"Prefabs/Combat/Projectiles/{projectileName}");
@@ -119,7 +153,10 @@ public static class AssetManager
                 Debug.LogError($"Failed to load {projectileName} prefab!");
             }
         }
+    }
 
+    private static void CacheMiscAssets()
+    {
         // CORE
         WavePrefab = Resources.Load<Wave>("Prefabs/Game/Wave");
         if (WavePrefab == null)
@@ -133,7 +170,10 @@ public static class AssetManager
         {
             Debug.LogError("Failed to load ItemDrop prefab!");
         }
+    }
 
+    private static void CacheBackgroundAssets()
+    {
         // UI
         StarMapPrefab = Resources.Load<GameObject>("Prefabs/UI/StarMap");
         LifeIconPrefab = Resources.Load<GameObject>("Prefabs/UI/ShipIcon");
