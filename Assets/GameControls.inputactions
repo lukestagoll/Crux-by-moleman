@@ -58,6 +58,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2a139411-80f6-4751-8243-ffb80a99490d",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e38834d8-f8f9-4c79-baec-383dcac2cc8a",
                     "path": "<Keyboard>/space",
                     "interactions": "Press(behavior=2)",

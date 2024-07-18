@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3047792721092600831}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 1687681727
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4dba3b4ece0220f45be6d94daab3ec8e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2971f127753ff734a924de8563566c07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,7 +156,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -164,12 +164,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.00064319745, y: 0.5455903}
-      - {x: -0.5378529, y: 0.13692532}
-      - {x: -0.43785587, y: -0.21351057}
-      - {x: -0.0027685855, y: -0.46164435}
-      - {x: 0.43160218, y: -0.23115554}
-      - {x: 0.53259015, y: 0.14381212}
+    - - {x: -0.00017968286, y: 0.2237548}
+      - {x: -0.020230887, y: 0.20907016}
+      - {x: -0.05098607, y: 0.14922847}
+      - {x: -0.05100756, y: 0.09155576}
+      - {x: -0.17145781, y: -0.06968114}
+      - {x: -0.20741251, y: -0.2208107}
+      - {x: 0.00056583993, y: -0.21196406}
+      - {x: 0.20725526, y: -0.22045833}
+      - {x: 0.17067519, y: -0.070153944}
+      - {x: 0.050040837, y: 0.09154941}
+      - {x: 0.050119296, y: 0.14996}
+      - {x: 0.018440932, y: 0.21021514}
   m_UseDelaunayMesh: 0
 --- !u!114 &4220676921612873312
 MonoBehaviour:
@@ -237,6 +243,8 @@ MonoBehaviour:
   BulletSpeedModifier: 0.75
   MovementSpeedModifier: 1
   Hitpoints: 30
+  Shield: 0
+  DefaultMaterial: {fileID: 0}
   pointsOnKill: 50
   damageOnCollision: 35
 --- !u!114 &5882347149641705893
@@ -254,7 +262,7 @@ MonoBehaviour:
   shipType: SF1
   BaseSpeed: 3
   TargetOffset: 0
---- !u!1001 &1974613016309963124
+--- !u!1001 &4159019942583429723
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -311,15 +319,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71a598d5ca5429c4fa9f016244c4dc3e, type: 3}
---- !u!4 &4419143357316626231 stripped
+--- !u!4 &2270660775835436056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2753053334027300419, guid: 71a598d5ca5429c4fa9f016244c4dc3e, type: 3}
-  m_PrefabInstance: {fileID: 1974613016309963124}
+  m_PrefabInstance: {fileID: 4159019942583429723}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6711048469388146479 stripped
+--- !u!1 &9219604624774317056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5063544706618338907, guid: 71a598d5ca5429c4fa9f016244c4dc3e, type: 3}
-  m_PrefabInstance: {fileID: 1974613016309963124}
+  m_PrefabInstance: {fileID: 4159019942583429723}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6412555673587418170
 PrefabInstance:
@@ -331,7 +339,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.24
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
@@ -408,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.z
@@ -449,17 +457,13 @@ PrefabInstance:
     - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: AttachedWeapon
       value: 
-      objectReference: {fileID: 6711048469388146479}
-    - target: {fileID: 8387072505328995515, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
-      propertyPath: PreAttachedWeapon
-      value: 
-      objectReference: {fileID: 6711048469388146479}
+      objectReference: {fileID: 9219604624774317056}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4419143357316626231}
+      addedObject: {fileID: 2270660775835436056}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
 --- !u!114 &2158907539854311504 stripped
@@ -488,7 +492,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.24
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
