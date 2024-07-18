@@ -4,6 +4,8 @@ using System.Collections;
 public abstract class SingleFireWeaponBase : WeaponBase
 {
     private Coroutine fireCoroutine;
+    private float NextAllowedFireTime;
+
 
     public override void AttemptFire(bool isEnemy, float damageModifier, float bulletSpeedModifier)
     {
@@ -23,9 +25,17 @@ public abstract class SingleFireWeaponBase : WeaponBase
     {
         while (true)
         {
+            // This is to prevent CeaseFire -> AttemptFire spam to bypass FireRate
+            if (NextAllowedFireTime > Time.time)
+            {
+                yield return new WaitForSeconds(NextAllowedFireTime - Time.time);
+            }
+            
             StartAnimation();
             Fire(isEnemy, bulletSpeedModifier, damageModifier);
-            yield return new WaitForSeconds(1f / DetermineCurrentFireRate());
+            float delay = 1f / DetermineCurrentFireRate();
+            NextAllowedFireTime = Time.time + delay;
+            yield return new WaitForSeconds(delay);
         }
     }
 

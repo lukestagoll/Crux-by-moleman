@@ -4,6 +4,8 @@ public class EnemyShip : ShipBase
 {
     [SerializeField] protected int pointsOnKill;
     public int damageOnCollision = 10;
+
+    public bool TargetedByTurret;
     
     public delegate void EnemyShipEvent(EnemyShip ship);
     public event EnemyShipEvent OnDestroyed;

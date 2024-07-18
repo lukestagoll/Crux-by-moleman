@@ -3,7 +3,7 @@ using UnityEngine;
 public class TurretSmall : SingleFireWeaponBase
 {
     private Transform target;
-    public float rotationSpeed = 5f; // Adjust this value to change rotation speed
+    public float rotationSpeed = 1.5f; // Adjust this value to change rotation speed
     public float MaxTargetRange = 6f;
     public float LeadTime = 2.5f; // Public variable for adjusting how far ahead to aim
 
@@ -27,9 +27,10 @@ public class TurretSmall : SingleFireWeaponBase
                 foreach (EnemyShip enemy in enemies)
                 {
                     float distance = Vector3.Distance(transform.position, enemy.transform.position);
-                    if (distance < MaxTargetRange)
+                    if (distance < MaxTargetRange && !enemy.TargetedByTurret)
                     {
                         target = enemy.transform;
+                        enemy.TargetedByTurret = true;
                         targetRigidbody = enemy.GetComponent<Rigidbody2D>();
                         break;
                     }
