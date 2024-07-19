@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         UIManager.Inst.TransitionToShipSelection();
-        GameManager.InitiateGameplay(false);
+        // GameManager.InitiateGameplay(false);
     }
 
     public void OpenOptions()

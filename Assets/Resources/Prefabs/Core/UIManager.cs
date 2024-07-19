@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class UIManager : MonoBehaviour
     // ! Setup an Instantiate function and then sceneLock the functionality
     // ! This allows the pauseMenu to be loaded and also not be active in the editor
     public static UIManager Inst { get; private set; }
-    public bool GameIsActive = false;
+    // private bool GameIsActive = false;
     public GameObject MainMenuUI;
     private GameObject ShipSelectionUI;
 
@@ -38,33 +39,30 @@ public class UIManager : MonoBehaviour
         ShipSelectionUI.SetActive(true);
     }
 
-    private void ActivateMainMenuUI()
+    public void HandleMoveUp()
     {
 
     }
 
-    private void ActivateStageUI()
+    public void HandleMoveDown()
     {
 
     }
 
-    private void ActivatePauseUI()
+    public void HandleMoveLeft()
     {
-        
+        // if (SceneManager.GetActiveScene().name == "MainMenu")
+        if (ShipSelectionUI.activeSelf)
+        {
+            ShipSelectionUI.GetComponent<ShipSelection>().MoveCursorLeft();
+        }
     }
 
-    private void DeactivateMainMenuUI()
+    public void HandleMoveRight()
     {
-
-    }
-
-    private void DeactivateStageUI()
-    {
-
-    }
-
-    private void DeactivatePauseUI()
-    {
-        
+        if (ShipSelectionUI.activeSelf)
+        {
+            ShipSelectionUI.GetComponent<ShipSelection>().MoveCursorRight();
+        }
     }
 }
