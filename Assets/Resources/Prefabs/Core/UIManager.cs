@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    // ! Can probably not inherit from MonoBehaviour
+    // ! Setup an Instantiate function and then sceneLock the functionality
+    // ! This allows the pauseMenu to be loaded and also not be active in the editor
     public static UIManager Inst { get; private set; }
     public bool GameIsActive = false;
+    public GameObject MainMenuUI;
+    private GameObject ShipSelectionUI;
 
     void Awake()
     {
@@ -16,12 +21,22 @@ public class UIManager : MonoBehaviour
         Inst = this;
     }
 
-    /*
-        Some things to consider:
-            - MainMenu and Stage should never both be active
-            - Pause cannot be activated when MainMenu is active
-            - Pause can be activated with Stage
-    */
+    void Start()
+    {
+        ShipSelectionUI = Instantiate(AssetManager.ShipSelectionUIPrefab);
+        ShipSelectionUI.SetActive(false);
+    }
+
+    public void TransitionToShipSelection()
+    {
+        if (MainMenuUI == null) 
+        {
+            Debug.LogError("MainMenuUI is null");
+            return;
+        }
+        MainMenuUI.SetActive(false);
+        ShipSelectionUI.SetActive(true);
+    }
 
     private void ActivateMainMenuUI()
     {

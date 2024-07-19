@@ -26,6 +26,9 @@ public static class AssetManager
     // AUDIO
     public static Dictionary<string, AudioClip> AudioClips { get; private set; } = new Dictionary<string, AudioClip>();
 
+    // UI
+    public static GameObject ShipSelectionUIPrefab { get; private set; }
+
     // SETTINGS
     private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect", "TurretSmall" };
     private static List<string> ProjectilesToLoad = new List<string> { "Plasma", "PlasmaLight", "PlasmaHeavy", "Missile", "HomingMissile", "ElectricExplosion", "ElectricExplosionChain" };
@@ -81,6 +84,16 @@ public static class AssetManager
         CacheMiscAssets();
         CacheBackgroundAssets();
         CacheAudioAssets();
+        CacheUIAssets();
+    }
+
+    private static void CacheUIAssets()
+    {
+        ShipSelectionUIPrefab = Resources.Load<GameObject>("Prefabs/UI/ShipSelectionUI");
+        if (ShipSelectionUIPrefab == null)
+        {
+            Debug.LogError("Failed to load ShipSelectionUIPrefab prefab!");
+        }
     }
 
     private static void CacheAudioAssets()

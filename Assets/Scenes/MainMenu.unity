@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 973309756}
   - component: {fileID: 973309760}
   m_Layer: 5
-  m_Name: UIContainer
+  m_Name: MainMenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1126,6 +1126,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8869139869242258838, guid: cdaae3a6344a14a4796b90def7cf1e60, type: 3}
+      propertyPath: MainMenuUI
+      value: 
+      objectReference: {fileID: 973309755}
+    - target: {fileID: 8869139869242258838, guid: cdaae3a6344a14a4796b90def7cf1e60, type: 3}
+      propertyPath: ShipSelectionUI
+      value: 
+      objectReference: {fileID: 1741639161022248363, guid: 1ddc411242e23bf42b29aad8d3d42e27, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
