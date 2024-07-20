@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -63,6 +62,14 @@ public class UIManager : MonoBehaviour
         if (ShipSelectionUI.activeSelf)
         {
             ShipSelectionUI.GetComponent<ShipSelection>().MoveCursorRight();
+        }
+    }
+
+    public void HandleSelect()
+    {
+        if (ShipSelectionUI.activeSelf)
+        {
+            ShipSelectionUI.GetComponent<ShipSelection>().SelectShip();
         }
     }
 }

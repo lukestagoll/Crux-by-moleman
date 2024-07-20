@@ -20,6 +20,11 @@ public class ShipSelection : MonoBehaviour
         instantiatedCursor = Instantiate(Cursor, Ships[currentIndex].transform.position, Quaternion.identity);
     }
 
+    public void SelectShip()
+    {
+        GameManager.InitiateGameplay(false);
+    }
+
     public void MoveCursorLeft()
     {
         Debug.Log("[ShipSelection] MoveCursorLeft");

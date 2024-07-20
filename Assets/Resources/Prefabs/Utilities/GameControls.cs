@@ -141,6 +141,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""b9bbd629-17c6-4232-b923-e041d18f7d67"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -187,6 +196,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""MoveRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""354ec70f-96b7-4425-902c-17ddb538b28a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -204,6 +224,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_MainMenu_MoveDown = m_MainMenu.FindAction("MoveDown", throwIfNotFound: true);
         m_MainMenu_MoveLeft = m_MainMenu.FindAction("MoveLeft", throwIfNotFound: true);
         m_MainMenu_MoveRight = m_MainMenu.FindAction("MoveRight", throwIfNotFound: true);
+        m_MainMenu_Select = m_MainMenu.FindAction("Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -331,6 +352,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MainMenu_MoveDown;
     private readonly InputAction m_MainMenu_MoveLeft;
     private readonly InputAction m_MainMenu_MoveRight;
+    private readonly InputAction m_MainMenu_Select;
     public struct MainMenuActions
     {
         private @GameControls m_Wrapper;
@@ -339,6 +361,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         public InputAction @MoveDown => m_Wrapper.m_MainMenu_MoveDown;
         public InputAction @MoveLeft => m_Wrapper.m_MainMenu_MoveLeft;
         public InputAction @MoveRight => m_Wrapper.m_MainMenu_MoveRight;
+        public InputAction @Select => m_Wrapper.m_MainMenu_Select;
         public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +383,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @MoveRight.started += instance.OnMoveRight;
             @MoveRight.performed += instance.OnMoveRight;
             @MoveRight.canceled += instance.OnMoveRight;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
         }
 
         private void UnregisterCallbacks(IMainMenuActions instance)
@@ -376,6 +402,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @MoveRight.started -= instance.OnMoveRight;
             @MoveRight.performed -= instance.OnMoveRight;
             @MoveRight.canceled -= instance.OnMoveRight;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
         }
 
         public void RemoveCallbacks(IMainMenuActions instance)
@@ -405,5 +434,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         void OnMoveDown(InputAction.CallbackContext context);
         void OnMoveLeft(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }

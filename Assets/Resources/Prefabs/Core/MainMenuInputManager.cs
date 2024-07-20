@@ -11,6 +11,7 @@ public class MainMenuInputHandler : MonoBehaviour
         controls.MainMenu.MoveDown.performed += ctx => MoveDown();
         controls.MainMenu.MoveLeft.performed += ctx => MoveLeft();
         controls.MainMenu.MoveRight.performed += ctx => MoveRight();
+        controls.MainMenu.Select.performed += ctx => Select();
     }
 
     private void OnEnable()
@@ -45,5 +46,11 @@ public class MainMenuInputHandler : MonoBehaviour
     {
         Debug.Log("[MainMenuInputHandler] MoveRight");
         UIManager.Inst.HandleMoveRight();
+    }
+
+    private void Select()
+    {
+        Debug.Log("[MainMenuInputHandler] Select");
+        UIManager.Inst.HandleSelect();
     }
 }
