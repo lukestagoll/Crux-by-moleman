@@ -1,0 +1,41 @@
+- Type: Passive
+  SubType: FireRate
+  Expiry: Time
+  Duration: 5
+  Amt: 1.5
+
+- Type: Passive
+  SubType: Damage
+  Expiry: Time
+  Duration: 5
+  Amt: 1.5
+
+- Type: Weapon
+  SubType: MissileLauncher
+  Expiry: Never
+  Duration: 0
+  Amt: 0
+
+- Type: Weapon
+  SubType: Cannon
+  Expiry: Never
+  Duration: 0
+  Amt: 0
+
+- Type: Weapon
+  SubType: HomingMissileLauncher
+  Expiry: Never
+  Duration: 0
+  Amt: 0
+
+- Type: Weapon
+  SubType: ElectroShield
+  Expiry: Never
+  Duration: 0
+  Amt: 0
+
+- Type: Weapon
+  SubType: TurretSmall
+  Expiry: Never
+  Duration: 0
+  Amt: 0

@@ -7,7 +7,7 @@ public class MainMenuInputHandler : MonoBehaviour
     private void Awake()
     {
         controls = new GameControls();
-        controls.MainMenu.MoveUp.performed += _ => MoveUp();
+        controls.MainMenu.MoveUp.performed += ctx => MoveUp();
         controls.MainMenu.MoveDown.performed += ctx => MoveDown();
         controls.MainMenu.MoveLeft.performed += ctx => MoveLeft();
         controls.MainMenu.MoveRight.performed += ctx => MoveRight();

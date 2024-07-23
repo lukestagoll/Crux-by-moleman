@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+
 public static class GameConfig
 {
     // GAME DATA
@@ -40,15 +43,21 @@ public static class GameConfig
 
     private static void LoadEffectData()
     {
-        TextAsset jsonData = Resources.Load<TextAsset>("effectData");
-        if (jsonData == null)
+        TextAsset yamlData = Resources.Load<TextAsset>("effectData");
+        if (yamlData == null)
         {
             Debug.LogError("Failed to load effect data!");
             return;
         }
-    
-        EffectDataList = JsonConvert.DeserializeObject<List<EffectData>>(jsonData.text);
-    
+
+        Debug.Log("Effect data loaded successfully");
+
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(PascalCaseNamingConvention.Instance)
+            .Build();
+
+        EffectDataList = deserializer.Deserialize<List<EffectData>>(yamlData.text);
+
         if (EffectDataList == null || EffectDataList.Count == 0)
         {
             Debug.LogError("Failed to deserialize EffectData.");
@@ -58,14 +67,20 @@ public static class GameConfig
 
     private static void LoadGameData()
     {
-        TextAsset jsonData = Resources.Load<TextAsset>("gameData");
-        if (jsonData == null)
+        TextAsset yamlData = Resources.Load<TextAsset>("gameData");
+        if (yamlData == null)
         {
             Debug.LogError("Failed to load game data!");
             return;
         }
 
-        GameData = JsonConvert.DeserializeObject<GameData>(jsonData.text);
+        Debug.Log("Game data loaded successfully");
+
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(PascalCaseNamingConvention.Instance)
+            .Build();
+
+        GameData = deserializer.Deserialize<GameData>(yamlData.text);
     }
 
     private static void LoadEnemyPaths()
