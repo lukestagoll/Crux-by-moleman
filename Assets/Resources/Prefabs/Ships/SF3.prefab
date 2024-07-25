@@ -225,11 +225,14 @@ MonoBehaviour:
   DamageModifier: 1
   BulletSpeedModifier: 1
   MovementSpeedModifier: 1
-  Hitpoints: 90
+  MaxHealth: 150
+  Health: 150
+  MaxShield: 0
   Shield: 0
   DefaultMaterial: {fileID: 0}
   pointsOnKill: 300
   damageOnCollision: 50
+  TargetedByTurret: 0
 --- !u!1001 &767730775929882407
 PrefabInstance:
   m_ObjectHideFlags: 0

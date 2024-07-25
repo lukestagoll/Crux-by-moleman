@@ -29,8 +29,11 @@ public abstract class ShipBase : MonoBehaviour
     public float DamageModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float BulletSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] protected float MovementSpeedModifier = 1f;   // These should be visible in the Inspector
-    [SerializeField] protected float Hitpoints;
-    [SerializeField] protected float Shield;
+    [SerializeField] public float MaxHealth;
+    [SerializeField] public float Health;
+    [SerializeField] public float MaxShield;
+    [SerializeField] public float Shield;
+
     protected bool ShieldIsActive;
     public Material DefaultMaterial;
 
@@ -43,6 +46,13 @@ public abstract class ShipBase : MonoBehaviour
     private bool PrimaryFireEnabled = false;
     private bool SpecialFireEnabled = false;
     private bool SpecialFireCeasing = false;
+
+    public event Action OnSpawn;
+
+    protected virtual void EmitOnSpawn()
+    {
+        OnSpawn?.Invoke();
+    }
 
     void Awake()
     {
@@ -59,18 +69,18 @@ public abstract class ShipBase : MonoBehaviour
         if (isDestroyed) return;
         if (!ShieldIsActive)
         {
-            SubtractHitpoints(damage);
+            SubtractHealth(damage);
         }
         else
         {
             float excessDamage = SubtractShield(damage);
-            if (excessDamage > 0) SubtractHitpoints(excessDamage);
+            if (excessDamage > 0) SubtractHealth(excessDamage);
         }
     }
     protected abstract void AddShield(float amt);
     protected abstract float SubtractShield(float amt);
-    public abstract void AddHitpoints(float amt);
-    protected abstract void SubtractHitpoints(float amt);
+    public abstract void AddHealth(float amt);
+    protected abstract void SubtractHealth(float amt);
 
     public void EnablePrimaryFire()
     {

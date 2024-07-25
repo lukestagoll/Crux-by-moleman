@@ -34,15 +34,15 @@ public class HUDManager : MonoBehaviour
         UpdateLivesDisplay();
     }
 
-    public void UpdateHealthBar(float amt)
+    public void UpdateHealthBar()
     {
-        float percentage = amt / GameConfig.MaxPlayerHealth * 100;
+        float percentage = PlayerManager.Inst.ActivePlayerShip.Health / PlayerManager.Inst.ActivePlayerShip.MaxHealth * 100;
         healthBar.value = percentage;
     }
 
-    public void UpdateShieldBar(float amt)
+    public void UpdateShieldBar()
     {
-        float percentage = amt / GameConfig.MaxPlayerShield * 100;
+        float percentage = PlayerManager.Inst.ActivePlayerShip.Shield / PlayerManager.Inst.ActivePlayerShip.MaxShield * 100;
         shieldBar.value = percentage;
     }
 

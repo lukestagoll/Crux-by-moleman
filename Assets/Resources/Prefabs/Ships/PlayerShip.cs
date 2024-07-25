@@ -4,11 +4,10 @@ public class PlayerShip : ShipBase
 {
     void Start()
     {
-        Hitpoints = GameConfig.MaxPlayerHealth; // Assign a default value or make this configurable via the Inspector
-        Shield = GameConfig.MaxPlayerShield;
         ShieldIsActive = true;
-        HUDManager.Inst.UpdateShieldBar(Shield);
-        HUDManager.Inst.UpdateHealthBar(Hitpoints);
+        EmitOnSpawn();
+        HUDManager.Inst.UpdateShieldBar();
+        HUDManager.Inst.UpdateHealthBar();
     }
 
     public override void Die()
@@ -31,40 +30,41 @@ public class PlayerShip : ShipBase
         }
         else
         {
-            HUDManager.Inst.UpdateShieldBar(Shield);
+            HUDManager.Inst.UpdateShieldBar();
             return 0;
         }
     }
 
-    protected override void SubtractHitpoints(float damage)
+    protected override void SubtractHealth(float damage)
     {
-        Hitpoints -= damage;
-        if (Hitpoints <= 0) {
+        Health -= damage;
+        if (Health <= 0) {
+            Health = 0;
             isDestroyed = true;
-            HUDManager.Inst.UpdateHealthBar(0);
+            HUDManager.Inst.UpdateHealthBar();
             Die();
             return;
         }
-        HUDManager.Inst.UpdateHealthBar(Hitpoints);
+        HUDManager.Inst.UpdateHealthBar();
     }
 
     protected override void AddShield(float amt)
     {
         Shield += amt;
-        HUDManager.Inst.UpdateShieldBar(Shield);
+        HUDManager.Inst.UpdateShieldBar();
     }
 
-    public override void AddHitpoints(float amt)
+    public override void AddHealth(float amt)
     {
-        Hitpoints += amt;
-        HUDManager.Inst.UpdateHealthBar(Hitpoints);
+        Health += amt;
+        HUDManager.Inst.UpdateHealthBar();
     }
 
     private void DeactivateShield()
     {
         ShieldIsActive = false;
         Shield = 0;
-        HUDManager.Inst.UpdateShieldBar(0);
+        HUDManager.Inst.UpdateShieldBar();
         MusicManager.Inst.PlayAudioFile("ShieldPowerDown2", 1f);
         Renderer renderer = GetComponent<Renderer>();
         renderer.material = DefaultMaterial;

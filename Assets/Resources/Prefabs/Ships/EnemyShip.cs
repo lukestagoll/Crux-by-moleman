@@ -44,10 +44,10 @@ public class EnemyShip : ShipBase
         OnDestroyed?.Invoke(this);
     }
 
-    protected override void SubtractHitpoints(float damage)
+    protected override void SubtractHealth(float damage)
     {
-        Hitpoints -= damage;
-        if (Hitpoints <= 0)
+        Health -= damage;
+        if (Health <= 0)
         {
             isDestroyed = true;
             Die();
@@ -69,8 +69,8 @@ public class EnemyShip : ShipBase
         else return 0;
     }
 
-    public override void AddHitpoints(float amt)
+    public override void AddHealth(float amt)
     {
-        Hitpoints += amt;
+        Health += amt;
     }
 }

@@ -46,7 +46,7 @@ public class ShipEffect : EffectBase
     private void ActivateHealthEffect()
     {
         ShipBase ship = TargetShip.GetComponent<ShipBase>();
-        ship.AddHitpoints(Amt);
+        ship.AddHealth(Amt);
     }
 
     private void ActivateDamageEffect()

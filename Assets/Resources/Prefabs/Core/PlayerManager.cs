@@ -90,22 +90,20 @@ public class PlayerManager : MonoBehaviour
     public void SpawnPlayer()
     {
         ActivePlayerShip = Instantiate(AssetManager.PlayerPrefab, new Vector3(0, -4, 10), Quaternion.identity);
-        // Do Skill things (modifiers/spawn loops)
-        // Each skill should handle their own by listening for onSpawn event.
-        InitialiseSkills();
+        // Sets the players ship for each still and attemps activation (if not already)
+        ShipSkillManager.AssignShipToSkills(ActiveSkills, ActivePlayerShip);
         // Reattach saved weapon prefabs
         ReattachWeapons();
     }
 
-    private void InitialiseSkills()
+    public void BuildInitialSkills()
     {
         InitialShipData initialPlayerData = GameConfig.GetInitialPlayerData();
         if (initialPlayerData == null) {
             Debug.LogError("[PlayerManager] Failed to fetch InitialPlayerData");
             return;
         }
-        // var shipSkillManager = ActivePlayerShip.GetComponent<ShipSkillManager>();
-        ActiveSkills = ShipSkillManager.Initialise(initialPlayerData);
+        ActiveSkills = ShipSkillManager.BuildSkillList(initialPlayerData, null);
     }
 
     private void ReattachWeapons()
