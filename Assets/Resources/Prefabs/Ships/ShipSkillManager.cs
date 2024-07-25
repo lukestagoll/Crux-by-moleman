@@ -35,8 +35,8 @@ public static class ShipSkillManager
     {
         switch (skillName)
         {
-            // case "ShieldDrones":
-            //     return new ShieldDrones(level);
+            case "ShieldCapacity":
+                return new ShieldCapacity(level);
             case "HullDurability":
                 return new HullDurability(level);
             default:

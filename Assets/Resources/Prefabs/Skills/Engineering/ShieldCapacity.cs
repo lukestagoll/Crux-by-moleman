@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class HullDurability : SkillBase
+public class ShieldCapacity : SkillBase
 {
-    public HullDurability(int level) : base(level)
+    public ShieldCapacity(int level) : base(level)
     {
         MaxLevel = 3;
-        SkillName = "HullDurability";
+        SkillName = "ShieldCapacity";
     }
 
     public override void Activate()
@@ -13,7 +13,7 @@ public class HullDurability : SkillBase
         TargetShip.OnSpawn += OnSpawn;
     }
 
-    private float DetermineMaxHealthModifier()
+    private float DetermineMaxShieldModifier()
     {
         switch (Level)
         {
@@ -31,12 +31,12 @@ public class HullDurability : SkillBase
 
     private void OnSpawn()
     {
-        TargetShip.MaxHealth *= DetermineMaxHealthModifier();
-        TargetShip.Health = TargetShip.MaxHealth;
+        TargetShip.MaxShield *= DetermineMaxShieldModifier();
+        TargetShip.Shield = TargetShip.MaxShield;
     }
 
     public override void Deactivate()
     {
-        // Implementation for HullDurability deactivation
+        // Implementation for ShieldCapacity deactivation
     }
 }
