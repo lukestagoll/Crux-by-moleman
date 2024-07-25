@@ -7,9 +7,9 @@ using YamlDotNet.Serialization.NamingConventions;
 
 public static class GameConfig
 {
-    // GAME DATA
     public static bool HasBeenLoaded { get; private set; }
 
+    // GAME DATA
     public static GameData GameData { get; private set; }
     public static EnemyPaths EnemyPaths { get; private set; }
     public static Positions Positions { get; private set; }
@@ -27,19 +27,37 @@ public static class GameConfig
     {
         LoadGameData();
         LoadEnemyPaths();
-        LoadEnemyPathPresets(); // New method
+        LoadEnemyPathPresets();
         LoadPositions();
         LoadEffectData();
         AssetManager.CacheAssets();
         HasBeenLoaded = true;
         Debug.Log("Game Config Loaded");
-        
     }
 
     public static EffectData FetchEffectDataBySubType(EffectSubType subType)
     {
         return EffectDataList.Find(v => v.SubType == subType);
     }
+
+    public static InitialShipData GetInitialPlayerData()
+    {
+        TextAsset yamlData = Resources.Load<TextAsset>("initialPlayerData");
+        if (yamlData == null)
+        {
+            Debug.LogError("Failed to load initial player data!");
+            return null;
+        }
+
+        Debug.Log("Initial player data loaded successfully");
+
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(PascalCaseNamingConvention.Instance)
+            .Build();
+
+        return deserializer.Deserialize<InitialShipData>(yamlData.text);
+    }
+
 
     private static void LoadEffectData()
     {

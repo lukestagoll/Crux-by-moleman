@@ -3,6 +3,12 @@
 using System;
 using System.Collections.Generic;
 
+public class InitialShipData
+{
+    public Dictionary<string, bool> Equipment { get; set; }
+    public Dictionary<string, int> Skills { get; set; }
+}
+
 [Serializable]
 public class EffectData
 {

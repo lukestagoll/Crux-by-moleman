@@ -13,7 +13,11 @@ public class PlayerManager : MonoBehaviour
     private AudioSource AudioSource;
 
     // Store active weapon prefabs
+    // ! THIS WILL BE REPLACED BY EQUIPMENT AND LOADOUT
     private List<string> ActiveWeaponPrefabs = new List<string>();
+
+    // Store Unlocked Skills
+    private List<SkillBase> ActiveSkills = new List<SkillBase>();
 
     void Awake()
     {
@@ -86,7 +90,26 @@ public class PlayerManager : MonoBehaviour
     public void SpawnPlayer()
     {
         ActivePlayerShip = Instantiate(AssetManager.PlayerPrefab, new Vector3(0, -4, 10), Quaternion.identity);
+        // Do Skill things (modifiers/spawn loops)
+        // Each skill should handle their own by listening for onSpawn event.
+        InitialiseSkills();
         // Reattach saved weapon prefabs
+        ReattachWeapons();
+    }
+
+    private void InitialiseSkills()
+    {
+        InitialShipData initialPlayerData = GameConfig.GetInitialPlayerData();
+        if (initialPlayerData == null) {
+            Debug.LogError("[PlayerManager] Failed to fetch InitialPlayerData");
+            return;
+        }
+        // var shipSkillManager = ActivePlayerShip.GetComponent<ShipSkillManager>();
+        ActiveSkills = ShipSkillManager.Initialise(initialPlayerData);
+    }
+
+    private void ReattachWeapons()
+    {
         foreach (string weaponPrefabName in ActiveWeaponPrefabs)
         {
             GameObject weaponPrefab = AssetManager.GetWeaponPrefab(weaponPrefabName);
