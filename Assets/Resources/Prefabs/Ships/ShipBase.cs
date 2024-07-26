@@ -4,11 +4,11 @@ using UnityEngine;
 
 [Serializable]
 public enum SlotType
-    {
-        Single,
-        Dual,
-        System
-    }
+{
+    Single,
+    Dual,
+    System
+}
 
 [Serializable]
 public class WeaponSlot
@@ -25,14 +25,19 @@ public abstract class ShipBase : MonoBehaviour
 {
     public List<WeaponSlot> WeaponSlots;
     [SerializeField] protected GameObject ExplosionPrefab;
-    public float FireRateModifier = 1f; // These should be visible in the Inspector
-    public float DamageModifier = 1f;   // These should be visible in the Inspector
-    [SerializeField] protected float BulletSpeedModifier = 1f;   // These should be visible in the Inspector
-    [SerializeField] protected float MovementSpeedModifier = 1f;   // These should be visible in the Inspector
     [SerializeField] public float MaxHealth;
     [SerializeField] public float Health;
     [SerializeField] public float MaxShield;
     [SerializeField] public float Shield;
+
+    // MODIFIERS
+    public float FireRateModifier = 1f;
+    public float DamageModifier = 1f;
+    public int PiercingModifier = 0;
+    [SerializeField] public float BulletSpeedModifier = 1f;
+    [SerializeField] public float MovementSpeedModifier = 1f;
+    public float EvasionChanceModifier;
+    public float CriticalHitChanceModifier;
 
     protected bool ShieldIsActive;
     public Material DefaultMaterial;
@@ -48,6 +53,7 @@ public abstract class ShipBase : MonoBehaviour
     private bool SpecialFireEnabled = false;
     private bool SpecialFireCeasing = false;
 
+    // Events
     public event Action OnSpawn;
     public event Action OnHit;
     public event Action OnUpdate;
@@ -72,19 +78,32 @@ public abstract class ShipBase : MonoBehaviour
     }
 
     public abstract void Die();
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, float critChance)
     {
         if (isDestroyed) return;
-        if (!ShieldIsActive)
+        // Check for evasion
+        if (UnityEngine.Random.value > EvasionChanceModifier)
         {
-            SubtractHealth(damage);
+            // Check for crit
+            if (UnityEngine.Random.value < critChance) {
+                damage *= 2;
+                Debug.Log("CRITICAL HIT!");
+            }
+            if (!ShieldIsActive)
+            {
+                SubtractHealth(damage);
+            }
+            else
+            {
+                float excessDamage = SubtractShield(damage);
+                if (excessDamage > 0) SubtractHealth(excessDamage);
+            }
+            OnHit?.Invoke();
         }
         else
         {
-            float excessDamage = SubtractShield(damage);
-            if (excessDamage > 0) SubtractHealth(excessDamage);
+            Debug.Log("DAMAGE EVADED!");
         }
-        OnHit?.Invoke();
     }
     public abstract void AddShield(float amt);
     protected abstract float SubtractShield(float amt);
@@ -132,25 +151,25 @@ public abstract class ShipBase : MonoBehaviour
 
     public void InitialiseWeaponSlots()
     {
-            foreach (WeaponSlot weaponSlot in WeaponSlots)
+        foreach (WeaponSlot weaponSlot in WeaponSlots)
+        {
+            bool hasActiveAttachPoint = false;
+            foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
             {
-                bool hasActiveAttachPoint = false;
-                foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
+                attachPoint.InitialiseAttachPoint();
+                if (!attachPoint.IsEmpty)
                 {
-                    attachPoint.InitialiseAttachPoint();
-                    if (!attachPoint.IsEmpty)
-                    {
-                        ActiveAttachPoints.Add(attachPoint);
-                        hasActiveAttachPoint = true;
-                    }
+                    ActiveAttachPoints.Add(attachPoint);
+                    hasActiveAttachPoint = true;
                 }
-                weaponSlot.IsEmpty = !hasActiveAttachPoint;
             }
+            weaponSlot.IsEmpty = !hasActiveAttachPoint;
+        }
     }
 
     public WeaponSlot GetEmptyWeaponSlot(SlotType type)
     {
-        foreach(WeaponSlot weaponSlot in WeaponSlots)
+        foreach (WeaponSlot weaponSlot in WeaponSlots)
         {
             if (weaponSlot.Type == type && weaponSlot.IsEmpty)
             {
@@ -162,7 +181,7 @@ public abstract class ShipBase : MonoBehaviour
 
     public WeaponSlot GetWeaponSlot(SlotType type)
     {
-        foreach(WeaponSlot weaponSlot in WeaponSlots)
+        foreach (WeaponSlot weaponSlot in WeaponSlots)
         {
             if (weaponSlot.Type == type) return weaponSlot;
         }
@@ -172,10 +191,10 @@ public abstract class ShipBase : MonoBehaviour
     public bool HasActiveAttachPoint(WeaponType weaponType)
     {
         foreach (AttachPoint attachPoint in ActiveAttachPoints)
-            {
-                WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
-                if (attachedWeapon.WeaponType == weaponType) return true;
-            }
+        {
+            WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
+            if (attachedWeapon.WeaponType == weaponType) return true;
+        }
         return false;
     }
 
@@ -202,7 +221,7 @@ public abstract class ShipBase : MonoBehaviour
             {
                 WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
                 if (attachedWeapon.WeaponType != weaponType) continue;
-                attachedWeapon.AttemptFire(isEnemy, DamageModifier, BulletSpeedModifier);
+                attachedWeapon.AttemptFire(isEnemy);
             }
         }
     }
@@ -255,7 +274,7 @@ public abstract class ShipBase : MonoBehaviour
 
     public void DetachWeaponsFromSlot(WeaponSlot weaponSlot)
     {
-        foreach(AttachPoint attachPoint in weaponSlot.AttachPoints)
+        foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
         {
             if (!attachPoint.IsEmpty)
             {
@@ -268,10 +287,10 @@ public abstract class ShipBase : MonoBehaviour
 
     private void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot)
     {
-        foreach(AttachPoint attachPoint in weaponSlot.AttachPoints)
+        foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
         {
-                attachPoint.AttachWeapon(weaponPrefab, true);
-                ActiveAttachPoints.Add(attachPoint);
+            attachPoint.AttachWeapon(weaponPrefab, true);
+            ActiveAttachPoints.Add(attachPoint);
         }
         weaponSlot.IsEmpty = false;
         // play audio here

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Damage : SkillBase
+public class Piercing : SkillBase
 {
-    public Damage(int level) : base(level)
+    public Piercing(int level) : base(level)
     {
         MaxLevel = 3;
-        SkillName = "Damage";
+        SkillName = "Piercing";
     }
 
     public override void Activate()
@@ -13,29 +13,29 @@ public class Damage : SkillBase
         TargetShip.OnSpawn += OnSpawn;
     }
 
-    private float DetermineDamageModifier()
+    private int DeterminePiercingModifier()
     {
         switch (Level)
         {
             case 1:
-                return 0.15f;
+                return 1;
             case 2:
-                return 0.3f;
+                return 2;
             case 3:
-                return 0.45f;
+                return 3;
             default:
                 Debug.LogError(SkillName + " level is invalid");
-                return 0.15f;
+                return 1;
         }
     }
 
     private void OnSpawn()
     {
-        TargetShip.DamageModifier += DetermineDamageModifier();
+        TargetShip.PiercingModifier += DeterminePiercingModifier();
     }
 
     public override void Deactivate()
     {
-        // Implementation for Damage deactivation
+        // Implementation for Piercing deactivation
     }
 }

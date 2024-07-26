@@ -79,7 +79,7 @@ public class ElectricExplosion : MonoBehaviour
                 GameObject electricExplosionChain = Instantiate(ElectricExplosionChainPrefab, ship.transform.position, Quaternion.identity);
                 ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
                 explosionChainScript.Initialise(Charge, 0, LowColor, HighColor);
-                ship.TakeDamage(Charge / 5);
+                ship.TakeDamage(Charge / 5, 0);
             }
         }
     }

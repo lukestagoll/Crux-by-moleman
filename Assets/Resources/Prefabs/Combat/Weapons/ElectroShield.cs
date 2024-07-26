@@ -30,7 +30,7 @@ public class ElectroShield : ToggleFireWeaponBase
         }
     }
 
-    protected override void Fire(bool isEnemy, float bulletSpeedModifier, float damageModifier)
+    protected override void Fire(bool isEnemy)
     {
         if (ElectroShieldEffectPrefab != null)
         {

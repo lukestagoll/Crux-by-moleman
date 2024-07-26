@@ -81,7 +81,7 @@ public class ElectricExplosionChain : MonoBehaviour
                     ElectricExplosionChain explosionChainScript = electricExplosionChain.GetComponent<ElectricExplosionChain>();
                     explosionChainScript.Initialise(Charge - 100f, ChainCount, LowColor, HighColor);
                 }
-                ship.TakeDamage(Charge);
+                ship.TakeDamage(Charge, 0);
             }
             else
             {

@@ -2,9 +2,9 @@ using System;
 
 public abstract class ToggleFireWeaponBase : WeaponBase
 {
-    public override void AttemptFire(bool isEnemy, float damageModifier, float bulletSpeedModifier)
+    public override void AttemptFire(bool isEnemy)
     {
-        Fire(isEnemy, bulletSpeedModifier, damageModifier);
+        Fire(isEnemy);
     }
 
     public override void AttemptCeaseFire()
@@ -13,7 +13,7 @@ public abstract class ToggleFireWeaponBase : WeaponBase
         CeaseFire(OnCeaseFireCompleted);
     }
 
-    protected abstract void Fire(bool isEnemy, float bulletSpeedModifier, float damageModifier);
+    protected abstract void Fire(bool isEnemy);
     protected abstract void CeaseFire(Action onCompleted);
     protected virtual void OnCeaseFireCompleted()
     {

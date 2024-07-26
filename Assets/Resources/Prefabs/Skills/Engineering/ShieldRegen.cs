@@ -30,7 +30,7 @@ public class ShieldRegen : SkillBase
                 return 0.1f; // 10% per second
             default:
                 Debug.LogError(SkillName + " level is invalid");
-                return 0f;
+                return 0.025f;
         }
     }
 

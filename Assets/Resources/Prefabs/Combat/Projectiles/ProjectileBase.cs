@@ -13,14 +13,19 @@ public abstract class ProjectileBase : MonoBehaviour
     protected bool FiredByEnemy;
     protected float SpeedModifier;
     protected float DamageModifier;
+    protected float CriticalHitChanceModifier;
+    protected int PiercingModifier;
+    protected int PierceCount;
 
     // Initialize method to set the projectile's properties
-    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side, Vector2? direction = null)
+    public void Initialize(bool isEnemy, float speedModifier, float damageModifier, int piercingModifier, float criticalHitChanceModifier, Vector2 initialVelocity, AttachPoint.RelativeSide side, Vector2? direction = null)
     {
         FiredByEnemy = isEnemy;
         SpeedModifier = speedModifier;
         DamageModifier = damageModifier;
-       // Call the specific behavior initialization
+        PiercingModifier = piercingModifier;
+        CriticalHitChanceModifier = criticalHitChanceModifier;
+        // Call the specific behavior initialization
         InitializeBehaviour(initialVelocity, side, direction);
     }
 
@@ -38,9 +43,10 @@ public abstract class ProjectileBase : MonoBehaviour
             ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
-                ship.TakeDamage(BaseDamage * DamageModifier);
+                ship.TakeDamage(BaseDamage * DamageModifier, CriticalHitChanceModifier);
+                PierceCount++;
             }
-            Explode();
+            Explode(PierceCount > PiercingModifier);
         }
 
         if (tag == "Shield")
@@ -57,10 +63,10 @@ public abstract class ProjectileBase : MonoBehaviour
         }
     }
 
-    public void Explode()
+    public void Explode(bool destroyOnExplosion = true)
     {
         // Instantiate the explosion prefab at the projectile's position
         Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        if (destroyOnExplosion) Destroy(gameObject);
     }
 }

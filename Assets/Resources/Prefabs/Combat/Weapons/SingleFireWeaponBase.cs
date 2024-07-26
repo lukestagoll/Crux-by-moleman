@@ -7,9 +7,9 @@ public abstract class SingleFireWeaponBase : WeaponBase
     private float NextAllowedFireTime;
 
 
-    public override void AttemptFire(bool isEnemy, float damageModifier, float bulletSpeedModifier)
+    public override void AttemptFire(bool isEnemy)
     {
-        fireCoroutine ??= StartCoroutine(FireCoroutine(isEnemy, damageModifier, bulletSpeedModifier));
+        fireCoroutine ??= StartCoroutine(FireCoroutine(isEnemy));
     }
 
     public override void AttemptCeaseFire()
@@ -21,7 +21,7 @@ public abstract class SingleFireWeaponBase : WeaponBase
         }
     }
 
-    private IEnumerator FireCoroutine(bool isEnemy, float damageModifier, float bulletSpeedModifier)
+    private IEnumerator FireCoroutine(bool isEnemy)
     {
         while (true)
         {
@@ -30,9 +30,9 @@ public abstract class SingleFireWeaponBase : WeaponBase
             {
                 yield return new WaitForSeconds(NextAllowedFireTime - Time.time);
             }
-            
+
             StartAnimation();
-            Fire(isEnemy, damageModifier, bulletSpeedModifier);
+            Fire(isEnemy);
             float delay = 1f / DetermineCurrentFireRate();
             NextAllowedFireTime = Time.time + delay;
             yield return new WaitForSeconds(delay);
@@ -53,7 +53,7 @@ public abstract class SingleFireWeaponBase : WeaponBase
         }
     }
 
-    protected void Fire(bool isEnemy, float damageModifier, float bulletSpeedModifier)
+    protected void Fire(bool isEnemy)
     {
         if (ProjectilePrefab != null && FirePoint != null)
         {
@@ -64,7 +64,7 @@ public abstract class SingleFireWeaponBase : WeaponBase
             {
                 // Use ship's current velocity as the initial velocity of the projectile
                 Vector2 initialVelocity = rb != null ? rb.velocity : Vector2.zero;
-                projectileScript.Initialize(isEnemy, bulletSpeedModifier, damageModifier, initialVelocity, Side);
+                projectileScript.Initialize(isEnemy, ParentShip.BulletSpeedModifier, ParentShip.DamageModifier, ParentShip.PiercingModifier, ParentShip.CriticalHitChanceModifier, initialVelocity, Side);
             }
             else
             {

@@ -25,7 +25,7 @@ public class FireRate : SkillBase
                 return 0.15f;
             default:
                 Debug.LogError(SkillName + " level is invalid");
-                return 1f;
+                return 0.05f;
         }
     }
 

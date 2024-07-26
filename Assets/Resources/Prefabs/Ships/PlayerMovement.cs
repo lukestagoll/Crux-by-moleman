@@ -26,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Target velocity based on input, with separate speeds for horizontal and vertical movement.
-        Vector2 targetVelocity = new Vector2(movement.x * horizontalMoveSpeed, movement.y * verticalMoveSpeed);
+        float movementSpeedModifier = PlayerManager.Inst.ActivePlayerShip.MovementSpeedModifier;
+        Vector2 targetVelocity = new Vector2(movement.x * horizontalMoveSpeed * movementSpeedModifier, movement.y * verticalMoveSpeed * movementSpeedModifier);
         
         // Smoothly interpolate from the current velocity to the target velocity to achieve acceleration smoothing.
         currentVelocity = Vector2.Lerp(currentVelocity, targetVelocity, accelerationSmoothing * Time.fixedDeltaTime);

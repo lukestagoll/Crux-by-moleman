@@ -45,6 +45,14 @@ public static class ShipSkillManager
                 return new Damage(level);
             case "FireRate":
                 return new FireRate(level);
+            case "Piercing":
+                return new Piercing(level);
+            case "Speed":
+                return new Speed(level);
+            case "Evasion":
+                return new Evasion(level);
+            case "CriticalHit":
+                return new CriticalHit(level);
             default:
                 Debug.LogError($"Unknown skill: {skillName}");
                 return null;

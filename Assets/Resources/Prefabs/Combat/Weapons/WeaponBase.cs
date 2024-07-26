@@ -29,8 +29,19 @@ public abstract class WeaponBase : MonoBehaviour
     // Add the Side field
     public AttachPoint.RelativeSide Side { get; set; }
 
+    protected ShipBase ParentShip;
+
+    void Start()
+    {
+        ParentShip = GetComponentInParent<ShipBase>();
+        if (ParentShip == null)
+        {
+            Debug.LogError("SingleFireWeaponBase: No ShipBase component found on parent GameObject.");
+        }
+    }
+
     // Abstract methods to be implemented by derived classes
-    public abstract void AttemptFire(bool isEnemy, float damageModifier, float bulletSpeedModifier);
+    public abstract void AttemptFire(bool isEnemy);
     public abstract void AttemptCeaseFire();
 
     protected virtual void StartAnimation()

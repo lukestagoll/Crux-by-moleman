@@ -12,7 +12,7 @@ public class EnemyShipMovement : MonoBehaviour
 
     public float BaseSpeed = 1.0f; // Public variable for base speed
     public float TargetOffset = 0.5f;
-    private EnemyShip enemyShip; // Reference to the EnemyShip component
+    private EnemyShip EnemyShip; // Reference to the EnemyShip component
     private EnemyShooting enemyShooting;
 
     [Tooltip("Angle offset to adjust the ship's facing direction. Adjust this value if the ship is not facing correctly.")]
@@ -24,7 +24,7 @@ public class EnemyShipMovement : MonoBehaviour
     public void InitialiseMovement(int pathIndex, string pathPreset)
     {
         // Get the EnemyShip component
-        enemyShip = GetComponent<EnemyShip>();
+        EnemyShip = GetComponent<EnemyShip>();
         enemyShooting = GetComponent<EnemyShooting>();
 
         var determinedPath = EnemyMovementManager.GetPathData(shipType, pathIndex, pathPreset);
@@ -92,14 +92,14 @@ public class EnemyShipMovement : MonoBehaviour
             }
 
             // Update shooting allowed status
-            if (enemyShip != null && enemyShip.IsAllowedToShoot != pathPoint.sh)
+            if (EnemyShip != null && EnemyShip.IsAllowedToShoot != pathPoint.sh)
             {
                 enemyShooting.CalculateNextBatch();
-                enemyShip.ToggleShooting();
+                EnemyShip.ToggleShooting();
             }
 
             // Move to the target position with the specified speed modifier
-            yield return StartCoroutine(pathPoint.c ? CurveToPosition(targetPosition, pathPoint.s, pathPoint.f) : MoveToPosition(targetPosition, pathPoint.s, pathPoint.f));
+            yield return StartCoroutine(pathPoint.c ? CurveToPosition(targetPosition, pathPoint.s * EnemyShip.MovementSpeedModifier, pathPoint.f) : MoveToPosition(targetPosition, pathPoint.s * EnemyShip.MovementSpeedModifier, pathPoint.f));
         }
 
         // Continue moving in the last direction after the last path point

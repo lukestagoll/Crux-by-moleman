@@ -46,7 +46,7 @@ public class PlasmaHeavy : ProjectileBase
             {
                 Vector2 initialVelocity = rb != null ? rb.velocity : Vector2.zero;
                 // ! Replace with shrapnel projectile to prevent speed modifier conflicts
-                plasmaScript.Initialize(FiredByEnemy, 0.75f, DamageModifier, initialVelocity, AttachPoint.RelativeSide.Center, newDirection);
+                plasmaScript.Initialize(FiredByEnemy, 0.75f, DamageModifier, PiercingModifier, CriticalHitChanceModifier, initialVelocity, AttachPoint.RelativeSide.Center, newDirection);
             }
         }
 

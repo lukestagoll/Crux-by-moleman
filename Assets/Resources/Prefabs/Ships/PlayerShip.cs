@@ -88,7 +88,7 @@ public class PlayerShip : ShipBase
             EnemyShip enemyShip = other.GetComponent<EnemyShip>();
             if (enemyShip != null)
             {
-                TakeDamage(enemyShip.damageOnCollision);
+                TakeDamage(enemyShip.damageOnCollision, 0);
                 enemyShip.Die();
             }
             // Instantiate the explosion prefab at the projectile's position

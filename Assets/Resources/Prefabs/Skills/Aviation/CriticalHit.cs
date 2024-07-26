@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Damage : SkillBase
+public class CriticalHit : SkillBase
 {
-    public Damage(int level) : base(level)
+    public CriticalHit(int level) : base(level)
     {
         MaxLevel = 3;
-        SkillName = "Damage";
+        SkillName = "CriticalHit";
     }
 
     public override void Activate()
@@ -13,29 +13,29 @@ public class Damage : SkillBase
         TargetShip.OnSpawn += OnSpawn;
     }
 
-    private float DetermineDamageModifier()
+    private float DetermineCriticalHitModifier()
     {
         switch (Level)
         {
             case 1:
-                return 0.15f;
+                return 0.1f;
             case 2:
-                return 0.3f;
+                return 0.15f;
             case 3:
-                return 0.45f;
+                return 0.2f;
             default:
                 Debug.LogError(SkillName + " level is invalid");
-                return 0.15f;
+                return 0.1f;
         }
     }
 
     private void OnSpawn()
     {
-        TargetShip.DamageModifier += DetermineDamageModifier();
+        TargetShip.CriticalHitChanceModifier += DetermineCriticalHitModifier();
     }
 
     public override void Deactivate()
     {
-        // Implementation for Damage deactivation
+        // Implementation for CriticalHit deactivation
     }
 }

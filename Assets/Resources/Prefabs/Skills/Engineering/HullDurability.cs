@@ -25,7 +25,7 @@ public class HullDurability : SkillBase
                 return 1.5f;
             default:
                 Debug.LogError(SkillName + " level is invalid");
-                return 1f;
+                return 1.15f;
         }
     }
 

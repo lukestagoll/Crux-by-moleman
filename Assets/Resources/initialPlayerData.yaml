@@ -6,3 +6,7 @@ Skills:
   ShieldCapacity: 0
   Damage: 0
   FireRate: 0
+  Piercing: 0
+  Speed: 0
+  Evasion: 0
+  CriticalHit: 0
