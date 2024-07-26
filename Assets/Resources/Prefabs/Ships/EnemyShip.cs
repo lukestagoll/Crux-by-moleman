@@ -54,19 +54,33 @@ public class EnemyShip : ShipBase
         }
     }
 
-    protected override void AddShield(float amt)
+    public override void AddShield(float amt)
     {
         Shield += amt;
+        ShieldIsActive = true;
     }
 
     protected override float SubtractShield(float damage)
     {
-        if (Shield <= 0) return damage;
-
         Shield -= damage;
 
-        if (Shield < 0) return damage + Shield;
+        if (Shield == 0) {
+            DeactivateShield();
+            return 0;
+        }
+        if (Shield < 0) {
+            DeactivateShield();
+            return damage + Shield;
+        }
         else return 0;
+    }
+
+    private void DeactivateShield()
+    {
+        ShieldIsActive = false;
+        Shield = 0;
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.material = DefaultMaterial;
     }
 
     public override void AddHealth(float amt)

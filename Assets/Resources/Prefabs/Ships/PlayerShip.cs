@@ -48,9 +48,10 @@ public class PlayerShip : ShipBase
         HUDManager.Inst.UpdateHealthBar();
     }
 
-    protected override void AddShield(float amt)
+    public override void AddShield(float amt)
     {
         Shield += amt;
+        ActivateShield();
         HUDManager.Inst.UpdateShieldBar();
     }
 
@@ -68,6 +69,13 @@ public class PlayerShip : ShipBase
         MusicManager.Inst.PlayAudioFile("ShieldPowerDown2", 1f);
         Renderer renderer = GetComponent<Renderer>();
         renderer.material = DefaultMaterial;
+    }
+
+    private void ActivateShield()
+    {
+        ShieldIsActive = true;
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.material = ShieldGlowMaterial;
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -36,6 +36,7 @@ public abstract class ShipBase : MonoBehaviour
 
     protected bool ShieldIsActive;
     public Material DefaultMaterial;
+    public Material ShieldGlowMaterial;
 
     protected bool isEnemy;
     protected bool isDestroyed;
@@ -48,6 +49,8 @@ public abstract class ShipBase : MonoBehaviour
     private bool SpecialFireCeasing = false;
 
     public event Action OnSpawn;
+    public event Action OnHit;
+    public event Action OnUpdate;
 
     protected virtual void EmitOnSpawn()
     {
@@ -63,6 +66,11 @@ public abstract class ShipBase : MonoBehaviour
         IsAllowedToShoot = true;
     }
 
+    void Update()
+    {
+        OnUpdate?.Invoke();
+    }
+
     public abstract void Die();
     public void TakeDamage(float damage)
     {
@@ -76,8 +84,9 @@ public abstract class ShipBase : MonoBehaviour
             float excessDamage = SubtractShield(damage);
             if (excessDamage > 0) SubtractHealth(excessDamage);
         }
+        OnHit?.Invoke();
     }
-    protected abstract void AddShield(float amt);
+    public abstract void AddShield(float amt);
     protected abstract float SubtractShield(float amt);
     public abstract void AddHealth(float amt);
     protected abstract void SubtractHealth(float amt);
