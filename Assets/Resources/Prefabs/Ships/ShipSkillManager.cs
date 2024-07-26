@@ -53,6 +53,8 @@ public static class ShipSkillManager
                 return new Evasion(level);
             case "CriticalHit":
                 return new CriticalHit(level);
+            case "ShieldDrones":
+                return new ShieldDrones(level);
             default:
                 Debug.LogError($"Unknown skill: {skillName}");
                 return null;

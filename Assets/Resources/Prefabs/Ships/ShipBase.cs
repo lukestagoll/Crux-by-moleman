@@ -58,6 +58,8 @@ public abstract class ShipBase : MonoBehaviour
     public event Action OnHit;
     public event Action OnUpdate;
 
+    protected GameObject DroneAnchor;
+
     protected virtual void EmitOnSpawn()
     {
         OnSpawn?.Invoke();
@@ -75,6 +77,28 @@ public abstract class ShipBase : MonoBehaviour
     void Update()
     {
         OnUpdate?.Invoke();
+        UpdateDroneAnchor();
+    }
+
+    void UpdateDroneAnchor()
+    {
+        if (DroneAnchor == null) return;
+        Vector3 targetPosition = transform.position;
+        DroneAnchor.transform.position = Vector3.Lerp(DroneAnchor.transform.position, targetPosition, Time.deltaTime * 5f);
+    }
+
+    public DroneShip SpawnShieldDrone()
+    {
+        if (DroneAnchor == null)
+        {
+            DroneAnchor = new GameObject("DroneAnchor");
+            DroneAnchor.transform.position = transform.position;
+        }
+
+        DroneShip droneShip = Instantiate(AssetManager.ShieldDronePrefab, transform.position, transform.rotation);
+        droneShip.ParentShip = this;
+        droneShip.ParentDroneAnchor = DroneAnchor;
+        return droneShip;
     }
 
     public abstract void Die();

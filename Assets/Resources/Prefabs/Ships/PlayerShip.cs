@@ -24,9 +24,10 @@ public class PlayerShip : ShipBase
             DeactivateShield();
             return 0;
         }
-        if (Shield < 0) {
+        else if (Shield < 0) {
+            float excessDamage = damage + Shield;
             DeactivateShield();
-            return damage + Shield;
+            return excessDamage;
         }
         else
         {

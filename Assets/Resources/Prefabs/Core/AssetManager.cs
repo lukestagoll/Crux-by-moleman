@@ -5,6 +5,7 @@ public static class AssetManager
 {
     // PREFABS
     public static PlayerShip PlayerPrefab { get; private set; }
+    public static DroneShip ShieldDronePrefab { get; private set; }
     public static Wave WavePrefab { get; private set; }
     public static ItemDrop ItemDropPrefab { get; private set; }
     public static GameObject LifeIconPrefab { get; private set; }
@@ -118,6 +119,7 @@ public static class AssetManager
     private static void CacheShipPrefabs()
     {
         PlayerPrefab = Resources.Load<PlayerShip>("Prefabs/Ships/Player");
+        ShieldDronePrefab = Resources.Load<DroneShip>("Prefabs/Ships/ShieldDrone");
         foreach (string shipName in EnemyShipsToLoad)
         {
             EnemyShip shipPrefab = Resources.Load<EnemyShip>($"Prefabs/Ships/{shipName}");
@@ -133,6 +135,10 @@ public static class AssetManager
         if (PlayerPrefab == null)
         {
             Debug.LogError("Failed to load Player prefab!");
+        }
+        if (ShieldDronePrefab == null)
+        {
+            Debug.LogError("Failed to load ShieldDrone Prefab!");
         }
     }
 
