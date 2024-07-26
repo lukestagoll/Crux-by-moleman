@@ -105,7 +105,7 @@ void MoveDrone()
 
 private Vector3 PickNewLocalTarget()
 {
-    float x = isLeftSide ? -maxDistance : maxDistance;
+    float x = isLeftSide ? Random.Range(-maxDistance, -maxDistance * 1.5f) : Random.Range(maxDistance, maxDistance * 1.5f);
     float y = GetYPositionForBehavior();
     
     isLeftSide = !isLeftSide; // Switch sides for next time
