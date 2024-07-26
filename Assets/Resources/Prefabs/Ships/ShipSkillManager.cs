@@ -41,6 +41,10 @@ public static class ShipSkillManager
                 return new HullDurability(level);
             case "ShieldRegen":
                 return new ShieldRegen(level);
+            case "Damage":
+                return new Damage(level);
+            case "FireRate":
+                return new FireRate(level);
             default:
                 Debug.LogError($"Unknown skill: {skillName}");
                 return null;

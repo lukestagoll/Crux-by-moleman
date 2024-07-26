@@ -1,6 +1,8 @@
 Equipment:
   SmallCannon: true
 Skills:
-  ShieldRegen: 1
-  HullDurability: 1
-  ShieldCapacity: 1
+  ShieldRegen: 0
+  HullDurability: 0
+  ShieldCapacity: 0
+  Damage: 0
+  FireRate: 0

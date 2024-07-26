@@ -32,7 +32,7 @@ public abstract class SingleFireWeaponBase : WeaponBase
             }
             
             StartAnimation();
-            Fire(isEnemy, bulletSpeedModifier, damageModifier);
+            Fire(isEnemy, damageModifier, bulletSpeedModifier);
             float delay = 1f / DetermineCurrentFireRate();
             NextAllowedFireTime = Time.time + delay;
             yield return new WaitForSeconds(delay);
@@ -53,7 +53,7 @@ public abstract class SingleFireWeaponBase : WeaponBase
         }
     }
 
-    protected void Fire(bool isEnemy, float bulletSpeedModifier, float damageModifier)
+    protected void Fire(bool isEnemy, float damageModifier, float bulletSpeedModifier)
     {
         if (ProjectilePrefab != null && FirePoint != null)
         {

@@ -20,8 +20,6 @@ public abstract class ProjectileBase : MonoBehaviour
         FiredByEnemy = isEnemy;
         SpeedModifier = speedModifier;
         DamageModifier = damageModifier;
-        // Set the damage of the projectile
-        BaseDamage *= damageModifier;
        // Call the specific behavior initialization
         InitializeBehaviour(initialVelocity, side, direction);
     }
@@ -40,7 +38,7 @@ public abstract class ProjectileBase : MonoBehaviour
             ShipBase ship = other.GetComponent<ShipBase>();
             if (ship != null)
             {
-                ship.TakeDamage(BaseDamage);
+                ship.TakeDamage(BaseDamage * DamageModifier);
             }
             Explode();
         }
@@ -52,7 +50,7 @@ public abstract class ProjectileBase : MonoBehaviour
             {
                 if (shield.IsEnemyShield != FiredByEnemy)
                 {
-                    shield.AbsorbHit(BaseDamage);
+                    shield.AbsorbHit(BaseDamage * DamageModifier);
                     Explode();
                 }
             }
