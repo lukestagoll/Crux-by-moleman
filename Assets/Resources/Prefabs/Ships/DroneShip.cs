@@ -2,29 +2,24 @@ using UnityEngine;
 
 public enum DroneBehavior
 {
-    Defensive,
     Passive,
     Aggressive
 }
 
-public class DroneShip : ShipBase
+public abstract class DroneShip : ShipBase
 {
     public float Charge = 25f;
     public ShipBase ParentShip;
     public DroneBehavior CurrentBehavior = DroneBehavior.Passive;
 
-    private Vector3 aggressivePosition;
     private float chargeRate = 5f;
     private float maxDistance = 2f;
 
-
-    //MOVEMENMT
-private Vector3 currentLocalTarget;
-private Vector3 nextLocalTarget;
-private float curveProgress = 1f; // Start at 1 to immediately pick a new target
-private float curveDuration = 1.5f; // Time to complete one curve
-public GameObject ParentDroneAnchor;
-private bool isLeftSide = true;
+    private Vector3 currentLocalTarget;
+    private Vector3 nextLocalTarget;
+    private float curveProgress = 1f;
+    private float curveDuration = 1.5f;
+    public GameObject ParentDroneAnchor;
 
     void Start()
     {
@@ -57,13 +52,9 @@ private bool isLeftSide = true;
         {
             SetBehavior(DroneBehavior.Aggressive);
         }
-        else if (Charge > 50)
-        {
-            SetBehavior(DroneBehavior.Passive);
-        }
         else if (Charge == 0)
         {
-            SetBehavior(DroneBehavior.Defensive);
+            SetBehavior(DroneBehavior.Passive);
         }
     }
 
@@ -72,59 +63,50 @@ private bool isLeftSide = true;
         if (CurrentBehavior != newBehavior)
         {
             CurrentBehavior = newBehavior;
-            if (newBehavior == DroneBehavior.Aggressive)
-            {
-                SetAggressivePosition();
-            }
+            curveProgress = 1f; // Force new target selection
         }
+        ActivateEffect();
     }
 
-    void SetAggressivePosition()
+    protected abstract void ActivateEffect();
+
+    void MoveDrone()
     {
-        float x = Random.Range(-maxDistance, maxDistance);
-        float y = Random.Range(0, 2f);
-        aggressivePosition = ParentShip.transform.position + new Vector3(x, y, 0);
-    }
-    
-void MoveDrone()
-{
-    if (curveProgress >= 1f)
-    {
-        currentLocalTarget = nextLocalTarget;
-        nextLocalTarget = PickNewLocalTarget();
-        curveProgress = 0f;
-    }
-
-    curveProgress += Time.deltaTime / curveDuration;
-    Vector3 localPosition = CalculateBezierPoint(curveProgress, currentLocalTarget, Vector3.zero, nextLocalTarget);
-    
-    Vector3 worldPosition = ParentDroneAnchor.transform.TransformPoint(localPosition);
-    transform.position = Vector3.Lerp(transform.position, worldPosition, Time.deltaTime * 5f * MovementSpeedModifier);
-}
-
-
-private Vector3 PickNewLocalTarget()
-{
-    float x = isLeftSide ? Random.Range(-maxDistance, -maxDistance * 1.5f) : Random.Range(maxDistance, maxDistance * 1.5f);
-    float y = GetYPositionForBehavior();
-    
-    isLeftSide = !isLeftSide; // Switch sides for next time
-    
-    return new Vector3(x, y, 0);
-}
-
-    private float GetYPositionForBehavior()
-    {
-        switch (CurrentBehavior)
+        if (curveProgress >= 1f)
         {
-            case DroneBehavior.Defensive:
-                return Random.Range(-2f, -1f);
-            case DroneBehavior.Passive:
-                return Random.Range(-1f, 1f);
-            case DroneBehavior.Aggressive:
-                return Random.Range(0f, 2f);
-            default:
-                return 0f;
+            currentLocalTarget = nextLocalTarget;
+            nextLocalTarget = PickNewTarget();
+            curveProgress = 0f;
+        }
+
+        curveProgress += Time.deltaTime / curveDuration;
+        Vector3 newPosition = CalculateBezierPoint(curveProgress, currentLocalTarget, Vector3.zero, nextLocalTarget);
+
+        if (CurrentBehavior == DroneBehavior.Aggressive)
+        {
+            newPosition = ParentShip.transform.TransformPoint(newPosition);
+        }
+        else
+        {
+            newPosition = ParentDroneAnchor.transform.TransformPoint(newPosition);
+        }
+
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * 5f * MovementSpeedModifier);
+    }
+
+    private Vector3 PickNewTarget()
+    {
+        if (CurrentBehavior == DroneBehavior.Aggressive)
+        {
+            float x = Random.Range(-maxDistance, maxDistance);
+            float y = Random.Range(1f, 2f);
+            return new Vector3(x, y, 0);
+        }
+        else
+        {
+            float x = Random.Range(-maxDistance, maxDistance);
+            float y = Random.Range(-maxDistance, maxDistance);
+            return new Vector3(x, y, 0);
         }
     }
 
@@ -135,7 +117,6 @@ private Vector3 PickNewLocalTarget()
         float uu = u * u;
         return uu * p0 + 2 * u * t * p1 + tt * p2;
     }
-
 
     // BASIC BITCH STUFF
     public override void Die()
