@@ -29,7 +29,7 @@ public abstract class DroneShip : ShipBase
         InvokeRepeating("UpdateCharge", 0f, 1f);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         UpdateBehavior();
         MoveDrone();

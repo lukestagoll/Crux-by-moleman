@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 [Serializable]
 public enum SlotType
@@ -88,7 +89,7 @@ public abstract class ShipBase : MonoBehaviour
         DroneAnchor.transform.position = Vector3.Lerp(DroneAnchor.transform.position, targetPosition, Time.deltaTime * 5f);
     }
 
-    public DroneShip SpawnShieldDrone()
+    public DroneShip SpawnDrone(bool shieldDrone = false)
     {
         if (DroneAnchor == null)
         {
@@ -96,7 +97,7 @@ public abstract class ShipBase : MonoBehaviour
             DroneAnchor.transform.position = transform.position;
         }
 
-        DroneShip droneShip = Instantiate(AssetManager.ShieldDronePrefab, transform.position, transform.rotation);
+        DroneShip droneShip = Instantiate(shieldDrone ? AssetManager.ShieldDronePrefab : AssetManager.AttackDronePrefab, transform.position, transform.rotation);
         droneShip.ParentShip = this;
         droneShip.ParentDroneAnchor = DroneAnchor;
         return droneShip;

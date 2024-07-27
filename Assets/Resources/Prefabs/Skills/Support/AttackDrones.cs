@@ -2,27 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldDrones : SkillBase
+public class AttackDrones : SkillBase
 {
     private List<DroneShip> ActiveDrones = new List<DroneShip>();
-    private int MaxShieldDrones;
+    private int MaxAttackDrones;
 
-    public ShieldDrones(int level) : base(level)
+    public AttackDrones(int level) : base(level)
     {
         MaxLevel = 3;
-        SkillName = "ShieldDrones";
+        SkillName = "AttackDrones";
     }
 
     public override void Activate()
     {
-        MaxShieldDrones = DetermineMaxShieldDrones();
+        MaxAttackDrones = DetermineMaxAttackDrones();
         TargetShip.OnSpawn += OnSpawn;
         TargetShip.OnDeath += OnDeath;
     }
 
     private IEnumerator SpawnInitialDrones()
     {
-        while (ActiveDrones.Count < MaxShieldDrones)
+        while (ActiveDrones.Count < MaxAttackDrones)
         {
             yield return new WaitForSeconds(3f);
             SpawnDrone();
@@ -39,7 +39,7 @@ public class ShieldDrones : SkillBase
     {
         yield return new WaitForSeconds(10f);
 
-        if (ActiveDrones.Count < MaxShieldDrones)
+        if (ActiveDrones.Count < MaxAttackDrones)
         {
             SpawnDrone();
         }
@@ -48,7 +48,7 @@ public class ShieldDrones : SkillBase
     private void SpawnDrone()
     {
         if (TargetShip == null) return;
-        DroneShip newDrone = TargetShip.SpawnDrone(true);
+        DroneShip newDrone = TargetShip.SpawnDrone(false);
         if (newDrone != null)
         {
             ActiveDrones.Add(newDrone);
@@ -60,7 +60,7 @@ public class ShieldDrones : SkillBase
         }
     }
 
-    private int DetermineMaxShieldDrones()
+    private int DetermineMaxAttackDrones()
     {
         switch (Level)
         {
@@ -104,6 +104,6 @@ public class ShieldDrones : SkillBase
 
     public override void Deactivate()
     {
-        // Implementation for ShieldDrones deactivation
+        // Implementation for AttackDrones deactivation
     }
 }

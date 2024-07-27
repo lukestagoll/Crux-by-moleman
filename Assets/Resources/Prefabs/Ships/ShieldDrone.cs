@@ -6,12 +6,10 @@ public class ShieldDrone : DroneShip
     {
         if (CurrentBehavior == DroneBehavior.Aggressive)
         {
-            Debug.Log("EnablingSpecialFire for ShieldDrone");
             EnableSpecialFire();
         }
         else
         {
-            Debug.Log("DisablingSpecialFire for ShieldDrone");
             DisableSpecialFire();
         }
     }
