@@ -30,6 +30,7 @@ public abstract class ShipBase : MonoBehaviour
     [SerializeField] public float Health;
     [SerializeField] public float MaxShield;
     [SerializeField] public float Shield;
+    protected float Charge;
 
     // MODIFIERS
     public float FireRateModifier = 1f;
@@ -37,8 +38,11 @@ public abstract class ShipBase : MonoBehaviour
     public int PiercingModifier = 0;
     [SerializeField] public float BulletSpeedModifier = 1f;
     [SerializeField] public float MovementSpeedModifier = 1f;
+    public float ChargeRateModifier = 1f;
     public float EvasionChanceModifier;
     public float CriticalHitChanceModifier;
+    public float DroneFireRateModifier = 1f;
+    public float DroneChargeRateModifier = 1f;
 
     protected bool ShieldIsActive;
     public Material DefaultMaterial;
@@ -100,6 +104,8 @@ public abstract class ShipBase : MonoBehaviour
         DroneShip droneShip = Instantiate(shieldDrone ? AssetManager.ShieldDronePrefab : AssetManager.AttackDronePrefab, transform.position, transform.rotation);
         droneShip.ParentShip = this;
         droneShip.ParentDroneAnchor = DroneAnchor;
+        droneShip.FireRateModifier = DroneFireRateModifier;
+        droneShip.ChargeRateModifier = DroneChargeRateModifier;
         return droneShip;
     }
 

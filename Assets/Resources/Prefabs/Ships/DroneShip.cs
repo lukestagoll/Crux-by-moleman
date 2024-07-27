@@ -44,7 +44,7 @@ public abstract class DroneShip : ShipBase
     {
         if (CurrentBehavior == DroneBehavior.Passive && Charge < MaxCharge)
         {
-            Charge = Mathf.Min(MaxCharge, Charge + chargeRate);
+            Charge = Mathf.Min(MaxCharge, Charge + chargeRate * ChargeRateModifier);
         }
     }
 

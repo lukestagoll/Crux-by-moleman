@@ -57,6 +57,10 @@ public static class ShipSkillManager
                 return new ShieldDrones(level);
             case "AttackDrones":
                 return new AttackDrones(level);
+            case "DroneFireRate":
+                return new DroneFireRate(level);
+            case "DroneChargeRate":
+                return new DroneChargeRate(level);
             default:
                 Debug.LogError($"Unknown skill: {skillName}");
                 return null;
