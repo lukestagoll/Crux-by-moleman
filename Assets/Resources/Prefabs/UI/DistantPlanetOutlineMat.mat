@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlanetOutlineMat
-  m_Shader: {fileID: -6465566751694194690, guid: ace4a1c26fbf0944f83b752ef71d4578, type: 3}
+  m_Name: DistantPlanetOutlineMat
+  m_Shader: {fileID: -6465566751694194690, guid: a1cf7320a047d7541acfa2f584d67188, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,28 +24,14 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 434882d34f3dcfd409ac9f03bdbda295, type: 3}
+        m_Texture: {fileID: 2800000, guid: f6cca34c180531a46b5bc277301ec019, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Intensity: 2.63
-    - _Thickness: 0.1
-    m_Colors:
-    - _Color: {r: 44.727043, g: 6.0884967, b: 9.559063, a: 1}
+    - _Intensity: 1
+    - _Thickness: 0.015
+    m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &7810156818561478726
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 0
