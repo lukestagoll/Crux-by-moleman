@@ -6,7 +6,6 @@ public class ShieldDrones : SkillBase
 {
     private List<DroneShip> ActiveDrones = new List<DroneShip>();
     private int MaxShieldDrones;
-    private Coroutine spawnCoroutine;
 
     public ShieldDrones(int level) : base(level)
     {
@@ -18,24 +17,46 @@ public class ShieldDrones : SkillBase
     {
         MaxShieldDrones = DetermineMaxShieldDrones();
         TargetShip.OnSpawn += OnSpawn;
-        // OnDeath += OnDeath;
+        TargetShip.OnDeath += OnDeath;
     }
 
-    private IEnumerator SpawnDrones()
+    private IEnumerator SpawnInitialDrones()
     {
         while (ActiveDrones.Count < MaxShieldDrones)
         {
             yield return new WaitForSeconds(3f);
-            DroneShip droneShip = TargetShip.SpawnShieldDrone();
+            SpawnDrone();
+        }
+    }
 
-            if (droneShip != null)
-            {
-                ActiveDrones.Add(droneShip);
-            }
-            else
-            {
-                Debug.LogError("DroneShip component not found on instantiated drone prefab");
-            }
+    private void RemoveDroneFromActiveList(DroneShip drone)
+    {
+        ActiveDrones.Remove(drone);
+        TargetShip.StartCoroutine(SpawnReplacementDrone());
+    }
+
+    private IEnumerator SpawnReplacementDrone()
+    {
+        yield return new WaitForSeconds(10f);
+
+        if (ActiveDrones.Count < MaxShieldDrones)
+        {
+            SpawnDrone();
+        }
+    }
+
+    private void SpawnDrone()
+    {
+        if (TargetShip == null) return;
+        DroneShip newDrone = TargetShip.SpawnShieldDrone();
+        if (newDrone != null)
+        {
+            ActiveDrones.Add(newDrone);
+            newDrone.OnDeath += () => RemoveDroneFromActiveList(newDrone);
+        }
+        else
+        {
+            Debug.LogError("DroneShip component not found on instantiated drone prefab");
         }
     }
 
@@ -57,21 +78,28 @@ public class ShieldDrones : SkillBase
 
     private void OnSpawn()
     {
-        spawnCoroutine = TargetShip.StartCoroutine(SpawnDrones());
+        TargetShip.StartCoroutine(SpawnInitialDrones());
     }
 
     private void OnDeath()
     {
-        TargetShip.StopCoroutine(spawnCoroutine);
+        TargetShip.StopCoroutine(SpawnInitialDrones());
+        TargetShip.StopCoroutine(SpawnReplacementDrone());
         DestroyAllDrones();
     }
 
     private void DestroyAllDrones()
     {
-      foreach (DroneShip droneShip in ActiveDrones)
+        for (int i = ActiveDrones.Count - 1; i >= 0; i--)
         {
-          if (droneShip != null) Object.Destroy(droneShip.gameObject);
+            DroneShip droneShip = ActiveDrones[i];
+            if (droneShip != null)
+            {
+                droneShip.OnDeath -= () => RemoveDroneFromActiveList(droneShip);
+                droneShip.Explode();
+            }
         }
+        ActiveDrones.Clear();
     }
 
     public override void Deactivate()

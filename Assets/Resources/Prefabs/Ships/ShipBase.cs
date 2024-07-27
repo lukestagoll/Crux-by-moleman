@@ -43,7 +43,7 @@ public abstract class ShipBase : MonoBehaviour
     public Material DefaultMaterial;
     public Material ShieldGlowMaterial;
 
-    protected bool isEnemy;
+    protected bool IsEnemy;
     protected bool isDestroyed;
     private List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
     public bool IsAllowedToShoot { get; set; }
@@ -57,6 +57,7 @@ public abstract class ShipBase : MonoBehaviour
     public event Action OnSpawn;
     public event Action OnHit;
     public event Action OnUpdate;
+    public event Action OnDeath;
 
     protected GameObject DroneAnchor;
 
@@ -111,7 +112,6 @@ public abstract class ShipBase : MonoBehaviour
             // Check for crit
             if (UnityEngine.Random.value < critChance) {
                 damage *= 2;
-                Debug.Log("CRITICAL HIT!");
             }
             if (!ShieldIsActive)
             {
@@ -126,7 +126,7 @@ public abstract class ShipBase : MonoBehaviour
         }
         else
         {
-            Debug.Log("DAMAGE EVADED!");
+            // Damage Evaded Logic
         }
     }
     public abstract void AddShield(float amt);
@@ -245,7 +245,7 @@ public abstract class ShipBase : MonoBehaviour
             {
                 WeaponBase attachedWeapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
                 if (attachedWeapon.WeaponType != weaponType) continue;
-                attachedWeapon.AttemptFire(isEnemy);
+                attachedWeapon.AttemptFire(IsEnemy);
             }
         }
     }
@@ -263,6 +263,7 @@ public abstract class ShipBase : MonoBehaviour
     public void Explode()
     {
         // Instantiate the explosion prefab at the projectile's position
+        OnDeath?.Invoke();
         Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

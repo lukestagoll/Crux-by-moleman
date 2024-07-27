@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (PlayerManager.Inst.ActivePlayerShip == null) return;
         // Target velocity based on input, with separate speeds for horizontal and vertical movement.
         float movementSpeedModifier = PlayerManager.Inst.ActivePlayerShip.MovementSpeedModifier;
         Vector2 targetVelocity = new Vector2(movement.x * horizontalMoveSpeed * movementSpeedModifier, movement.y * verticalMoveSpeed * movementSpeedModifier);

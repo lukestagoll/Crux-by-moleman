@@ -8,7 +8,8 @@ public enum DroneBehavior
 
 public abstract class DroneShip : ShipBase
 {
-    public float Charge = 25f;
+    public float Charge = 80f;
+    public float MaxCharge = 100f;
     public ShipBase ParentShip;
     public DroneBehavior CurrentBehavior = DroneBehavior.Passive;
 
@@ -34,15 +35,16 @@ public abstract class DroneShip : ShipBase
         MoveDrone();
     }
 
+    public void SubtractCharge(float amount)
+    {
+        Charge = Mathf.Max(0, Charge - amount);
+    }
+
     void UpdateCharge()
     {
-        if (CurrentBehavior == DroneBehavior.Aggressive)
+        if (CurrentBehavior == DroneBehavior.Passive && Charge < MaxCharge)
         {
-            Charge = Mathf.Max(0, Charge - chargeRate);
-        }
-        else
-        {
-            Charge = Mathf.Min(100, Charge + chargeRate);
+            Charge = Mathf.Min(MaxCharge, Charge + chargeRate);
         }
     }
 
@@ -64,8 +66,8 @@ public abstract class DroneShip : ShipBase
         {
             CurrentBehavior = newBehavior;
             curveProgress = 1f; // Force new target selection
+            ActivateEffect();
         }
-        ActivateEffect();
     }
 
     protected abstract void ActivateEffect();
@@ -105,7 +107,7 @@ public abstract class DroneShip : ShipBase
         else
         {
             float x = Random.Range(-maxDistance, maxDistance);
-            float y = Random.Range(-maxDistance, maxDistance);
+            float y = Random.Range(-maxDistance, maxDistance - maxDistance / 2f);
             return new Vector3(x, y, 0);
         }
     }

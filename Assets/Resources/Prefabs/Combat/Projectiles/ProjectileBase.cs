@@ -51,12 +51,12 @@ public abstract class ProjectileBase : MonoBehaviour
 
         if (tag == "Shield")
         {
-            ElectroShieldEffect shield = other.GetComponent<ElectroShieldEffect>();
+            ShieldEffectBase shield = other.GetComponent<ShieldEffectBase>();
             if (shield != null)
             {
                 if (shield.IsEnemyShield != FiredByEnemy)
                 {
-                    shield.AbsorbHit(BaseDamage * DamageModifier);
+                    shield.HandleHit(BaseDamage * DamageModifier);
                     Explode();
                 }
             }

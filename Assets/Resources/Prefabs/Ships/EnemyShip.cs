@@ -14,7 +14,7 @@ public class EnemyShip : ShipBase
 
     void Start()
     {
-        isEnemy = true;
+        IsEnemy = true;
     }
 
     public void AssignItemDrop(EffectData effectData)

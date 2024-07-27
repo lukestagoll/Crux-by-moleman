@@ -3,14 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class ElectroShieldEffect : MonoBehaviour
+public class ElectroShieldEffect : ShieldEffectBase
 {
     public float MaxPitch = 3.0f; // Maximum pitch value to prevent endless growth
     public float CurrentCharge;
     private float MaxCharge = 500;
     private float Health;
     private AudioSource audioSource;
-    public bool IsEnemyShield;
     private ToggleFireWeaponBase ElectroShieldComponent; 
 
     void Awake()
@@ -30,7 +29,7 @@ public class ElectroShieldEffect : MonoBehaviour
         ElectroShieldComponent = electroShieldComponent;
     }
 
-    public void AbsorbHit(float damage) {
+    public override void HandleHit(float damage) {
         CurrentCharge += damage;
         if (CurrentCharge > MaxCharge)
         {
@@ -42,7 +41,7 @@ public class ElectroShieldEffect : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    private void TakeDamage(float damage)
     {
         Health -= damage;
         if (Health <= 0)
@@ -54,7 +53,7 @@ public class ElectroShieldEffect : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
         string tag = other.gameObject.tag;
         if (tag == "Enemy" && !IsEnemyShield)
