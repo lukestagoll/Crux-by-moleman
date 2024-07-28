@@ -8,8 +8,6 @@ public enum DroneBehavior
 
 public abstract class DroneShip : ShipBase
 {
-    public float Charge = 80f;
-    public float MaxCharge = 100f;
     public ShipBase ParentShip;
     public DroneBehavior CurrentBehavior = DroneBehavior.Passive;
 

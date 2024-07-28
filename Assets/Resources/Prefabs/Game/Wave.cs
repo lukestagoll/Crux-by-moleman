@@ -93,6 +93,7 @@ public class Wave : MonoBehaviour
 
     private void OnEnemyDestroyed(EnemyShip destroyedShip)
     {
+        if (GameManager.SceneIsChanging) return;
         destroyedShip.OnDestroyed -= OnEnemyDestroyed;
         WaveManager.Inst.TotalDestroyedEnemies++;
         TotalDestroyed++;
@@ -101,13 +102,8 @@ public class Wave : MonoBehaviour
 
     private void EndWave()
     {
-        StopCoroutine(SpawnCoroutine); // If this has issues with being null, the while loop was falsy and cleaned this up
+        StopCoroutine(SpawnCoroutine);
         WaveManager.Inst.HandleWaveCompleted();
         Destroy(gameObject);
-    }
-
-    void OnDestroy()
-    {
-        StopAllCoroutines();  // Ensure all coroutines are stopped when the object is destroyed
     }
 }

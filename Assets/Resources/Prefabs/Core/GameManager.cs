@@ -6,6 +6,7 @@ public static class GameManager
 {
     public static bool IsPaused = false;
     public static int Score { get; private set; }
+    public static bool SceneIsChanging;
 
     public static async void InitiateGameplay(bool skipLoad)
     {
@@ -27,10 +28,10 @@ public static class GameManager
         HUDManager.Inst.UpdateScoreDisplay();
     }
 
-    public static void HandleGameOver()
+    public static async void HandleGameOver()
     {
         Debug.Log("GAME OVER");
-        SceneManager.LoadScene("MainMenu");
+        await LoadSceneAsync("MainMenu");
     }
 
     public static void HandleStageSelected(int stageIndex)
@@ -38,16 +39,28 @@ public static class GameManager
         StageManager.StartStage(stageIndex);
     }
 
-    public static void HandleStageCompleted()
+    public static async void HandleStageCompleted()
     {
-        SceneManager.LoadScene("MainMenu");
+        await LoadSceneAsync("MainMenu");
     }
 
-    private static Task LoadSceneAsync(string sceneName)
+    public static Task LoadSceneAsync(string sceneName)
     {
+        SceneIsChanging = true;
         TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-        asyncOperation.completed += _ => tcs.SetResult(true);
+        asyncOperation.completed += _ => {
+            tcs.SetResult(true);
+            Time.timeScale = 1f;
+            SceneIsChanging = false;
+        };
         return tcs.Task;
+    }
+
+    public static void LoadScene(string sceneName)
+    {
+        SceneIsChanging = true;
+        SceneManager.LoadScene(sceneName);
+        SceneIsChanging = false;
     }
 }

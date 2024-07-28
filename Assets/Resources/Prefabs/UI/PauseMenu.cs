@@ -37,13 +37,12 @@ public class PauseMenu : MonoBehaviour
       // Assuming you have an options menu scene or a way to show options
       Debug.Log("Open options here.");
       // GameManager.NavigateToOptions();
-      // Implement your options menu functionality here, e.g., SceneManager.LoadScene("OptionsMenu");
+      // Implement your options menu functionality here, e.g., GameManager.LoadScene("OptionsMenu");
     }
 
-    public void GoToMainMenu()
+    public async void GoToMainMenu()
     {
-      Resume();
-      SceneManager.LoadScene("MainMenu");
+      await GameManager.LoadSceneAsync("MainMenu");
     }
 
     // Add other methods for buttons like GoToMainMenu(), OpenOptions(), etc.

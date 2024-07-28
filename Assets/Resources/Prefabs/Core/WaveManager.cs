@@ -72,9 +72,4 @@ public class WaveManager : MonoBehaviour
             else SpawnNextWave();
         }
     }
-
-    void OnDestroy()
-    {
-        StopAllCoroutines();  // Ensure all coroutines are stopped when the object is destroyed
-    }
 }

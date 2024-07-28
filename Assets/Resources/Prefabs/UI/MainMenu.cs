@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
         // Assuming you have an options menu scene or a way to show options
         Debug.Log("Open options here.");
         // GameManager.NavigateToOptions();
-        // Implement your options menu functionality here, e.g., SceneManager.LoadScene("OptionsMenu");
+        // Implement your options menu functionality here, e.g., GameManager.LoadScene("OptionsMenu");
     }
 
     public void ExitGame()

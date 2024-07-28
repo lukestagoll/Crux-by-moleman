@@ -31,7 +31,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Intensity: 2.63
+    - _Intensity: 27.64
     - _Thickness: 0.1
     m_Colors:
     - _Color: {r: 44.727043, g: 6.0884967, b: 9.559063, a: 1}
