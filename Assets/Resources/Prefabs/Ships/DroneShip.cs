@@ -14,10 +14,10 @@ public abstract class DroneShip : ShipBase
     private float chargeRate = 5f;
     private float maxDistance = 2f;
 
-    private Vector3 currentLocalTarget;
-    private Vector3 nextLocalTarget;
-    private float curveProgress = 1f;
-    private float curveDuration = 1.5f;
+    protected Vector3 currentLocalTarget;
+    protected Vector3 nextLocalTarget;
+    protected float curveProgress = 1f;
+    protected float curveDuration = 1.5f;
     public GameObject ParentDroneAnchor;
 
     void Start()
@@ -70,31 +70,9 @@ public abstract class DroneShip : ShipBase
 
     protected abstract void ActivateEffect();
 
-    void MoveDrone()
-    {
-        if (curveProgress >= 1f)
-        {
-            currentLocalTarget = nextLocalTarget;
-            nextLocalTarget = PickNewTarget();
-            curveProgress = 0f;
-        }
+    protected abstract void MoveDrone();
 
-        curveProgress += Time.deltaTime / curveDuration;
-        Vector3 newPosition = CalculateBezierPoint(curveProgress, currentLocalTarget, Vector3.zero, nextLocalTarget);
-
-        if (CurrentBehavior == DroneBehavior.Aggressive)
-        {
-            newPosition = ParentShip.transform.TransformPoint(newPosition);
-        }
-        else
-        {
-            newPosition = ParentDroneAnchor.transform.TransformPoint(newPosition);
-        }
-
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * 5f * MovementSpeedModifier);
-    }
-
-    private Vector3 PickNewTarget()
+    protected Vector3 PickNewRelativeLocation()
     {
         if (CurrentBehavior == DroneBehavior.Aggressive)
         {
@@ -110,7 +88,7 @@ public abstract class DroneShip : ShipBase
         }
     }
 
-    private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
+    protected Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
         float u = 1 - t;
         float tt = t * t;
