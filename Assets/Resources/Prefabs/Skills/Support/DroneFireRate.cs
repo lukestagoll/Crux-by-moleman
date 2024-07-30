@@ -18,14 +18,14 @@ public class DroneFireRate : SkillBase
         switch (Level)
         {
             case 1:
-                return 0.1f;
+                return 0.05f;
             case 2:
-                return 0.2f;
+                return 0.1f;
             case 3:
-                return 0.3f;
+                return 0.15f;
             default:
                 Debug.LogError(SkillName + " level is invalid");
-                return 0.1f;
+                return 0.05f;
         }
     }
 

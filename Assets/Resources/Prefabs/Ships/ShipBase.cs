@@ -33,6 +33,9 @@ public abstract class ShipBase : MonoBehaviour
     protected float MaxCharge = 100f;
     protected float Charge;
 
+    // SKILL STATES
+    public bool AdvancedTargetting;
+
     // MODIFIERS
     public float FireRateModifier = 1f;
     public float DamageModifier = 1f;
@@ -109,6 +112,7 @@ public abstract class ShipBase : MonoBehaviour
         droneShip.ParentDroneAnchor = DroneAnchor;
         droneShip.FireRateModifier = DroneFireRateModifier;
         droneShip.ChargeRateModifier = DroneChargeRateModifier;
+        droneShip.AdvancedTargetting = AdvancedTargetting;
         return droneShip;
     }
 

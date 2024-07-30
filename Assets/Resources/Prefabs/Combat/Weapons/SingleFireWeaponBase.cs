@@ -45,6 +45,7 @@ public abstract class SingleFireWeaponBase : WeaponBase
         ShipBase parentShip = GetComponentInParent<ShipBase>();
         if (parentShip != null)
         {
+            // If FireRateModifier is 1, it has no effect. Higher values increase the fire rate.
             return BaseFireRate * parentShip.FireRateModifier;
         }
         else

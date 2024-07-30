@@ -199,17 +199,18 @@ MonoBehaviour:
   Health: 50
   MaxShield: 0
   Shield: 0
-  FireRateModifier: 0.25
+  FireRateModifier: 1
   DamageModifier: 1
   PiercingModifier: 0
-  BulletSpeedModifier: 0.5
+  BulletSpeedModifier: 0.75
   MovementSpeedModifier: 1
+  ChargeRateModifier: 1
   EvasionChanceModifier: 0
   CriticalHitChanceModifier: 0
+  DroneFireRateModifier: 1
+  DroneChargeRateModifier: 1
   DefaultMaterial: {fileID: 0}
   ShieldGlowMaterial: {fileID: 0}
-  Charge: 80
-  MaxCharge: 100
   ParentShip: {fileID: 0}
   CurrentBehavior: 0
   ParentDroneAnchor: {fileID: 0}

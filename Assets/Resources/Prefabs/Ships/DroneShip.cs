@@ -99,13 +99,13 @@ public abstract class DroneShip : ShipBase
         if (CurrentBehavior == DroneBehavior.Aggressive)
         {
             float x = Random.Range(-maxDistance, maxDistance);
-            float y = Random.Range(1f, 2f);
+            float y = Random.Range(0.5f, 1f);
             return new Vector3(x, y, 0);
         }
         else
         {
             float x = Random.Range(-maxDistance, maxDistance);
-            float y = Random.Range(-maxDistance, maxDistance - maxDistance / 2f);
+            float y = Random.Range(-maxDistance, maxDistance * 0.5f);
             return new Vector3(x, y, 0);
         }
     }
