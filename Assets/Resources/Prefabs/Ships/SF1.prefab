@@ -238,15 +238,24 @@ MonoBehaviour:
     - {fileID: 1924739772942403903}
     - {fileID: 3213643142021286017}
   ExplosionPrefab: {fileID: 4267334171517905716, guid: 5c82ac8d7392f574a8d1904bbcc82189, type: 3}
-  FireRateModifier: 0.25
-  DamageModifier: 0.5
-  BulletSpeedModifier: 0.75
-  MovementSpeedModifier: 1
-  MaxHealth: 50
-  Health: 50
+  MaxHealth: 25
+  Health: 25
   MaxShield: 0
   Shield: 0
+  AdvancedTargetting: 0
+  DefensiveFormations: 0
+  FireRateModifier: 0.25
+  DamageModifier: 0.5
+  PiercingModifier: 0
+  BulletSpeedModifier: 0.75
+  MovementSpeedModifier: 0.75
+  ChargeRateModifier: 1
+  EvasionChanceModifier: 0
+  CriticalHitChanceModifier: 0
+  DroneFireRateModifier: 1
+  DroneChargeRateModifier: 1
   DefaultMaterial: {fileID: 0}
+  ShieldGlowMaterial: {fileID: 0}
   pointsOnKill: 50
   damageOnCollision: 35
   TargetedByTurret: 0

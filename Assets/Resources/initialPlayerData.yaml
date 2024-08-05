@@ -10,8 +10,9 @@ Skills:
   Speed: 0
   Evasion: 0
   CriticalHit: 0
-  ShieldDrones: 2
-  AttackDrones: 2
-  DroneFireRate: 1
-  DroneChargeRate: 1
-  AdvancedTargetting: 1
+  ShieldDrones: 0
+  AttackDrones: 0
+  DroneFireRate: 0
+  DroneChargeRate: 0
+  AdvancedTargetting: 0
+  DefensiveFormations: 0

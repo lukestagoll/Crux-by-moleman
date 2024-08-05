@@ -7,7 +7,7 @@ Stages:
               - ShipType: "SF1"
                 Amt: 4
                 PathIndex: 0
-                PathPreset: "VHS-Small"
+                PathPreset: "DiveBomb"
             Drops: ["TurretSmall"]
           - SpawnCooldown: 0.5
             WaveDelay: 10
@@ -32,7 +32,7 @@ Stages:
               - ShipType: "SF2"
                 Amt: 6
                 PathIndex: 0
-                PathPreset: "DiveBomb"
+                PathPreset: "CrissCross"
             Drops: ["HomingMissileLauncher"]
           - SpawnCooldown: 0.5
             WaveDelay: 0

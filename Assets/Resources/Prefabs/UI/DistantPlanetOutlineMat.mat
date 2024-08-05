@@ -55,7 +55,7 @@ Material:
     - _BUILTIN_ZTest: 4
     - _BUILTIN_ZWrite: 0
     - _BUILTIN_ZWriteControl: 0
-    - _Intensity: 1
+    - _Intensity: 2.25
     - _Thickness: 0.015
     m_Colors: []
   m_BuildTextureStacks: []

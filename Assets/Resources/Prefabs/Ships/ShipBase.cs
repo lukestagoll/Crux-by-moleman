@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 
 [Serializable]
 public enum SlotType
@@ -35,6 +34,7 @@ public abstract class ShipBase : MonoBehaviour
 
     // SKILL STATES
     public bool AdvancedTargetting;
+    public bool DefensiveFormations;
 
     // MODIFIERS
     public float FireRateModifier = 1f;
@@ -113,6 +113,7 @@ public abstract class ShipBase : MonoBehaviour
         droneShip.FireRateModifier = DroneFireRateModifier;
         droneShip.ChargeRateModifier = DroneChargeRateModifier;
         droneShip.AdvancedTargetting = AdvancedTargetting;
+        droneShip.DefensiveFormations = DefensiveFormations;
         return droneShip;
     }
 

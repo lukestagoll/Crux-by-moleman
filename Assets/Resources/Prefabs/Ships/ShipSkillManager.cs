@@ -63,6 +63,8 @@ public static class ShipSkillManager
                 return new DroneChargeRate(level);
             case "AdvancedTargetting":
                 return new AdvancedTargetting(level);
+            case "DefensiveFormations":
+                return new DefensiveFormations(level);
             default:
                 Debug.LogError($"Unknown skill: {skillName}");
                 return null;

@@ -20,7 +20,7 @@ public abstract class DroneShip : ShipBase
     protected float curveDuration = 1.5f;
     public GameObject ParentDroneAnchor;
 
-    void Start()
+    protected virtual void Start()
     {
         ShieldIsActive = false;
         EmitOnSpawn();
