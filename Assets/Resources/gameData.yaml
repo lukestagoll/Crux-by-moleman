@@ -25,35 +25,29 @@ Stages:
                 Amt: 6
             Drops: ["HomingMissileLauncher"]
           - SpawnCooldown: 0.5
-            WaveDelay: 0
+            WaveDelay: 10
             Enemies:
               - ShipType: "SF2"
                 Amt: 8
-                PathPreset: "VHS-Large"
               - ShipType: "SF3"
                 Amt: 4
             Drops: []
       - Waves:
           - SpawnCooldown: 0.5
-            WaveDelay: 0
+            WaveDelay: 10
             Enemies:
               - ShipType: "SF2"
                 Amt: 10
-                PathPreset: "VHS-Large"
               - ShipType: "SF3"
                 Amt: 8
-                PathPreset: "ZigZag"
             Drops: []
           - SpawnCooldown: 0.5
-            WaveDelay: 0
+            WaveDelay: 10
             Enemies:
               - ShipType: "SF1"
                 Amt: 10
-                PathPreset: "CrissCross"
               - ShipType: "SF2"
                 Amt: 15
-                PathPreset: "Loop"
               - ShipType: "SF3"
                 Amt: 15
-                PathPreset: "Loop"
             Drops: []

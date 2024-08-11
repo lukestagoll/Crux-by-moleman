@@ -1,9 +1,16 @@
 SF1:
+  - ZigZag
   - ZigZag1
-  - BananaSplit
+  - SideSwipe
+  - CrissCross
+  - OuterCurve
 SF2:
   - ZigZag
   - VHS-Small
+  - VHS-Large
   - CrissCross
+  - SideSwipe
 SF3:
   - OverCast
+  - OuterCurve
+  - DiveBomb

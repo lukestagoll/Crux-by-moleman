@@ -19,6 +19,16 @@
     ]
   },
   {
+    "name": "SideSwipe",
+    "spawns": [1, 11],
+    "path": [
+      { "p": [7], "d": 0, "s": 1, "c": true, "f": 1, "sh": false },
+      { "p": [8], "d": 0, "s": 1, "c": true, "f": 0, "sh": true },
+      { "p": [15], "d": 0, "s": 1, "c": true, "f": 0, "sh": true },
+      { "p": [34], "d": 0, "s": 1, "c": true, "f": 0, "sh": true }
+    ]
+  },
+  {
     "name": "CrissCross",
     "spawns": [2, 10],
     "path": [
@@ -45,8 +55,9 @@
     "name": "DiveBomb",
     "spawns": [4, 8],
     "path": [
-      { "p": [2], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-      { "p": [28], "d": 0, "s": 1, "c": true, "f": 2, "sh": true }
+      { "p": [2], "d": 0, "s": 0.85, "c": true, "f": 2, "sh": true },
+      { "p": [22], "d": 0, "s": 0.85, "c": true, "f": 2, "sh": true },
+      { "p": [29], "d": 0, "s": 0.85, "c": true, "f": 1, "sh": false }
     ]
   },
   {
@@ -65,7 +76,7 @@
       { "p": [3], "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
       { "p": [8], "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
       { "p": [15], "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
-      { "p": [20], "d": 0, "s": 1, "c": false, "f": 1, "sh": false },
+      { "p": [20], "d": 0, "s": 2, "c": false, "f": 1, "sh": false },
       { "p": [25], "d": 0, "s": 3, "c": false, "f": 1, "sh": false }
     ]
   },
@@ -140,8 +151,7 @@
       { "p": [8], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
       { "p": [31], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
       { "p": [11], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-      { "p": [6], "d": 0, "s": 1, "c": true, "f": 0, "sh": false },
-      { "p": [30], "d": 0.5, "s": 3, "c": false, "f": 0, "sh": false }
+      { "p": [30], "d": 0, "s": 3, "c": false, "f": 0, "sh": false }
     ]
   }
 ]
