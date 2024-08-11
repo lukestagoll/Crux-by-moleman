@@ -61,15 +61,6 @@
     ]
   },
   {
-    "name": "BananaSplit",
-    "spawns": [5, 7],
-    "path": [
-      { "p": [31], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-      { "p": [15], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-      { "p": [25], "d": 0, "s": 1, "c": true, "f": 2, "sh": true }
-    ]
-  },
-  {
     "name": "ZigZag",
     "spawns": [5, 7],
     "path": [
@@ -84,37 +75,11 @@
     "name": "SideStream",
     "spawns": [2, 10],
     "path": [
-      { "p": [1], "d": 0, "s": 1.5, "c": true, "f": 0, "sh": true },
-      { "p": [8], "d": 0, "s": 1.5, "c": true, "f": 0, "sh": true },
-      { "p": [13], "d": 0, "s": 1.5, "c": true, "f": 0, "sh": true },
-      { "p": [20], "d": 0, "s": 1.5, "c": true, "f": 0, "sh": true },
-      { "p": [25], "d": 0, "s": 1.5, "c": true, "f": 0, "sh": true }
-    ]
-  },
-  {
-    "name": "Loop",
-    "spawns": [5, 7],
-    "path": [
-      { "p": [11], "d": 0, "s": 1, "c": true, "f": 1, "sh": false },
-      { "p": [33], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-      { "p": [8], "d": 0, "s": 1, "c": true, "f": 1, "sh": false },
-      { "p": [4], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-      { "p": [23], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-      { "p": [0], "d": 0, "s": 1, "c": false, "f": 0, "sh": false }
-    ]
-  },
-  {
-    "name": "S-Dive",
-    "spawns": [1, 11],
-    "path": [
-      { "p": [1], "d": 0, "s": 0.75, "c": false, "f": 1, "sh": false },
-      { "p": [3], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
-      { "p": [9], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
-      { "p": [7], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
-      { "p": [13], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
-      { "p": [14], "d": 0, "s": 1, "c": false, "f": 2, "sh": true },
-      { "p": [15], "d": 0, "s": 2, "c": false, "f": 1, "sh": false },
-      { "p": [30], "d": 0, "s": 3, "c": true, "f": 1, "sh": false }
+      { "p": [1], "d": 0, "s": 1, "c": true, "f": 0, "sh": true },
+      { "p": [8], "d": 0, "s": 1, "c": true, "f": 0, "sh": true },
+      { "p": [13], "d": 0, "s": 1, "c": true, "f": 0, "sh": true },
+      { "p": [20], "d": 0, "s": 1, "c": true, "f": 0, "sh": true },
+      { "p": [25], "d": 0, "s": 1, "c": true, "f": 0, "sh": false }
     ]
   },
   {
