@@ -21,13 +21,13 @@ public class EnemyShipMovement : MonoBehaviour
     private Vector3 lastDirection;
     private float lastSpeedModifier;
     
-    public void InitialiseMovement(int pathIndex, string pathPreset)
+    public void InitialiseMovement(string pathPreset)
     {
         // Get the EnemyShip component
         EnemyShip = GetComponent<EnemyShip>();
         enemyShooting = GetComponent<EnemyShooting>();
 
-        var determinedPath = EnemyMovementManager.GetPathData(shipType, pathIndex, pathPreset);
+        var determinedPath = EnemyMovementManager.GetPathData(shipType, pathPreset);
 
         pathData = determinedPath.pathData;
         SpawnIndex = determinedPath.spawnIndex;

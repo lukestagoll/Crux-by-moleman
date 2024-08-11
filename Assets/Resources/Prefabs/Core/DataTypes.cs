@@ -51,7 +51,6 @@ public class EnemyData
 {
     public string ShipType;
     public int Amt;
-    public int PathIndex;
     public string PathPreset;
 }
 
@@ -77,8 +76,8 @@ public class PathData
 [Serializable]
 public class EnemyPaths
 {
-    public List<PathData> SF1;
-    public List<PathData> SF2;
+    public List<string> SF1;
+    public List<string> SF2;
 }
 
 public class DeterminedPath

@@ -3,69 +3,74 @@ using UnityEngine;
 
 public static class EnemyMovementManager
 {
-    private static Dictionary<string, Dictionary<int, int>> lastUsedSpawnIndex = new Dictionary<string, Dictionary<int, int>>();
+    private static Dictionary<string, int> LastUsedSpawnIndexes = new Dictionary<string, int>();
 
-    public static DeterminedPath GetPathData(string shipType, int pathIndex, string presetPath = null)
+    public static DeterminedPath GetPathData(string shipType, string pathPreset = null)
     {
         PathData pathData;
-        List<int> spawnList;
         int spawnIndex;
-        List<PathData> pathList;
-        string indexKey;
 
-        if (!string.IsNullOrEmpty(presetPath) && GameConfig.EnemyPathPresets.TryGetValue(presetPath, out var presetPathData))
+        // If null, set to...
+        pathPreset ??= FetchValidPathPreset(shipType);
+
+        if (GameConfig.EnemyPathPresets.TryGetValue(pathPreset, out var pathPresetData))
         {
-            pathData = presetPathData;
-            indexKey = presetPath;
+            pathData = pathPresetData;
         }
         else
         {
-            switch (shipType) // ! Refactor to name field to prevent adding to switch case, although there should be default behaviour...
-            {
-                case "SF1":
-                    pathList = GameConfig.EnemyPaths.SF1;
-                    break;
-                case "SF2":
-                    pathList = GameConfig.EnemyPaths.SF2;
-                    break;
-                default:
-                    Debug.LogError($"No path data found for ship type: {shipType}");
-                    return null;
-            }
-
-            if (pathList == null || pathList.Count == 0)
-            {
-                Debug.LogError($"Path list is empty for ship type: {shipType}");
-                return null;
-            }
-
-            pathData = pathList[pathIndex];
-            indexKey = shipType;
+            Debug.LogError($"Invalid PathPreset ${pathPreset}");
+            return null;
         }
 
-        spawnList = pathData.spawns;
-
-        if (!lastUsedSpawnIndex.ContainsKey(indexKey))
-        {
-            lastUsedSpawnIndex[indexKey] = new Dictionary<int, int>();
-        }
-
-        if (!lastUsedSpawnIndex[indexKey].ContainsKey(pathIndex))
-        {
-            lastUsedSpawnIndex[indexKey][pathIndex] = -1;
-        }
-
-        int lastIndex = lastUsedSpawnIndex[indexKey][pathIndex];
-        int nextIndex = (lastIndex + 1) % spawnList.Count;
-
-        lastUsedSpawnIndex[indexKey][pathIndex] = nextIndex;
-
-        spawnIndex = spawnList[nextIndex];
+        spawnIndex = DetermineSpawnIndex(pathPreset, pathData.spawns);
 
         return new DeterminedPath
         {
             spawnIndex = spawnIndex,
             pathData = pathData
         };
+    }
+
+    public static string FetchValidPathPreset(string shipType)
+    {
+        List<string> pathList;
+
+        switch (shipType) // ! Refactor to name field to prevent adding to switch case, although there should be default behaviour...
+        {
+            case "SF1":
+                pathList = GameConfig.EnemyPaths.SF1;
+                break;
+            case "SF2":
+                pathList = GameConfig.EnemyPaths.SF2;
+                break;
+            default:
+                Debug.LogError($"No path data found for ship type: {shipType}");
+                return null;
+        }
+
+        if (pathList == null || pathList.Count == 0)
+        {
+            Debug.LogError($"Path list is empty for ship type: {shipType}");
+            return null;
+        }
+
+        return pathList[Random.Range(0, pathList.Count)];
+    }
+
+    private static int DetermineSpawnIndex(string pathPreset, List<int> spawnList)
+    {
+        if (!LastUsedSpawnIndexes.ContainsKey(pathPreset))
+        {
+            LastUsedSpawnIndexes[pathPreset] = 0;
+        }
+
+        int lastIndex = LastUsedSpawnIndexes[pathPreset];
+        int nextIndex = (lastIndex + 1) % spawnList.Count;
+
+        LastUsedSpawnIndexes[pathPreset] = nextIndex;
+
+        int spawnIndex = spawnList[nextIndex];
+        return spawnIndex;
     }
 }

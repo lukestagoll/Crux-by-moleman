@@ -1,42 +1,8 @@
 {
     "SF1": [
-        {
-            "name": "",
-            "spawns": [3, 9],
-            "path": [
-                { "p": [8],  "d": 0, "s": 1, "c": true, "f": 1, "sh": true },
-                { "p": [15], "d": 0, "s": 1, "c": true, "f": 1, "sh": true },
-                { "p": [17], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-                { "p": [24], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
-                { "p": [0], "d": 0, "s": 1, "c": true, "f": 2, "sh": true }
-            ]
-        },
-        {
-            "name": "",
-            "spawns": [5, 7],
-            "path": [
-                { "p": [31], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
-                { "p": [9],  "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
-                { "p": [2],  "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
-                { "p": [7],  "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
-                { "p": [13], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
-                { "p": [33], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
-                { "p": [29], "d": 0, "s": 1, "c": false, "f": 1, "sh": true },
-                { "p": [0],  "d": 0, "s": 5, "c": false, "f": 1, "sh": false }
-            ]
-        }
+        "VHS-Small"
     ],
     "SF2": [
-        {
-            "name": "",
-            "spawns": [3, 9],
-            "path": [
-                { "p": [8],  "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
-                { "p": [15], "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
-                { "p": [17], "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
-                { "p": [24], "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
-                { "p": [0],  "d": 0, "s": 1, "c": false, "f": 0, "sh": true }
-            ]
-        }
+        "VHS-Small"
     ]
 }
