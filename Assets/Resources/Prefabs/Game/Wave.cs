@@ -33,6 +33,7 @@ public class Wave : MonoBehaviour
         {
             for (int i = 0; i < enemy.Amt; i++)
             {
+                // Choose random path preset here
                 SpawnQueue.Enqueue(new SpawnItem { ShipType = enemy.ShipType, PathIndex = enemy.PathIndex, PathPreset = enemy.PathPreset });
             }
         }

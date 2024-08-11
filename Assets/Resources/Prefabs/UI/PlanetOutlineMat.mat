@@ -32,7 +32,7 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _Intensity: 10
-    - _Thickness: 0.1
+    - _Thickness: 0
     m_Colors:
     - _Color: {r: 44.727043, g: 6.0884967, b: 9.559063, a: 1}
   m_BuildTextureStacks: []

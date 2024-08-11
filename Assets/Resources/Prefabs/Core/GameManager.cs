@@ -10,6 +10,7 @@ public static class GameManager
 
     public static async void InitiateGameplay(bool skipLoad)
     {
+        // If Game scene already loaded
         if (!skipLoad)
         {
             await LoadSceneAsync("Game");
