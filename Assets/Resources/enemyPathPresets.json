@@ -8,6 +8,17 @@
     ]
   },
   {
+    "name": "ZigZag1",
+    "spawns": [5, 7],
+    "path": [
+      { "p": [2], "d": 0, "s": 1, "c": false, "f": 0, "sh": true },
+      { "p": [9], "d": 0, "s": 0.75, "c": false, "f": 0, "sh": true },
+      { "p": [14], "d": 0, "s": 0.75, "c": false, "f": 0, "sh": true },
+      { "p": [21], "d": 0, "s": 0.75, "c": false, "f": 0, "sh": true },
+      { "p": [26], "d": 0, "s": 0.75, "c": false, "f": 0, "sh": true }
+    ]
+  },
+  {
     "name": "CrissCross",
     "spawns": [2, 10],
     "path": [
@@ -131,14 +142,6 @@
       { "p": [11], "d": 0, "s": 1, "c": true, "f": 2, "sh": true },
       { "p": [6], "d": 0, "s": 1, "c": true, "f": 0, "sh": false },
       { "p": [30], "d": 0.5, "s": 3, "c": false, "f": 0, "sh": false }
-    ]
-  },
-  {
-    "name": "new",
-    "spawns": [],
-    "path": [
-      { "p": [1], "d": 0, "s": 1, "c": true, "f": 1, "sh": false },
-      { "p": [1], "d": 0, "s": 1, "c": true, "f": 1, "sh": false }
     ]
   }
 ]

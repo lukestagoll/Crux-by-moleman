@@ -72,13 +72,8 @@ public class PathData
     public List<int> spawns;
     public List<PathPoint> path;
 }
-
 [Serializable]
-public class EnemyPaths
-{
-    public List<string> SF1;
-    public List<string> SF2;
-}
+public class EnemyPaths : Dictionary<string, List<string>> {}
 
 public class DeterminedPath
 {

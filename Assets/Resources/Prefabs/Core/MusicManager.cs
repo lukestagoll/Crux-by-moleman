@@ -43,7 +43,6 @@ public class MusicManager : MonoBehaviour
       {
           availableSource.clip = clip;
           availableSource.pitch = pitch; // Set the pitch of the audio source
-          Debug.Log($"Playing audio clip '{clipName}' at pitch {pitch}");
           availableSource.Play();
       }
       else

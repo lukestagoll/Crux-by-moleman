@@ -19,6 +19,7 @@ Progression
     - Increase quantity
     - Increase wave/level/stage duration
     - Add more enemies
+  - RNG based drops
 
 Bosses
   - Requires Movement Logic

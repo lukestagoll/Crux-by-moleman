@@ -133,8 +133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 7991152367493595656, guid: 0b197c7fdfb037f478d42e2cac585efc, type: 3}
   FirePoint: {fileID: 4022715705528736429}
-  BaseFireRate: 2
+  BaseFireRate: 1
   SlotType: 1
+  WeaponType: 0
 --- !u!50 &3445493918662094056
 Rigidbody2D:
   serializedVersion: 4

@@ -30,8 +30,9 @@ public class Wave : MonoBehaviour
         SpawnQueue = new Queue<SpawnItem>();
         foreach (var enemy in WaveData.Enemies)
         {
-            // Choose random path preset here
+            // Choose random path preset here if not hardcoded
             string pathPreset = enemy.PathPreset == null ? EnemyMovementManager.FetchValidPathPreset(enemy.ShipType) : enemy.PathPreset;
+            Debug.Log($"{enemy.ShipType} - {pathPreset}");
             for (int i = 0; i < enemy.Amt; i++)
             {
                 SpawnQueue.Enqueue(new SpawnItem { ShipType = enemy.ShipType, PathPreset = pathPreset });

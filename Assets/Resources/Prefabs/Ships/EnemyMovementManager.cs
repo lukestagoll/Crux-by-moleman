@@ -11,6 +11,7 @@ public static class EnemyMovementManager
         int spawnIndex;
 
         // If null, set to...
+        // This should never run because it will cause a singular batch of enemies to use different paths entirely
         pathPreset ??= FetchValidPathPreset(shipType);
 
         if (GameConfig.EnemyPathPresets.TryGetValue(pathPreset, out var pathPresetData))
@@ -19,7 +20,7 @@ public static class EnemyMovementManager
         }
         else
         {
-            Debug.LogError($"Invalid PathPreset ${pathPreset}");
+            Debug.LogError($"Invalid PathPreset: {pathPreset}");
             return null;
         }
 
@@ -34,29 +35,21 @@ public static class EnemyMovementManager
 
     public static string FetchValidPathPreset(string shipType)
     {
-        List<string> pathList;
-
-        switch (shipType) // ! Refactor to name field to prevent adding to switch case, although there should be default behaviour...
+        if (!GameConfig.EnemyPaths.TryGetValue(shipType, out var pathList))
         {
-            case "SF1":
-                pathList = GameConfig.EnemyPaths.SF1;
-                break;
-            case "SF2":
-                pathList = GameConfig.EnemyPaths.SF2;
-                break;
-            default:
-                Debug.LogError($"No path data found for ship type: {shipType}");
-                return null;
+            Debug.LogError($"No path data found for ship type: {shipType}");
+            return null;
         }
-
+    
         if (pathList == null || pathList.Count == 0)
         {
             Debug.LogError($"Path list is empty for ship type: {shipType}");
             return null;
         }
-
+    
         return pathList[Random.Range(0, pathList.Count)];
     }
+
 
     private static int DetermineSpawnIndex(string pathPreset, List<int> spawnList)
     {

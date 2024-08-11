@@ -101,20 +101,25 @@ public static class GameConfig
 
     private static void LoadEnemyPaths()
     {
-        TextAsset jsonData = Resources.Load<TextAsset>("enemyPaths");
-        if (jsonData == null)
+        TextAsset yamlData = Resources.Load<TextAsset>("enemyPaths");
+        if (yamlData == null)
         {
             Debug.LogError("Failed to load enemy paths data!");
             return;
         }
-
-        EnemyPaths = JsonUtility.FromJson<EnemyPaths>(jsonData.text);
-
+    
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(PascalCaseNamingConvention.Instance)
+            .Build();
+    
+        EnemyPaths = deserializer.Deserialize<EnemyPaths>(yamlData.text);
+    
         if (EnemyPaths == null)
         {
             Debug.LogError("Failed to deserialize EnemyPaths.");
         }
     }
+
 
     private static void LoadEnemyPathPresets()
     {

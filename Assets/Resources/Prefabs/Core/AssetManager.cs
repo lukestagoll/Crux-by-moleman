@@ -108,7 +108,6 @@ public static class AssetManager
         {
             string fileName = audioClip.name;
             AudioClips[fileName] = audioClip;
-            Debug.Log("Loaded" + fileName);
         }
 
         if (AudioClips.Count == 0)
