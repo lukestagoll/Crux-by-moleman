@@ -3,9 +3,9 @@
 ### Wrap Up
 
 Enemy Behaviour
-  - Simplify the flight patterns
-  - Have each ship have an array of valid flight patterns and decide at random
-  - Slow down the fire rate
+  - ~~Simplify the flight patterns~~
+  - ~~Have each ship have an array of valid flight patterns and decide at random~~
+  - ~~Slow down the fire rate~~
 
 UI
   - Upon item pickup have a bit of text appear above the player
@@ -39,5 +39,3 @@ Scenes
   - Hi-Score
     - Persistent data?
   - Game Over
-
-The rest will all be miscellaneous, non-urgesnt things that can be added

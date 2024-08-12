@@ -244,7 +244,7 @@ MonoBehaviour:
   Shield: 0
   AdvancedTargetting: 0
   DefensiveFormations: 0
-  FireRateModifier: 0.25
+  FireRateModifier: 0.15
   DamageModifier: 0.5
   PiercingModifier: 0
   BulletSpeedModifier: 0.75

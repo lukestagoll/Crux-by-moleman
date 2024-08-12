@@ -105,7 +105,7 @@ public class PlayerManager : MonoBehaviour
         {
             BottomPlayerBoundary.SetActive(false);
             var tcs = new TaskCompletionSource<bool>();
-            StartCoroutine(MoveToPositionWithDeceleration(ActivePlayerShip.transform, new Vector3(0, -3, 10), 3.0f, 0.75f, tcs));
+            StartCoroutine(MoveToPositionWithDeceleration(ActivePlayerShip.transform, new Vector3(0, -3, 10), 3.0f, 1f, tcs));
             await tcs.Task; // Wait for the movement to complete
         }
     }
