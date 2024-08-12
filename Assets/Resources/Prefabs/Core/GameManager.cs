@@ -19,7 +19,7 @@ public static class GameManager
         Score = GameConfig.InitialScore;
         PlayerManager.Inst.Lives = GameConfig.InitialLives;
         PlayerManager.Inst.BuildInitialSkills();
-        PlayerManager.Inst.SpawnPlayer();
+        await PlayerManager.Inst.SpawnPlayerAsync(true); // Wait for the player to arrive
         StageManager.StartStage(0);
     }
 
