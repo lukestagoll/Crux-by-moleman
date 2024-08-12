@@ -88,4 +88,15 @@ public class EnemyShip : ShipBase
     {
         Health += amt;
     }
+
+    protected override void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot)
+    {
+        foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
+        {
+            attachPoint.AttachWeapon(weaponPrefab, true);
+            ActiveAttachPoints.Add(attachPoint);
+        }
+        weaponSlot.IsEmpty = false;
+        // play audio here
+    }
 }

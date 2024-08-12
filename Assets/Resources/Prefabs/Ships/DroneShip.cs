@@ -155,6 +155,17 @@ public abstract class DroneShip : ShipBase
         renderer.material = ShieldGlowMaterial;
     }
 
+    protected override void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot)
+    {
+        foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
+        {
+            attachPoint.AttachWeapon(weaponPrefab, true);
+            ActiveAttachPoints.Add(attachPoint);
+        }
+        weaponSlot.IsEmpty = false;
+        // play audio here
+    }
+
     //! DRONES CAN BE EITHER SIDE SO.... THINK ABOUT IT
     // void OnTriggerEnter2D(Collider2D other)
     // {

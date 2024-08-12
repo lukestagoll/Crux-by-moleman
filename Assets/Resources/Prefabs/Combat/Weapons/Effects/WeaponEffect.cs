@@ -19,7 +19,8 @@ public class WeaponEffect : EffectBase
             Debug.Log($"Expiry detected for {gameObject.name} with duration {Duration}");
             CoroutineManager.Inst.DeactivateEffectAfterDelay(this, Duration);
         }
-        Debug.Log($"Atached {SubType}");
+        Debug.Log($"Attached {SubType}");
+        HUDManager.Inst.UpdateWeaponSlotsDisplay();
     }
     public override void Deactivate()
     {

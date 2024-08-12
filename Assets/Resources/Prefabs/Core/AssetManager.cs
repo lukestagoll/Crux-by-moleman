@@ -10,6 +10,7 @@ public static class AssetManager
     public static Wave WavePrefab { get; private set; }
     public static ItemDrop ItemDropPrefab { get; private set; }
     public static GameObject LifeIconPrefab { get; private set; }
+    public static GameObject WeaponSlotPrefab { get; private set; }
     public static GameObject StarMapPrefab { get; private set; }
     public static GameObject DistantStarPrefab { get; private set; }
     public static GameObject DistantPlanetPrefab { get; private set; }
@@ -201,9 +202,14 @@ public static class AssetManager
         // UI
         StarMapPrefab = Resources.Load<GameObject>("Prefabs/UI/StarMap");
         LifeIconPrefab = Resources.Load<GameObject>("Prefabs/UI/ShipIcon");
+        WeaponSlotPrefab = Resources.Load<GameObject>("Prefabs/UI/WeaponSlot");
         if (LifeIconPrefab == null)
         {
             Debug.LogError("Failed to load ShipIcon prefab!");
+        }
+        if (WeaponSlotPrefab == null)
+        {
+            Debug.LogError("Failed to load WeaponSlot prefab!");
         }
         if (StarMapPrefab == null)
         {

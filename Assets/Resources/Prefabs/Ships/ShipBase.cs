@@ -54,7 +54,7 @@ public abstract class ShipBase : MonoBehaviour
 
     protected bool IsEnemy;
     protected bool isDestroyed;
-    private List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
+    protected List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
     public bool IsAllowedToShoot { get; set; }
 
     // Weapon States
@@ -218,6 +218,19 @@ public abstract class ShipBase : MonoBehaviour
         return null;
     }
 
+    public List<WeaponSlot> GetActiveWeaponSlots()
+    {
+        List<WeaponSlot> activeWeaponSlots = new List<WeaponSlot>();
+        foreach (WeaponSlot weaponSlot in WeaponSlots)
+        {
+            if (!weaponSlot.IsEmpty)
+            {
+                activeWeaponSlots.Add(weaponSlot);
+            }
+        }
+        return activeWeaponSlots;
+    }
+
     public WeaponSlot GetWeaponSlot(SlotType type)
     {
         foreach (WeaponSlot weaponSlot in WeaponSlots)
@@ -325,14 +338,5 @@ public abstract class ShipBase : MonoBehaviour
         weaponSlot.IsEmpty = true;
     }
 
-    private void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot)
-    {
-        foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
-        {
-            attachPoint.AttachWeapon(weaponPrefab, true);
-            ActiveAttachPoints.Add(attachPoint);
-        }
-        weaponSlot.IsEmpty = false;
-        // play audio here
-    }
+    protected abstract void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot);
 }

@@ -10,6 +10,8 @@ public class HUDManager : MonoBehaviour
     public Slider shieldBar;
     public TextMeshProUGUI ScoreDisplay;
     public Transform LivesDisplay;
+    public Transform WeaponSlotsDisplay;
+    private float WeaponSlotSpacing = 105f;
     private float LifeIconSpacing = 35f;
 
     private Coroutine scoreUpdateCoroutine;
@@ -91,6 +93,27 @@ public class HUDManager : MonoBehaviour
             for (int i = 0; i < diff; i++)
             {
                 Destroy(LivesDisplay.GetChild(LivesDisplay.childCount - 1).gameObject);
+            }
+        }
+    }
+
+    public void UpdateWeaponSlotsDisplay()
+    {
+        int diff = WeaponSlotsDisplay.childCount - PlayerManager.Inst.ActivePlayerShip.GetActiveWeaponSlots().Count;
+        if (diff < 0)
+        {
+            for (int i = 0; i < -diff; i++)
+            {
+                GameObject img = Instantiate(AssetManager.WeaponSlotPrefab, WeaponSlotsDisplay);
+                img.transform.localPosition = new Vector3((WeaponSlotsDisplay.childCount - 1) * WeaponSlotSpacing, 0, 0);
+            }
+        }
+        else if (diff > 0)
+        {
+            for (int i = 0; i < diff; i++)
+            {
+                Debug.Log("Destroying");
+                Destroy(WeaponSlotsDisplay.GetChild(WeaponSlotsDisplay.childCount - 1).gameObject);
             }
         }
     }
