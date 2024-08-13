@@ -15,15 +15,12 @@ public class WeaponSlot
 {
     public string PrefabName;
     [HideInInspector] public bool IsEmpty = true;
-
     public SlotType Type;
-
     public List<AttachPoint> AttachPoints;
 }
 
 public abstract class ShipBase : MonoBehaviour
 {
-    public List<WeaponSlot> WeaponSlots;
     [SerializeField] protected GameObject ExplosionPrefab;
     [SerializeField] public float MaxHealth;
     [SerializeField] public float Health;
@@ -31,6 +28,7 @@ public abstract class ShipBase : MonoBehaviour
     [SerializeField] public float Shield;
     protected float MaxCharge = 100f;
     protected float Charge;
+    protected GameObject DroneAnchor;
 
     // SKILL STATES
     public bool AdvancedTargetting;
@@ -48,28 +46,27 @@ public abstract class ShipBase : MonoBehaviour
     public float DroneFireRateModifier = 1f;
     public float DroneChargeRateModifier = 1f;
 
+    // SHADERS
     protected bool ShieldIsActive;
     public Material DefaultMaterial;
     public Material ShieldGlowMaterial;
 
-    protected bool IsEnemy;
-    protected bool isDestroyed;
-    protected List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
-    public bool IsAllowedToShoot { get; set; }
-
-    // Weapon States
+    // WEAPONS
     private bool PrimaryFireEnabled = false;
     private bool SpecialFireEnabled = false;
     private bool SpecialFireCeasing = false;
+    protected bool IsEnemy;
+    protected bool isDestroyed;
+    public List<WeaponSlot> WeaponSlots;
+    protected List<AttachPoint> ActiveAttachPoints = new List<AttachPoint>();
+    public bool IsAllowedToShoot { get; set; }
 
-    // Events
+    // EVENTS
     public event Action OnSpawn;
     public event Action OnHit;
     public event Action OnUpdate;
     public event Action OnDeath;
     // public event Action OnDestroy;
-
-    protected GameObject DroneAnchor;
 
     protected virtual void EmitOnSpawn()
     {
@@ -187,7 +184,19 @@ public abstract class ShipBase : MonoBehaviour
         SpecialFireCeasing = false;
         SpecialFireEnabled = false;
     }
-
+    public virtual void ToggleShooting()
+    {
+        IsAllowedToShoot = !IsAllowedToShoot;
+    }
+    public virtual void DisableShooting()
+    {
+        IsAllowedToShoot = false;
+    }
+    public virtual void EnableShooting()
+    {
+        IsAllowedToShoot = false;
+    }
+    
     public void InitialiseWeaponSlots()
     {
         foreach (WeaponSlot weaponSlot in WeaponSlots)
@@ -205,7 +214,6 @@ public abstract class ShipBase : MonoBehaviour
             weaponSlot.IsEmpty = !hasActiveAttachPoint;
         }
     }
-
     public WeaponSlot GetEmptyWeaponSlot(SlotType type)
     {
         foreach (WeaponSlot weaponSlot in WeaponSlots)
@@ -230,7 +238,6 @@ public abstract class ShipBase : MonoBehaviour
         }
         return activeWeaponSlots;
     }
-
     public WeaponSlot GetWeaponSlot(SlotType type)
     {
         foreach (WeaponSlot weaponSlot in WeaponSlots)
@@ -239,7 +246,6 @@ public abstract class ShipBase : MonoBehaviour
         }
         return null;
     }
-
     public bool HasActiveAttachPoint(WeaponType weaponType)
     {
         foreach (AttachPoint attachPoint in ActiveAttachPoints)
@@ -249,22 +255,6 @@ public abstract class ShipBase : MonoBehaviour
         }
         return false;
     }
-
-    public virtual void ToggleShooting()
-    {
-        IsAllowedToShoot = !IsAllowedToShoot;
-    }
-
-    public virtual void DisableShooting()
-    {
-        IsAllowedToShoot = false;
-    }
-
-    public virtual void EnableShooting()
-    {
-        IsAllowedToShoot = false;
-    }
-
     private void FireWeapons(WeaponType weaponType)
     {
         if (IsAllowedToShoot)
@@ -277,7 +267,6 @@ public abstract class ShipBase : MonoBehaviour
             }
         }
     }
-
     private void CeaseFire(WeaponType weaponType)
     {
         foreach (AttachPoint attachPoint in ActiveAttachPoints)
@@ -287,7 +276,6 @@ public abstract class ShipBase : MonoBehaviour
             attachedWeapon.AttemptCeaseFire();
         }
     }
-
     public void Explode()
     {
         // Instantiate the explosion prefab at the projectile's position
@@ -295,7 +283,6 @@ public abstract class ShipBase : MonoBehaviour
         Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
-
     public WeaponSlot AttemptWeaponAttachment(GameObject weaponPrefab, bool force)
     {
         // Is weapon SINGLE, DUAL, OR SYSTEM?
@@ -324,7 +311,6 @@ public abstract class ShipBase : MonoBehaviour
             return null;
         }
     }
-
     public void DetachWeaponsFromSlot(WeaponSlot weaponSlot)
     {
         foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
@@ -338,5 +324,14 @@ public abstract class ShipBase : MonoBehaviour
         weaponSlot.IsEmpty = true;
     }
 
-    protected abstract void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot);
+    private void AttachWeaponsToSlot(GameObject weaponPrefab, WeaponSlot weaponSlot)
+    {
+        foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
+        {
+            attachPoint.AttachWeapon(weaponPrefab, true);
+            ActiveAttachPoints.Add(attachPoint);
+        }
+        weaponSlot.IsEmpty = false;
+        // play audio here
+    }
 }
