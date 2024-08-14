@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class HUDManager : MonoBehaviour
 {
@@ -99,21 +100,31 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateWeaponSlotsDisplay()
     {
-        int diff = WeaponSlotsDisplay.childCount - PlayerManager.Inst.ActivePlayerShip.GetActiveWeaponSlots().Count;
-        if (diff < 0)
+        // Clear existing weapon slots
+        foreach (Transform child in WeaponSlotsDisplay)
         {
-            for (int i = 0; i < -diff; i++)
-            {
-                GameObject img = Instantiate(AssetManager.WeaponSlotPrefab, WeaponSlotsDisplay);
-                img.transform.localPosition = new Vector3((WeaponSlotsDisplay.childCount - 1) * WeaponSlotSpacing, 0, 0);
-            }
+            Destroy(child.gameObject);
         }
-        else if (diff > 0)
+
+        // Get active weapon slots from the player's ship
+        List<WeaponSlot> activeWeaponSlots = PlayerManager.Inst.ActivePlayerShip.GetActiveWeaponSlots();
+
+        // Iterate through active weapon slots and instantiate new weapon slots
+        for (int i = 0; i < activeWeaponSlots.Count; i++)
         {
-            for (int i = 0; i < diff; i++)
+            var weaponSlot = activeWeaponSlots[i];
+            if (weaponSlot != null)
             {
-                Debug.Log("Destroying");
-                Destroy(WeaponSlotsDisplay.GetChild(WeaponSlotsDisplay.childCount - 1).gameObject);
+                // Instantiate a new weapon slot prefab
+                GameObject weaponSlotObj = Instantiate(AssetManager.WeaponSlotPrefab, WeaponSlotsDisplay);
+                weaponSlotObj.transform.localPosition = new Vector3(i * WeaponSlotSpacing, 0, 0);
+
+                // Set the weapon icon sprite
+                var weaponSlotImage = weaponSlotObj.GetComponent<Image>();
+                if (weaponSlotImage != null)
+                {
+                    weaponSlotImage.sprite = weaponSlot.WeaponIcon;
+                }
             }
         }
     }

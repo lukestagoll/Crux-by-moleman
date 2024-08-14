@@ -78,8 +78,9 @@ MonoBehaviour:
   BaseFireRate: 0
   SlotType: 2
   WeaponType: 2
-  Cooldown: 3
+  WeaponIcon: {fileID: 2135384176, guid: 62331c40eb3b2d047b3feeb7086c7df2, type: 3}
   InitialCharge: 10
+  InitialHealth: 300
 --- !u!82 &715950773391962034
 AudioSource:
   m_ObjectHideFlags: 0

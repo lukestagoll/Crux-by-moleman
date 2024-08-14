@@ -103,7 +103,6 @@ public class PlayerManager : MonoBehaviour
 
         if (initialSpawn)
         {
-            HUDManager.Inst.UpdateWeaponSlotsDisplay();
             BottomPlayerBoundary.SetActive(false);
             var tcs = new TaskCompletionSource<bool>();
             StartCoroutine(MoveToPositionWithDeceleration(ActivePlayerShip.transform, new Vector3(0, -3, 10), 3.0f, 1f, tcs));

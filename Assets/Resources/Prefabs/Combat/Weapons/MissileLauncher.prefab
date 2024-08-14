@@ -135,6 +135,8 @@ MonoBehaviour:
   FirePoint: {fileID: 4022715705528736429}
   BaseFireRate: 4
   SlotType: 1
+  WeaponType: 0
+  WeaponIcon: {fileID: 21300000, guid: b1740be7870bed64ba09ffa93dee75b3, type: 3}
 --- !u!50 &3445493918662094056
 Rigidbody2D:
   serializedVersion: 4

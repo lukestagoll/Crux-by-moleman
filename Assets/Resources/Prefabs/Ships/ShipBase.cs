@@ -17,6 +17,7 @@ public class WeaponSlot
     [HideInInspector] public bool IsEmpty = true;
     public SlotType Type;
     public WeaponType WeaponType;
+    public Sprite WeaponIcon;
     public List<AttachPoint> AttachPoints;
 }
 
@@ -211,6 +212,7 @@ public abstract class ShipBase : MonoBehaviour
                     ActiveAttachPoints.Add(attachPoint);
                     weaponSlot.IsEmpty = false;
                     weaponSlot.WeaponType = attachPoint.AttachedWeapon.GetComponent<WeaponBase>().WeaponType;
+                    weaponSlot.WeaponIcon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>().WeaponIcon;
                 }
             }
         }
@@ -331,6 +333,8 @@ public abstract class ShipBase : MonoBehaviour
         {
             attachPoint.AttachWeapon(weaponPrefab, true);
             ActiveAttachPoints.Add(attachPoint);
+            weaponSlot.WeaponType = attachPoint.AttachedWeapon.GetComponent<WeaponBase>().WeaponType;
+            weaponSlot.WeaponIcon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>().WeaponIcon;
         }
         weaponSlot.IsEmpty = false;
         // play audio here

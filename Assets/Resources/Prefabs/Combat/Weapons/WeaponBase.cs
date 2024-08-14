@@ -26,6 +26,9 @@ public abstract class WeaponBase : MonoBehaviour
     // Reference to the Rigidbody2D component of the weapon
     protected Rigidbody2D rb;
 
+    [SerializeField]
+    public Sprite WeaponIcon;
+
     // Add the Side field
     public AttachPoint.RelativeSide Side { get; set; }
 
