@@ -16,6 +16,7 @@ public class WeaponSlot
     public string PrefabName;
     [HideInInspector] public bool IsEmpty = true;
     public SlotType Type;
+    public WeaponType WeaponType;
     public List<AttachPoint> AttachPoints;
 }
 
@@ -201,17 +202,17 @@ public abstract class ShipBase : MonoBehaviour
     {
         foreach (WeaponSlot weaponSlot in WeaponSlots)
         {
-            bool hasActiveAttachPoint = false;
+            weaponSlot.IsEmpty = true;
             foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
             {
                 attachPoint.InitialiseAttachPoint();
                 if (!attachPoint.IsEmpty)
                 {
                     ActiveAttachPoints.Add(attachPoint);
-                    hasActiveAttachPoint = true;
+                    weaponSlot.IsEmpty = false;
+                    weaponSlot.WeaponType = attachPoint.AttachedWeapon.GetComponent<WeaponBase>().WeaponType;
                 }
             }
-            weaponSlot.IsEmpty = !hasActiveAttachPoint;
         }
     }
     public WeaponSlot GetEmptyWeaponSlot(SlotType type)
