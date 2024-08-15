@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9999999, y: 1.9999999, z: 1.9999999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5295473122523752499}
@@ -155,7 +155,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.3333334, y: 1.3333334}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -163,16 +163,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.14796636, y: -0.032003496}
-      - {x: 0.12842575, y: 0.2023996}
-      - {x: -0.13095187, y: 0.20239955}
-      - {x: -0.14867757, y: -0.028415218}
-      - {x: -0.23366654, y: -0.1169602}
-      - {x: -0.23434669, y: -0.17582826}
-      - {x: -0.16668285, y: -0.21562697}
-      - {x: 0.1706368, y: -0.2156272}
-      - {x: 0.23687279, y: -0.17887929}
-      - {x: 0.23551244, y: -0.11870817}
+    - - {x: 0.3034258, y: -0.07835165}
+      - {x: 0.26718605, y: 0.41044202}
+      - {x: -0.2612179, y: 0.41179234}
+      - {x: -0.3027122, y: -0.06378479}
+      - {x: -0.48277044, y: -0.25532806}
+      - {x: -0.48761576, y: -0.3660815}
+      - {x: -0.3318709, y: -0.4365366}
+      - {x: -0.0044643283, y: -0.43964306}
+      - {x: 0.33092415, y: -0.43578094}
+      - {x: 0.4840629, y: -0.37392777}
+      - {x: 0.48173696, y: -0.25485587}
   m_UseDelaunayMesh: 0
 --- !u!114 &3944745561249436300
 MonoBehaviour:
@@ -237,13 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8340ce9c19bc05940a31ad776a380053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponSlots:
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 1
-    AttachPoints:
-    - {fileID: 9134242409523907484}
-    - {fileID: 8153806160269707275}
   ExplosionPrefab: {fileID: 4267334171517905716, guid: 5c82ac8d7392f574a8d1904bbcc82189, type: 3}
   MaxHealth: 50
   Health: 50
@@ -263,6 +257,15 @@ MonoBehaviour:
   DroneChargeRateModifier: 1
   DefaultMaterial: {fileID: 0}
   ShieldGlowMaterial: {fileID: 0}
+  WeaponSlots:
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 1
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 9134242409523907484}
+    - {fileID: 8153806160269707275}
   pointsOnKill: 150
   damageOnCollision: 50
   TargetedByTurret: 0
@@ -276,11 +279,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1035
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.z
@@ -360,11 +363,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1035
+      value: -0.22
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.z

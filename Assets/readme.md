@@ -41,3 +41,4 @@ Scenes
   - Game Over
 
 #### Item Pickup Indicator
+##### First Special Pickup

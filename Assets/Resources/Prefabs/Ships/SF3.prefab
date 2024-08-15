@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9999999, y: 1.9999999, z: 1.9999999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5295473122523752499}
@@ -153,7 +153,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.3333334, y: 1.3333334}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -161,14 +161,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.22651947, y: -0.085445836}
-      - {x: -0.16655666, y: -0.17437075}
-      - {x: 0.16606067, y: -0.17418455}
-      - {x: 0.2238327, y: -0.08564401}
-      - {x: 0.22391552, y: -0.031396866}
-      - {x: 0.0008345882, y: 0.18807732}
-      - {x: -0.104029715, y: 0.09209547}
-      - {x: -0.22666223, y: -0.024677977}
+    - - {x: -0.3371424, y: -0.35315326}
+      - {x: 0.33345884, y: -0.35357985}
+      - {x: 0.40611237, y: -0.26600155}
+      - {x: 0.4638844, y: -0.17192985}
+      - {x: 0.4617547, y: -0.06458373}
+      - {x: -0.0029434373, y: 0.38127634}
+      - {x: -0.46576658, y: -0.067201495}
+      - {x: -0.462289, y: -0.17070018}
   m_UseDelaunayMesh: 0
 --- !u!114 &6137365156224511852
 MonoBehaviour:
@@ -214,12 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3164f9dcdd889104092b0f105f837e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponSlots:
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 0
-    AttachPoints:
-    - {fileID: 9134242409523907484}
   ExplosionPrefab: {fileID: 4267334171517905716, guid: 5c82ac8d7392f574a8d1904bbcc82189, type: 3}
   MaxHealth: 75
   Health: 75
@@ -239,6 +233,14 @@ MonoBehaviour:
   DroneChargeRateModifier: 1
   DefaultMaterial: {fileID: 0}
   ShieldGlowMaterial: {fileID: 0}
+  WeaponSlots:
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 0
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 9134242409523907484}
   pointsOnKill: 300
   damageOnCollision: 50
   TargetedByTurret: 0
@@ -256,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.165
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.z

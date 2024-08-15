@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3047792721092600831}
@@ -156,7 +156,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.3333334, y: 1.3333334}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -164,18 +164,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.00017968286, y: 0.2237548}
-      - {x: -0.020230887, y: 0.20907016}
-      - {x: -0.05098607, y: 0.14922847}
-      - {x: -0.05100756, y: 0.09155576}
-      - {x: -0.17145781, y: -0.06968114}
-      - {x: -0.20741251, y: -0.2208107}
-      - {x: 0.00056583993, y: -0.21196406}
-      - {x: 0.20725526, y: -0.22045833}
-      - {x: 0.17067519, y: -0.070153944}
-      - {x: 0.050040837, y: 0.09154941}
-      - {x: 0.050119296, y: 0.14996}
-      - {x: 0.018440932, y: 0.21021514}
+    - - {x: -0.0032398747, y: 0.4670376}
+      - {x: -0.11050564, y: 0.30852538}
+      - {x: -0.116779536, y: 0.15993902}
+      - {x: -0.18565464, y: 0.0808452}
+      - {x: -0.36271787, y: -0.14312498}
+      - {x: -0.4139734, y: -0.4671536}
+      - {x: 0.002095921, y: -0.44912648}
+      - {x: 0.4245267, y: -0.46527117}
+      - {x: 0.35887507, y: -0.14359778}
+      - {x: 0.186218, y: 0.074718535}
+      - {x: 0.1143827, y: 0.15455024}
+      - {x: 0.110245764, y: 0.3096704}
   m_UseDelaunayMesh: 0
 --- !u!114 &4220676921612873312
 MonoBehaviour:
@@ -225,18 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8338e60047d2b942b83c0645fe130ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponSlots:
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 0
-    AttachPoints:
-    - {fileID: 2158907539854311504}
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 1
-    AttachPoints:
-    - {fileID: 1924739772942403903}
-    - {fileID: 3213643142021286017}
   ExplosionPrefab: {fileID: 4267334171517905716, guid: 5c82ac8d7392f574a8d1904bbcc82189, type: 3}
   MaxHealth: 25
   Health: 25
@@ -256,6 +244,22 @@ MonoBehaviour:
   DroneChargeRateModifier: 1
   DefaultMaterial: {fileID: 0}
   ShieldGlowMaterial: {fileID: 0}
+  WeaponSlots:
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 0
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 2158907539854311504}
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 1
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 1924739772942403903}
+    - {fileID: 3213643142021286017}
   pointsOnKill: 50
   damageOnCollision: 35
   TargetedByTurret: 0
@@ -351,11 +355,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.12
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.z
@@ -428,7 +432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.21
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.z
@@ -504,11 +508,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.12
+      value: -0.24
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 4889444290021273364, guid: 3d7799b06f6e13d41a9d08b54a6e6751, type: 3}
       propertyPath: m_LocalPosition.z
