@@ -35,6 +35,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 7401707350580094643}
   - {fileID: 6870458523482205398}
   - {fileID: 6417645682051767889}
   - {fileID: 362421001429725405}
@@ -258,34 +259,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9422205b8b454c545a7a14de4b02de0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponSlots:
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 1
-    AttachPoints:
-    - {fileID: 7558957778143088505}
-    - {fileID: 7975341754432945662}
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 1
-    AttachPoints:
-    - {fileID: 3655100284684669810}
-    - {fileID: 3102627931846489602}
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 0
-    AttachPoints:
-    - {fileID: 8262282640515556916}
-  - PrefabName: 
-    IsEmpty: 0
-    Type: 2
-    AttachPoints:
-    - {fileID: 4353434679015148768}
   ExplosionPrefab: {fileID: 4267334171517905716, guid: 5c82ac8d7392f574a8d1904bbcc82189, type: 3}
   MaxHealth: 100
   Health: 100
   MaxShield: 150
   Shield: 150
+  AdvancedTargetting: 0
+  DefensiveFormations: 0
   FireRateModifier: 1
   DamageModifier: 1
   PiercingModifier: 0
@@ -298,6 +278,139 @@ MonoBehaviour:
   DroneChargeRateModifier: 1
   DefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   ShieldGlowMaterial: {fileID: 2100000, guid: 239b2a9f8fbbb8d469b6aa6d5b7a1502, type: 2}
+  WeaponSlots:
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 1
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 7558957778143088505}
+    - {fileID: 7975341754432945662}
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 1
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 3655100284684669810}
+    - {fileID: 3102627931846489602}
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 0
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 8262282640515556916}
+  - PrefabName: 
+    IsEmpty: 0
+    Type: 2
+    WeaponType: 0
+    WeaponIcon: {fileID: 0}
+    AttachPoints:
+    - {fileID: 4353434679015148768}
+  UICanvas: {fileID: 4580554685161965111}
+--- !u!1 &5782541952518708812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7401707350580094643}
+  - component: {fileID: 4580554685161965111}
+  - component: {fileID: 317454391767638487}
+  - component: {fileID: 7613005904702902965}
+  m_Layer: 17
+  m_Name: UICanvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7401707350580094643
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782541952518708812}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.002, y: 0.002, z: 0.002}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8526101671889386744}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.35}
+  m_SizeDelta: {x: 1440, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &4580554685161965111
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782541952518708812}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &317454391767638487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782541952518708812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!114 &7613005904702902965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782541952518708812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &490145004813740687
 PrefabInstance:
   m_ObjectHideFlags: 0

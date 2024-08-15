@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerShip : ShipBase
 {
+    public Canvas UICanvas;
+
     void Start()
     {
         ShieldIsActive = true;
@@ -67,7 +69,7 @@ public class PlayerShip : ShipBase
         ShieldIsActive = false;
         Shield = 0;
         HUDManager.Inst.UpdateShieldBar();
-        MusicManager.Inst.PlayAudioFile("ShieldPowerDown2", 1f);
+        MusicManager.Inst.PlaySoundEffect("ShieldPowerDown2", 1f);
         Renderer renderer = GetComponent<Renderer>();
         renderer.material = DefaultMaterial;
     }

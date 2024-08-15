@@ -332,7 +332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1301791398973831301, guid: a30cba6c0f3bd824c984629b127c13a9, type: 3}
       propertyPath: m_Volume
-      value: 0.871
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1301791398973831301, guid: a30cba6c0f3bd824c984629b127c13a9, type: 3}
       propertyPath: m_Enabled
@@ -342,6 +342,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 63b6e9ea4ab231547a02145c8ae24e03, type: 3}
+    - target: {fileID: 1301791398973831301, guid: a30cba6c0f3bd824c984629b127c13a9, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1416831531697506583, guid: a30cba6c0f3bd824c984629b127c13a9, type: 3}
       propertyPath: m_Name
       value: MusicManager
@@ -370,6 +374,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1016206554}
   m_SourcePrefab: {fileID: 100100000, guid: a30cba6c0f3bd824c984629b127c13a9, type: 3}
+--- !u!82 &266883239 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1301791398973831301, guid: a30cba6c0f3bd824c984629b127c13a9, type: 3}
+  m_PrefabInstance: {fileID: 266883238}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &343614386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,6 +1401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b643c9cf12aa714097c58a0f21909e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BGMAudioSource: {fileID: 266883239}
 --- !u!1 &1091066365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,6 +1657,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8335bd2e35e11194ca8ae3a7b865159a, type: 3}
+--- !u!223 &1192901484 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3221484247899648825, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
+  m_PrefabInstance: {fileID: 7140781279697452534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1222627519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,6 +2743,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 228821575829171965, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
+      propertyPath: UICanvas
+      value: 
+      objectReference: {fileID: 1192901484}
     - target: {fileID: 228821575829171965, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
       propertyPath: healthBar
       value: 

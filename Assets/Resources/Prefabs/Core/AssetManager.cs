@@ -27,10 +27,13 @@ public static class AssetManager
     public static List<Sprite> PlanetSprites { get; private set; } = new List<Sprite>();
 
     // AUDIO
-    public static Dictionary<string, AudioClip> AudioClips { get; private set; } = new Dictionary<string, AudioClip>();
+    public static Dictionary<string, AudioClip> SoundEffects { get; private set; } = new Dictionary<string, AudioClip>();
+    public static Dictionary<string, AudioClip> BackgroundMusic { get; private set; } = new Dictionary<string, AudioClip>();
+    public static Dictionary<string, AudioClip> BossMusic { get; private set; } = new Dictionary<string, AudioClip>();
 
     // UI
     public static GameObject ShipSelectionUIPrefab { get; private set; }
+    public static GameObject PickupMessagePrefab { get; private set; }
 
     // SETTINGS
     private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect", "DroneShield", "DroneShieldEffect", "TurretSmall" };
@@ -93,27 +96,75 @@ public static class AssetManager
     private static void CacheUIAssets()
     {
         ShipSelectionUIPrefab = Resources.Load<GameObject>("Prefabs/UI/ShipSelectionUI");
+        PickupMessagePrefab = Resources.Load<GameObject>("Prefabs/UI/PickupMessage");
         if (ShipSelectionUIPrefab == null)
         {
-            Debug.LogError("Failed to load ShipSelectionUIPrefab prefab!");
+            Debug.LogError("Failed to load ShipSelectionUIPrefab!");
+        }
+        if (PickupMessagePrefab == null)
+        {
+            Debug.LogError("Failed to load PickupMessagePrefab!");
         }
     }
 
     private static void CacheAudioAssets()
     {
-        AudioClips.Clear(); // Clear the dictionary first
+        CacheSoundEffects();
+        CacheBackgroundMusic();
+        CacheBossMusic();
+    }
+
+    private static void CacheSoundEffects()
+    {
+        SoundEffects.Clear(); // Clear the dictionary first
 
         // Load all audio files from the specified directory
-        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("Audio");
+        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("Audio/SoundEffects");
         foreach (AudioClip audioClip in audioClips)
         {
             string fileName = audioClip.name;
-            AudioClips[fileName] = audioClip;
+            SoundEffects[fileName] = audioClip;
         }
 
-        if (AudioClips.Count == 0)
+        if (SoundEffects.Count == 0)
         {
-            Debug.LogError("No audio files found in the specified directory.");
+            Debug.LogError("No audio files found in the Audio/SoundEffects directory.");
+        }
+    }
+
+    private static void CacheBackgroundMusic()
+    {
+        BackgroundMusic.Clear(); // Clear the dictionary first
+
+        // Load all audio files from the specified directory
+        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("Audio/BackgroundMusic");
+        foreach (AudioClip audioClip in audioClips)
+        {
+            string fileName = audioClip.name;
+            BackgroundMusic[fileName] = audioClip;
+        }
+
+        if (BackgroundMusic.Count == 0)
+        {
+            Debug.LogError("No audio files found in the Audio/BackgroundMusic directory.");
+        }
+    }
+
+    private static void CacheBossMusic()
+    {
+        BossMusic.Clear(); // Clear the dictionary first
+
+        // Load all audio files from the specified directory
+        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("Audio/BackgroundMusic/Boss");
+        foreach (AudioClip audioClip in audioClips)
+        {
+            string fileName = audioClip.name;
+            BossMusic[fileName] = audioClip;
+        }
+
+        if (BossMusic.Count == 0)
+        {
+            Debug.LogError("No audio files found in the Audio/BackgroundMusic/Boss directory.");
         }
     }
 

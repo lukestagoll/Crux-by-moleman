@@ -21,6 +21,7 @@ public class ItemDrop : MonoBehaviour
       if (collision.gameObject.CompareTag("Player"))
       {
         AssignedEffect.Activate(collision.gameObject);
+        HUDManager.Inst.ShowPickupMessage(AssignedEffect.PickupMessage);
         Destroy(gameObject);
       }
     }

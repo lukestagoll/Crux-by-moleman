@@ -14,6 +14,7 @@ public class HUDManager : MonoBehaviour
     public Transform WeaponSlotsDisplay;
     private float WeaponSlotSpacing = 105f;
     private float LifeIconSpacing = 35f;
+    public Canvas UICanvas;
 
     private Coroutine scoreUpdateCoroutine;
     private float currentDisplayedScore;
@@ -100,6 +101,7 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateWeaponSlotsDisplay()
     {
+        return;
         // Clear existing weapon slots
         foreach (Transform child in WeaponSlotsDisplay)
         {
@@ -127,5 +129,24 @@ public class HUDManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ShowPickupMessage(string message)
+    {
+        Debug.Log("SHOWING PICKUP MESSAGE");
+        GameObject messageObj = Instantiate(AssetManager.PickupMessagePrefab, PlayerManager.Inst.ActivePlayerShip.UICanvas.transform);
+        TextMeshProUGUI messageText = messageObj.GetComponent<TextMeshProUGUI>();
+        messageText.text = message;
+        Debug.Log("TEXT:" + message);
+
+        // Play the animation
+        Animator animator = messageObj.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.Play("PickupMessageAnimation"); // Ensure this matches the name of your animation
+        }
+
+        // Destroy the message object after the animation duration
+        Destroy(messageObj, 1.25f); // Adjust the duration to match your animation length
     }
 }

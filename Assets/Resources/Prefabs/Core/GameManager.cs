@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,7 @@ public static class GameManager
     public static bool IsPaused = false;
     public static int Score { get; private set; }
     public static bool SceneIsChanging;
+    public static Queue<string> BackgroundMusicQueue { get; private set; } = new Queue<string>();
 
     public static async void InitiateGameplay(bool skipLoad)
     {
@@ -19,8 +21,18 @@ public static class GameManager
         Score = GameConfig.InitialScore;
         PlayerManager.Inst.Lives = GameConfig.InitialLives;
         PlayerManager.Inst.BuildInitialSkills();
+        MusicManager.Inst.PlayBackgroundMusic();
         await PlayerManager.Inst.SpawnPlayerAsync(true); // Wait for the player to arrive
         StageManager.StartStage(0);
+    }
+
+    public static void SetBackgroundMusicQueue(List<string> musicKeys)
+    {
+        BackgroundMusicQueue.Clear();
+        foreach (string key in musicKeys)
+        {
+            BackgroundMusicQueue.Enqueue(key);
+        }
     }
 
     public static void IncrementScore(int pointsToAdd)
