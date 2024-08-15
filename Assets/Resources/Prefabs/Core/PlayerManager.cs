@@ -132,7 +132,6 @@ public class PlayerManager : MonoBehaviour
         tcs.SetResult(true); // Signal that the movement is complete
     }
 
-
     public void BuildInitialSkills()
     {
         InitialShipData initialPlayerData = GameConfig.GetInitialPlayerData();

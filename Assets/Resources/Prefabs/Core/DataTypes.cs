@@ -17,6 +17,7 @@ public class EffectData
     public ExpiryType Expiry;
     public float Duration;
     public float Amt;
+    public string PickupMessage;
 }
 
 [Serializable]

@@ -35,6 +35,7 @@ public abstract class EffectBase : MonoBehaviour
     public float Duration;
     public float Amt;
     protected GameObject TargetShip;
+    public string PickupMessage;
 
     public abstract void Activate(GameObject target);
     public abstract void Deactivate();

@@ -3,39 +3,46 @@
   Expiry: Time
   Duration: 5
   Amt: 1.5
+  PickupMessage: Fire Rate
 
 - Type: Passive
   SubType: Damage
   Expiry: Time
   Duration: 5
   Amt: 1.5
+  PickupMessage: Damage Up
 
 - Type: Weapon
   SubType: MissileLauncher
   Expiry: Never
   Duration: 0
   Amt: 0
+  PickupMessage: Missile
 
 - Type: Weapon
   SubType: Cannon
   Expiry: Never
   Duration: 0
   Amt: 0
+  PickupMessage: Cannon
 
 - Type: Weapon
   SubType: HomingMissileLauncher
   Expiry: Never
   Duration: 0
   Amt: 0
+  PickupMessage: Homing Missile
 
 - Type: Weapon
   SubType: ElectroShield
   Expiry: Never
   Duration: 0
   Amt: 0
+  PickupMessage: Electro Shield
 
 - Type: Weapon
   SubType: TurretSmall
   Expiry: Never
   Duration: 0
   Amt: 0
+  PickupMessage: Auto Turret

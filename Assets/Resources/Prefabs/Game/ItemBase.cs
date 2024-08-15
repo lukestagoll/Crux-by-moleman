@@ -60,6 +60,7 @@ public class ItemDrop : MonoBehaviour
             effect.Expiry = effectData.Expiry;
             effect.Duration = effectData.Duration;
             effect.Amt = effectData.Amt;
+            effect.PickupMessage = effectData.PickupMessage;
         }
 
         return effect;

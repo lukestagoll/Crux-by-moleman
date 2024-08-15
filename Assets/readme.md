@@ -39,3 +39,5 @@ Scenes
   - Hi-Score
     - Persistent data?
   - Game Over
+
+#### Item Pickup Indicator
