@@ -15,6 +15,8 @@ public class HUDManager : MonoBehaviour
     private float WeaponSlotSpacing = 105f;
     private float LifeIconSpacing = 35f;
     public Canvas UICanvas;
+    private GameObject PauseMenuUI;
+    private GameObject SpecialWeaponUnlockedUI;
 
     private Coroutine scoreUpdateCoroutine;
     private float currentDisplayedScore;
@@ -133,20 +135,44 @@ public class HUDManager : MonoBehaviour
 
     public void ShowPickupMessage(string message)
     {
-        Debug.Log("SHOWING PICKUP MESSAGE");
         GameObject messageObj = Instantiate(AssetManager.PickupMessagePrefab, PlayerManager.Inst.ActivePlayerShip.UICanvas.transform);
         TextMeshProUGUI messageText = messageObj.GetComponent<TextMeshProUGUI>();
         messageText.text = message;
-        Debug.Log("TEXT:" + message);
-
-        // Play the animation
-        Animator animator = messageObj.GetComponent<Animator>();
-        if (animator != null)
-        {
-            animator.Play("PickupMessageAnimation"); // Ensure this matches the name of your animation
-        }
 
         // Destroy the message object after the animation duration
         Destroy(messageObj, 1.25f); // Adjust the duration to match your animation length
+    }
+
+    public void EnablePauseMenu()
+    {
+        if (PauseMenuUI == null) PauseMenuUI = Instantiate(AssetManager.PauseMenuPrefab, UICanvas.transform);
+        else PauseMenuUI.SetActive(true);
+    }
+
+    public void DisablePauseMenu()
+    {
+        if (PauseMenuUI == null) return;
+        else PauseMenuUI.SetActive(false);
+    }
+
+    public void EnableSpecialWeaponUnlockedUI()
+    {
+        SpecialWeaponUnlockedUI = Instantiate(AssetManager.SpecialWeaponUnlockedPrefab, UICanvas.transform);
+
+        // Find the Animator component in the child GameObject
+        Animator animator = SpecialWeaponUnlockedUI.GetComponentInChildren<Animator>();
+        if (animator != null)
+        {
+            animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        }
+        else
+        {
+            Debug.LogWarning("Animator component not found in the SpecialWeaponUnlockedUI prefab.");
+        }
+    }
+
+    public void DisableSpecialWeaponUnlockedUI()
+    {
+        Destroy(SpecialWeaponUnlockedUI);
     }
 }

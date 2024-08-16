@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public static class GameManager
 {
     public static bool IsPaused = false;
+    public static bool DisplayingFirstSpecialWeaponUI = false;
+    public static bool HasDisplayedFirstSpecialWeaponUI = false;
     public static int Score { get; private set; }
     public static bool SceneIsChanging;
     public static Queue<string> BackgroundMusicQueue { get; private set; } = new Queue<string>();
@@ -24,6 +26,45 @@ public static class GameManager
         MusicManager.Inst.PlayBackgroundMusic();
         await PlayerManager.Inst.SpawnPlayerAsync(true); // Wait for the player to arrive
         StageManager.StartStage(0);
+    }
+
+    public static void TogglePause()
+    {
+        if (!IsPaused) PauseGame();
+        else UnPauseGame();
+    }
+
+    private static void PauseGame()
+    {
+        HUDManager.Inst.EnablePauseMenu();
+        Time.timeScale = 0f;
+        IsPaused = true;
+    }
+
+    private static void UnPauseGame()
+    {
+        HUDManager.Inst.DisablePauseMenu();
+        Time.timeScale = 1f;
+        IsPaused = false;
+    }
+
+    public static void HandleSpecialWeaponUnlock()
+    {
+        if (HasDisplayedFirstSpecialWeaponUI) return;
+        HUDManager.Inst.EnableSpecialWeaponUnlockedUI();
+        Time.timeScale = 0f;
+        DisplayingFirstSpecialWeaponUI = true;
+        HasDisplayedFirstSpecialWeaponUI = true;
+        IsPaused = true;
+    }
+
+    public static void DisableFirstSpecialWeaponUI()
+    {
+        if (!DisplayingFirstSpecialWeaponUI) return;
+        HUDManager.Inst.DisableSpecialWeaponUnlockedUI();
+        Time.timeScale = 1f;
+        DisplayingFirstSpecialWeaponUI = false;
+        IsPaused = false;
     }
 
     public static void SetBackgroundMusicQueue(List<string> musicKeys)

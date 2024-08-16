@@ -34,6 +34,8 @@ public static class AssetManager
     // UI
     public static GameObject ShipSelectionUIPrefab { get; private set; }
     public static GameObject PickupMessagePrefab { get; private set; }
+    public static GameObject SpecialWeaponUnlockedPrefab { get; private set; }
+    public static GameObject PauseMenuPrefab { get; private set; }
 
     // SETTINGS
     private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect", "DroneShield", "DroneShieldEffect", "TurretSmall" };
@@ -97,6 +99,8 @@ public static class AssetManager
     {
         ShipSelectionUIPrefab = Resources.Load<GameObject>("Prefabs/UI/ShipSelectionUI");
         PickupMessagePrefab = Resources.Load<GameObject>("Prefabs/UI/PickupMessage");
+        SpecialWeaponUnlockedPrefab = Resources.Load<GameObject>("Prefabs/UI/SpecialWeaponUnlocked");
+        PauseMenuPrefab = Resources.Load<GameObject>("Prefabs/UI/PauseMenu");
         if (ShipSelectionUIPrefab == null)
         {
             Debug.LogError("Failed to load ShipSelectionUIPrefab!");
@@ -104,6 +108,14 @@ public static class AssetManager
         if (PickupMessagePrefab == null)
         {
             Debug.LogError("Failed to load PickupMessagePrefab!");
+        }
+        if (SpecialWeaponUnlockedPrefab == null)
+        {
+            Debug.LogError("Failed to load SpecialWeaponUnlockedPrefab!");
+        }
+        if (PauseMenuPrefab == null)
+        {
+            Debug.LogError("Failed to load PauseMenuPrefab!");
         }
     }
 

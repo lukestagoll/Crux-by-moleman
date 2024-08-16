@@ -2772,8 +2772,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 3617515605101526649, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
+      propertyPath: m_Name
+      value: PauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3617515605101526649, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6374369455641686167, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2826,6 +2830,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6400962299248785943, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
+    - {fileID: 3617515605101526649, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 895770786158015614, guid: 2c507570f45a09e46b82a43a0cdc26c5, type: 3}
       insertIndex: 1

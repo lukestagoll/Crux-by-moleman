@@ -14,7 +14,12 @@ public class WeaponEffect : EffectBase
 
         ShipBase shipComponent = TargetShip.GetComponent<ShipBase>();
         AssignedWeaponSlot = shipComponent.AttemptWeaponAttachment(weaponPrefab, false);
+
+        //! Handle Inventory Stuff here
+        if (AssignedWeaponSlot == null) return;
+
         MusicManager.Inst.PlaySoundEffect("GunLoad", 1f);
+        if (AssignedWeaponSlot.WeaponType == WeaponType.Special) GameManager.HandleSpecialWeaponUnlock();
 
         if (Expiry == ExpiryType.Time && Duration > 0) {
             Debug.Log($"Expiry detected for {gameObject.name} with duration {Duration}");

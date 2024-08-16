@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Inst { get; private set; }
-    public GameObject pauseMenuUI;
 
     void Awake()
     {
@@ -20,16 +18,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameManager.IsPaused = false;
-    }
-
-    public void Pause()
-    {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameManager.IsPaused = true;
+        GameManager.TogglePause();
     }
 
     public void OpenOptions()

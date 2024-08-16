@@ -26,10 +26,7 @@ public class GameInputHandler : MonoBehaviour
 
     private void TogglePause()
     {
-        if (GameManager.IsPaused)
-            PauseMenu.Inst.Resume();
-        else
-            PauseMenu.Inst.Pause();
+        GameManager.TogglePause();
     }
 
     private void OnPrimaryAttackPerformed()
@@ -46,6 +43,7 @@ public class GameInputHandler : MonoBehaviour
 
     private void OnSpecialAttackPerformed()
     {
+        GameManager.DisableFirstSpecialWeaponUI();
         PlayerShip playerShip = PlayerManager.Inst.ActivePlayerShip;
         if (playerShip != null) playerShip.EnableSpecialFire();
     }
