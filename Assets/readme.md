@@ -28,10 +28,10 @@ Core
   - Setup player ship prefabs
 
 Misc
-  - Ship entry and exit
+  - ~~Ship entry and exit~~
   - Ships flash upon hit
-  - Accellerate out of stage
-    - Increase scroll rate of BGManager
+  - ~~Accellerate out of stage~~
+    - ~~Increase scroll rate of BGManager~~
   - Explosions on enemy deaths
   - Cash drops!? omg get to pick up gold coins with a satisfying souind
   - If the last wave used the same path, choose another
