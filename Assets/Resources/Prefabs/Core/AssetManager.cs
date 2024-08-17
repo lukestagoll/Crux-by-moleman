@@ -36,6 +36,7 @@ public static class AssetManager
     public static GameObject PickupMessagePrefab { get; private set; }
     public static GameObject SpecialWeaponUnlockedPrefab { get; private set; }
     public static GameObject PauseMenuPrefab { get; private set; }
+    public static GameObject InterStageUIPrefab { get; private set; }
 
     // SETTINGS
     private static List<string> WeaponPrefabsToLoad = new List<string> { "Cannon", "CannonSmall", "MissileLauncher", "HomingMissileLauncher", "ElectroShield", "ElectroShieldEffect", "DroneShield", "DroneShieldEffect", "TurretSmall" };
@@ -101,6 +102,7 @@ public static class AssetManager
         PickupMessagePrefab = Resources.Load<GameObject>("Prefabs/UI/PickupMessage");
         SpecialWeaponUnlockedPrefab = Resources.Load<GameObject>("Prefabs/UI/SpecialWeaponUnlocked");
         PauseMenuPrefab = Resources.Load<GameObject>("Prefabs/UI/PauseMenu");
+        InterStageUIPrefab = Resources.Load<GameObject>("Prefabs/UI/InterStageUI");
         if (ShipSelectionUIPrefab == null)
         {
             Debug.LogError("Failed to load ShipSelectionUIPrefab!");

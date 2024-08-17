@@ -81,7 +81,7 @@
             ]
         },
         {
-            "name": "MainMenu",
+            "name": "MenuNavigation",
             "id": "1d86a99e-f8fd-41d1-9c5f-4ea1f09a4a75",
             "actions": [
                 {

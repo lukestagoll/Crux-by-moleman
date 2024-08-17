@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using System.Collections.Generic;
 
 public class HUDManager : MonoBehaviour
 {
@@ -17,6 +16,7 @@ public class HUDManager : MonoBehaviour
     public Canvas UICanvas;
     private GameObject PauseMenuUI;
     private GameObject SpecialWeaponUnlockedUI;
+    private GameObject InterStageUI;
 
     private Coroutine scoreUpdateCoroutine;
     private float currentDisplayedScore;
@@ -103,34 +103,33 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateWeaponSlotsDisplay()
     {
-        return;
-        // Clear existing weapon slots
-        foreach (Transform child in WeaponSlotsDisplay)
-        {
-            Destroy(child.gameObject);
-        }
+        // // Clear existing weapon slots
+        // foreach (Transform child in WeaponSlotsDisplay)
+        // {
+        //     Destroy(child.gameObject);
+        // }
 
-        // Get active weapon slots from the player's ship
-        List<WeaponSlot> activeWeaponSlots = PlayerManager.Inst.ActivePlayerShip.GetActiveWeaponSlots();
+        // // Get active weapon slots from the player's ship
+        // List<WeaponSlot> activeWeaponSlots = PlayerManager.Inst.ActivePlayerShip.GetActiveWeaponSlots();
 
-        // Iterate through active weapon slots and instantiate new weapon slots
-        for (int i = 0; i < activeWeaponSlots.Count; i++)
-        {
-            var weaponSlot = activeWeaponSlots[i];
-            if (weaponSlot != null)
-            {
-                // Instantiate a new weapon slot prefab
-                GameObject weaponSlotObj = Instantiate(AssetManager.WeaponSlotPrefab, WeaponSlotsDisplay);
-                weaponSlotObj.transform.localPosition = new Vector3(i * WeaponSlotSpacing, 0, 0);
+        // // Iterate through active weapon slots and instantiate new weapon slots
+        // for (int i = 0; i < activeWeaponSlots.Count; i++)
+        // {
+        //     var weaponSlot = activeWeaponSlots[i];
+        //     if (weaponSlot != null)
+        //     {
+        //         // Instantiate a new weapon slot prefab
+        //         GameObject weaponSlotObj = Instantiate(AssetManager.WeaponSlotPrefab, WeaponSlotsDisplay);
+        //         weaponSlotObj.transform.localPosition = new Vector3(i * WeaponSlotSpacing, 0, 0);
 
-                // Set the weapon icon sprite
-                var weaponSlotImage = weaponSlotObj.GetComponent<Image>();
-                if (weaponSlotImage != null)
-                {
-                    weaponSlotImage.sprite = weaponSlot.WeaponIcon;
-                }
-            }
-        }
+        //         // Set the weapon icon sprite
+        //         var weaponSlotImage = weaponSlotObj.GetComponent<Image>();
+        //         if (weaponSlotImage != null)
+        //         {
+        //             weaponSlotImage.sprite = weaponSlot.WeaponIcon;
+        //         }
+        //     }
+        // }
     }
 
     public void ShowPickupMessage(string message)
@@ -169,6 +168,22 @@ public class HUDManager : MonoBehaviour
         {
             Debug.LogWarning("Animator component not found in the SpecialWeaponUnlockedUI prefab.");
         }
+    }
+
+    public void EnableInterStageUI()
+    {
+        InterStageUI = Instantiate(AssetManager.InterStageUIPrefab, UICanvas.transform);
+    }
+
+    public void DisableInterStageUI()
+    {
+        if (InterStageUI == null) return;
+        else Destroy(InterStageUI);
+    }
+
+    public void DisableGameplayUI()
+    {
+
     }
 
     public void DisableSpecialWeaponUnlockedUI()

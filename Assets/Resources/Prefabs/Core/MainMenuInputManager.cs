@@ -7,21 +7,21 @@ public class MainMenuInputHandler : MonoBehaviour
     private void Awake()
     {
         controls = new GameControls();
-        controls.MainMenu.MoveUp.performed += ctx => MoveUp();
-        controls.MainMenu.MoveDown.performed += ctx => MoveDown();
-        controls.MainMenu.MoveLeft.performed += ctx => MoveLeft();
-        controls.MainMenu.MoveRight.performed += ctx => MoveRight();
-        controls.MainMenu.Select.performed += ctx => Select();
+        controls.MenuNavigation.MoveUp.performed += ctx => MoveUp();
+        controls.MenuNavigation.MoveDown.performed += ctx => MoveDown();
+        controls.MenuNavigation.MoveLeft.performed += ctx => MoveLeft();
+        controls.MenuNavigation.MoveRight.performed += ctx => MoveRight();
+        controls.MenuNavigation.Select.performed += ctx => Select();
     }
 
     private void OnEnable()
     {
-        controls.MainMenu.Enable();
+        controls.MenuNavigation.Enable();
     }
 
     private void OnDisable()
     {
-        controls.MainMenu.Disable();
+        controls.MenuNavigation.Disable();
     }
 
     private void MoveUp()

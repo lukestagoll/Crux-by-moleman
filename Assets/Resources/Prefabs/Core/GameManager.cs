@@ -25,6 +25,7 @@ public static class GameManager
         PlayerManager.Inst.BuildInitialSkills();
         MusicManager.Inst.PlayBackgroundMusic();
         await PlayerManager.Inst.SpawnPlayerAsync(true); // Wait for the player to arrive
+        GameInputHandler.Inst.EnableGameplayControls();
         StageManager.StartStage(0);
     }
 
@@ -95,8 +96,17 @@ public static class GameManager
 
     public static async void HandleStageCompleted()
     {
-        await PlayerManager.Inst.FlyOutOfScene();
-        await LoadSceneAsync("MainMenu");
+
+        // await PlayerManager.Inst.FlyOutOfScene();
+        // await LoadSceneAsync("MainMenu");
+    }
+
+    public static void TransitionToInterStage()
+    {
+        GameInputHandler.Inst.DisableGameplayControls();
+        HUDManager.Inst.DisableGameplayUI();
+        HUDManager.Inst.EnableInterStageUI();
+        GameInputHandler.Inst.EnableMenuNavigationControls();
     }
 
     public static Task LoadSceneAsync(string sceneName)

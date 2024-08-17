@@ -44,5 +44,17 @@ Scenes
     - Persistent data?
   - Game Over
 
-#### Item Pickup Indicator
-##### First Special Pickup
+Potential Bugs
+  - Stage ends before player spawns
+    - There wont be an activeplayership to move
+
+#### InterScene
+There are a few ways to accomplish this
+  - Fresh scene
+    - Encourages music to be swapped out upon new stage
+  - Persistent scene
+    - Preserves Music
+    - Gameplay might feel more fluent
+  - Hybrid
+    - Upon stage end, show score tally, equips, skills
+    - Once finished, fly off and transition into new scene
