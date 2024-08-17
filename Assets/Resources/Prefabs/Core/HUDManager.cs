@@ -10,13 +10,13 @@ public class HUDManager : MonoBehaviour
     public Slider shieldBar;
     public TextMeshProUGUI ScoreDisplay;
     public Transform LivesDisplay;
-    public Transform WeaponSlotsDisplay;
-    private float WeaponSlotSpacing = 105f;
+    // public Transform WeaponSlotsDisplay;
+    // private float WeaponSlotSpacing = 105f;
     private float LifeIconSpacing = 35f;
-    public Canvas UICanvas;
+    public GameObject GameplayUICanvas;
+    public GameObject InterStageUICanvas;
     private GameObject PauseMenuUI;
     private GameObject SpecialWeaponUnlockedUI;
-    private GameObject InterStageUI;
 
     private Coroutine scoreUpdateCoroutine;
     private float currentDisplayedScore;
@@ -144,7 +144,7 @@ public class HUDManager : MonoBehaviour
 
     public void EnablePauseMenu()
     {
-        if (PauseMenuUI == null) PauseMenuUI = Instantiate(AssetManager.PauseMenuPrefab, UICanvas.transform);
+        if (PauseMenuUI == null) PauseMenuUI = Instantiate(AssetManager.PauseMenuPrefab, GameplayUICanvas.transform);
         else PauseMenuUI.SetActive(true);
     }
 
@@ -156,7 +156,7 @@ public class HUDManager : MonoBehaviour
 
     public void EnableSpecialWeaponUnlockedUI()
     {
-        SpecialWeaponUnlockedUI = Instantiate(AssetManager.SpecialWeaponUnlockedPrefab, UICanvas.transform);
+        SpecialWeaponUnlockedUI = Instantiate(AssetManager.SpecialWeaponUnlockedPrefab, GameplayUICanvas.transform);
 
         // Find the Animator component in the child GameObject
         Animator animator = SpecialWeaponUnlockedUI.GetComponentInChildren<Animator>();
@@ -172,18 +172,18 @@ public class HUDManager : MonoBehaviour
 
     public void EnableInterStageUI()
     {
-        InterStageUI = Instantiate(AssetManager.InterStageUIPrefab, UICanvas.transform);
+        // InterStageUI = Instantiate(AssetManager.InterStageUIPrefab, InterStageUICanvas.transform);
     }
 
     public void DisableInterStageUI()
     {
-        if (InterStageUI == null) return;
-        else Destroy(InterStageUI);
+        // if (InterStageUI == null) return;
+        // else Destroy(InterStageUI);
     }
 
     public void DisableGameplayUI()
     {
-
+        GameplayUICanvas.SetActive(false);
     }
 
     public void DisableSpecialWeaponUnlockedUI()

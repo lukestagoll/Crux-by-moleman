@@ -16,7 +16,7 @@ public class GameInputHandler : MonoBehaviour
         Inst = this;
 
         controls = new GameControls();
-        controls.Gameplay.Pause.performed += _ => TogglePause();
+        controls.Gameplay.Pause.performed += ctx => TogglePause();
         controls.Gameplay.PrimaryAttack.performed += ctx => OnPrimaryAttackPerformed();
         controls.Gameplay.PrimaryAttack.canceled += ctx => OnPrimaryAttackCanceled();
         controls.Gameplay.SpecialAttack.performed += ctx => OnSpecialAttackPerformed();
@@ -31,11 +31,13 @@ public class GameInputHandler : MonoBehaviour
 
     public void EnableGameplayControls()
     {
+        PlayerMovement.Inst.EnableWASD();
         controls.Gameplay.Enable();
     }
 
     public void DisableGameplayControls()
     {
+        PlayerMovement.Inst.DisableWASD();
         controls.Gameplay.Disable();
     }
     public void EnableMenuNavigationControls()

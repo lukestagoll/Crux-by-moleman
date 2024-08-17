@@ -35,6 +35,7 @@ Misc
   - Explosions on enemy deaths
   - Cash drops!? omg get to pick up gold coins with a satisfying souind
   - If the last wave used the same path, choose another
+  - ElectroShield gets a sprite that sits on the player, activates animation on fire
 
 Scenes
   - Inter-Stage

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Inst { get; private set; }
+    private bool WASDEnabled;
     public float verticalMoveSpeed = 5f; // Vertical movement speed of the player's ship.
     public float horizontalMoveSpeed = 7.5f; // Horizontal movement speed of the player's ship.
     public float accelerationSmoothing = 8f; // Smoothing factor for acceleration.
@@ -9,6 +11,27 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private Vector2 currentVelocity; // Current velocity, used for smoothing acceleration.
+
+    void Awake()
+    {
+        if (Inst != null && Inst != this)
+        {
+            Debug.Log("PlayerMovement already exists");
+            Destroy(gameObject);
+            return;  // Ensure no further code execution in this instance
+        }
+        Inst = this;
+    }
+
+    public void EnableWASD()
+    {
+        WASDEnabled = true;
+    }
+
+    public void DisableWASD()
+    {
+        WASDEnabled = false;
+    }
 
     void Start()
     {
@@ -19,8 +42,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Input handling for movement direction based on WASD or arrow keys.
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        movement.x = WASDEnabled ? Input.GetAxisRaw("Horizontal") : 0;
+        movement.y = WASDEnabled ? Input.GetAxisRaw("Vertical") : 0;
     }
 
     void FixedUpdate()
