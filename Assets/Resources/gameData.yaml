@@ -31,7 +31,7 @@ Stages:
                 Amt: 8
               - ShipType: SF3
                 Amt: 4
-            Drops: [ElectroShield]
+            Drops: []
       - Waves:
           - SpawnCooldown: 0.5
             WaveDelay: 10

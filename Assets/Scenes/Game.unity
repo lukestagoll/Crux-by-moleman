@@ -2852,6 +2852,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3888532188278153628, guid: 59b82f72f9f8dbc42bf72372c6be3074, type: 3}
+      propertyPath: TopPlayerBoundary
+      value: 
+      objectReference: {fileID: 1503567677}
+    - target: {fileID: 3888532188278153628, guid: 59b82f72f9f8dbc42bf72372c6be3074, type: 3}
       propertyPath: BottomPlayerBoundary
       value: 
       objectReference: {fileID: 1295288401}

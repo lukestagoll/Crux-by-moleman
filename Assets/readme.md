@@ -8,9 +8,8 @@ Enemy Behaviour
   - ~~Slow down the fire rate~~
 
 UI
-  - Upon item pickup have a bit of text appear above the player
-  - Damage indicator
-  - Show active weapons
+  - ~~Upon item pickup have a bit of text appear above the player~~
+  - Damage indicator?
   - Drop has icon of weapon/item
 
 Progression
@@ -31,6 +30,11 @@ Core
 Misc
   - Ship entry and exit
   - Ships flash upon hit
+  - Accellerate out of stage
+    - Increase scroll rate of BGManager
+  - Explosions on enemy deaths
+  - Cash drops!? omg get to pick up gold coins with a satisfying souind
+  - If the last wave used the same path, choose another
 
 Scenes
   - Inter-Stage

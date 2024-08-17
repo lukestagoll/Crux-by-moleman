@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
 
     // Relevant GameObjects
     public GameObject BottomPlayerBoundary;
+    public GameObject TopPlayerBoundary;
 
     // Store active weapon prefabs
     // ! THIS WILL BE REPLACED BY EQUIPMENT AND LOADOUT
@@ -91,9 +92,37 @@ public class PlayerManager : MonoBehaviour
         _ = SpawnPlayerAsync();
     }
 
+    public async Task FlyOutOfScene()
+    {
+        TopPlayerBoundary.SetActive(false);
+        var tcs = new TaskCompletionSource<bool>();
+        StartCoroutine(MoveOutOfSceneWithAcceleration(ActivePlayerShip.transform, 3.0f, 1f, tcs));
+        await tcs.Task; // Wait for the movement to complete
+        TopPlayerBoundary.SetActive(true);
+    }
+
+    private IEnumerator MoveOutOfSceneWithAcceleration(Transform transform, float initialSpeed, float acceleration, TaskCompletionSource<bool> tcs)
+    {
+        float currentSpeed = initialSpeed;
+
+        while (transform.position.y <= 7)
+        {
+            // Accelerate the ship
+            currentSpeed += acceleration * Time.deltaTime;
+            BackgroundManager.Inst.ScrollSpeedModifier = 1 + currentSpeed * 3;
+
+            // Move the ship upwards
+            transform.position += Vector3.up * currentSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+
+        tcs.SetResult(true); // Signal that the movement is complete
+    }
+
     public async Task SpawnPlayerAsync(bool initialSpawn = false)
     {
-        Vector3 spawnPosition = initialSpawn ? new Vector3(0, -6, 10) : new Vector3(0, -4, 10);
+        Vector3 spawnPosition = initialSpawn ? new Vector3(0, -7, 10) : new Vector3(0, -4, 10);
 
         ActivePlayerShip = Instantiate(AssetManager.PlayerPrefab, spawnPosition, Quaternion.identity);
         // Sets the players ship for each still and attemps activation (if not already)
@@ -101,13 +130,16 @@ public class PlayerManager : MonoBehaviour
         // Reattach saved weapon prefabs
         ReattachWeapons();
 
-        if (initialSpawn)
-        {
-            BottomPlayerBoundary.SetActive(false);
-            var tcs = new TaskCompletionSource<bool>();
-            StartCoroutine(MoveToPositionWithDeceleration(ActivePlayerShip.transform, new Vector3(0, -3, 10), 3.0f, 1f, tcs));
-            await tcs.Task; // Wait for the movement to complete
-        }
+        if (initialSpawn) await FlyIntoScene();
+    }
+
+    public async Task FlyIntoScene()
+    {
+        BottomPlayerBoundary.SetActive(false);
+        var tcs = new TaskCompletionSource<bool>();
+        StartCoroutine(MoveToPositionWithDeceleration(ActivePlayerShip.transform, new Vector3(0, -3, 10), 3.0f, 1f, tcs));
+        await tcs.Task; // Wait for the movement to complete
+        BottomPlayerBoundary.SetActive(true);
     }
 
     private IEnumerator MoveToPositionWithDeceleration(Transform transform, Vector3 targetPosition, float initialSpeed, float decelerationDistance, TaskCompletionSource<bool> tcs)
@@ -123,12 +155,11 @@ public class PlayerManager : MonoBehaviour
             {
                 currentSpeed = Mathf.Lerp(0, initialSpeed, distanceRemaining / decelerationDistance);
             }
-    
+            BackgroundManager.Inst.ScrollSpeedModifier = 1 + currentSpeed * 3;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, currentSpeed * Time.deltaTime);
             yield return null;
         }
-    
-        BottomPlayerBoundary.SetActive(true);
+
         tcs.SetResult(true); // Signal that the movement is complete
     }
 

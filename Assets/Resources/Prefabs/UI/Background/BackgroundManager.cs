@@ -6,6 +6,7 @@ public class BackgroundManager : MonoBehaviour
 {
     public static BackgroundManager Inst { get; private set; }
     public List<MonoBehaviour> controllerScripts; // List of MonoBehaviour scripts
+    public float ScrollSpeedModifier = 1f;
 
     private List<IBackgroundController> controllers;
 

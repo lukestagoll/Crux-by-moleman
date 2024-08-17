@@ -45,7 +45,7 @@ public class StarMapController : MonoBehaviour, IBackgroundController
         {
             foreach (var starMap in activeStarMaps)
             {
-                starMap.transform.position += Vector3.down * scrollSpeed * Time.deltaTime;
+                starMap.transform.position += Vector3.down * scrollSpeed * BackgroundManager.Inst.ScrollSpeedModifier * Time.deltaTime;
             }
         }
     }

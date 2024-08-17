@@ -32,7 +32,7 @@ public class DistantPlanetsController : MonoBehaviour, IBackgroundController
     {
       foreach (var obj in ActiveObjects)
       {
-        obj.transform.position += Vector3.down * scrollSpeed * Time.deltaTime;
+        obj.transform.position += Vector3.down * scrollSpeed * BackgroundManager.Inst.ScrollSpeedModifier * Time.deltaTime;
       }
     }
   }
