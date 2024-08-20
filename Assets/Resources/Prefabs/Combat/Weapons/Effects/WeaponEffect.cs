@@ -17,6 +17,7 @@ public class WeaponEffect : EffectBase
 
         //! Handle Inventory Stuff here
         if (AssignedWeaponSlot == null) return;
+        AssignedWeaponSlot.PrefabName = SubType.ToString();
 
         MusicManager.Inst.PlaySoundEffect("GunLoad", 1f);
         if (AssignedWeaponSlot.WeaponType == WeaponType.Special) GameManager.HandleSpecialWeaponUnlock();
@@ -26,7 +27,6 @@ public class WeaponEffect : EffectBase
             CoroutineManager.Inst.DeactivateEffectAfterDelay(this, Duration);
         }
         Debug.Log($"Attached {SubType}");
-        HUDManager.Inst.UpdateWeaponSlotsDisplay();
     }
     public override void Deactivate()
     {

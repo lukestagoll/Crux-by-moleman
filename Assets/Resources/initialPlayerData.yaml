@@ -1,5 +1,5 @@
-Equipment:
-  SmallCannon: true
+Weapons:
+  CannonSmall: true
 Skills:
   ShieldRegen: 0
   HullDurability: 0

@@ -4,6 +4,7 @@ public class GameInputHandler : MonoBehaviour
 {
     public static GameInputHandler Inst { get; private set; }
     private GameControls controls;
+    public bool WASDEnabled;
 
     private void Awake()
     {
@@ -31,13 +32,15 @@ public class GameInputHandler : MonoBehaviour
 
     public void EnableGameplayControls()
     {
-        PlayerMovement.Inst.EnableWASD();
+        Debug.Log("EnablingGameplayControls");
+        WASDEnabled = true;
         controls.Gameplay.Enable();
     }
 
     public void DisableGameplayControls()
     {
-        PlayerMovement.Inst.DisableWASD();
+        Debug.Log("DisablingGameplayControls");
+        WASDEnabled = false;
         controls.Gameplay.Disable();
     }
     public void EnableMenuNavigationControls()

@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Inst { get; private set; }
 
     // Player Data
+    private InitialShipData InitialShipData;
     public int Lives { get; set; }
     public PlayerShip ActivePlayerShip { get; set; }
     private AudioSource AudioSource;
@@ -18,8 +19,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject TopPlayerBoundary;
 
     // Store active weapon prefabs
-    // ! THIS WILL BE REPLACED BY EQUIPMENT AND LOADOUT
-    private List<string> ActiveWeaponPrefabs = new List<string>();
+    private Dictionary<int, string> WeaponSlotStates = new Dictionary<int, string>();
 
     // Store Unlocked Skills
     private List<SkillBase> ActiveSkills = new List<SkillBase>();
@@ -34,6 +34,17 @@ public class PlayerManager : MonoBehaviour
         }
         Inst = this;
         AudioSource = GetComponent<AudioSource>();
+        SetInitialShipData();
+    }
+
+    private void SetInitialShipData()
+    {
+        InitialShipData = GameConfig.GetInitialPlayerData();
+        if (InitialShipData == null)
+        {
+            Debug.LogError("[PlayerManager] Failed to fetch InitialPlayerData");
+            return;
+        }
     }
 
     public void HandlePlayerDestroyed()
@@ -42,7 +53,7 @@ public class PlayerManager : MonoBehaviour
         ActivePlayerShip.DisablePrimaryFire();
         ActivePlayerShip.DisableSpecialFire();
         ActivePlayerShip.DisableShooting();
-        SetActiveWeapons();
+        SetWeaponSlotStates();
         SetActiveShipToNull();
 
         Lives -= 1;
@@ -55,26 +66,6 @@ public class PlayerManager : MonoBehaviour
         {
             // Game Over
             GameManager.HandleGameOver();
-        }
-    }
-
-    private void SetActiveWeapons()
-    {
-        ActiveWeaponPrefabs.Clear();
-        foreach (WeaponSlot weaponSlot in ActivePlayerShip.WeaponSlots)
-        {
-            foreach (AttachPoint attachPoint in weaponSlot.AttachPoints)
-            {
-                if (!attachPoint.IsEmpty)
-                {
-                    WeaponBase weapon = attachPoint.AttachedWeapon.GetComponent<WeaponBase>();
-                    if (weapon != null)
-                    {
-                        string weaponPrefabName = weapon.name.Replace("(Clone)", "").Trim();
-                        ActiveWeaponPrefabs.Add(weaponPrefabName);
-                    }
-                }
-            }
         }
     }
 
@@ -165,26 +156,65 @@ public class PlayerManager : MonoBehaviour
 
     public void BuildInitialSkills()
     {
-        InitialShipData initialPlayerData = GameConfig.GetInitialPlayerData();
-        if (initialPlayerData == null)
-        {
-            Debug.LogError("[PlayerManager] Failed to fetch InitialPlayerData");
-            return;
-        }
-        ActiveSkills = ShipSkillManager.BuildSkillList(initialPlayerData, null);
+        ActiveSkills = ShipSkillManager.BuildSkillList(InitialShipData, null);
     }
 
     private void ReattachWeapons()
     {
-        foreach (string weaponPrefabName in ActiveWeaponPrefabs)
+        if (WeaponSlotStates.Count == 0) 
         {
-            GameObject weaponPrefab = AssetManager.GetWeaponPrefab(weaponPrefabName);
-            if (weaponPrefab != null)
-            {
-                ActivePlayerShip.AttemptWeaponAttachment(weaponPrefab, true);
-            }
+            // Needs to use the list of strings to fetch prefabs and attach to first available slot
+            AttachWeaponsFromInitialPlayerData();
         }
-        HUDManager.Inst.UpdateWeaponSlotsDisplay();
+        else
+        {
+            AttachWeaponsFromWeaponSlotStates();
+            // Needs to use the existing dictionary of WeaponSlotStates to reattach weapons to specific slots
+        }
+    }
+
+    private void AttachWeaponsFromInitialPlayerData()
+    {
+        foreach (var weapon in InitialShipData.Weapons)
+        {
+            if (weapon.Value == false) continue;
+
+            GameObject weaponPrefab = AssetManager.GetWeaponPrefab(weapon.Key);
+            if (weaponPrefab == null)
+            {
+                Debug.LogError($"Weapon prefab not found for {weapon.Key}");
+                continue;
+            }
+
+            WeaponSlot weaponSlot = ActivePlayerShip.AttemptWeaponAttachment(weaponPrefab, false);
+            if (weaponSlot != null && !weaponSlot.IsEmpty) weaponSlot.PrefabName = weapon.Key;
+        }
+    }
+
+    private void SetWeaponSlotStates()
+    {
+        WeaponSlotStates = new Dictionary<int, string>();
+        foreach (var weaponSlot in ActivePlayerShip.WeaponSlots)
+        {
+            WeaponSlotStates[weaponSlot.id] = weaponSlot.IsEmpty ? null : weaponSlot.PrefabName;
+        }
+    }
+
+    private void AttachWeaponsFromWeaponSlotStates()
+    {
+        foreach (var weaponSlotState in WeaponSlotStates)
+        {
+            if (weaponSlotState.Value == null) continue;
+
+            GameObject weaponPrefab = AssetManager.GetWeaponPrefab(weaponSlotState.Value);
+            if (weaponPrefab == null)
+            {
+                Debug.LogError($"Weapon prefab not found for {weaponSlotState.Value}");
+                continue;
+            }
+            WeaponSlot weaponSlot = ActivePlayerShip.AttemptWeaponAttachmentToSlot(weaponSlotState.Key, weaponPrefab);
+            if (weaponSlot != null && !weaponSlot.IsEmpty) weaponSlot.PrefabName = weaponSlotState.Value;
+        }
     }
 
     private void PlayExplosionSound()

@@ -101,37 +101,6 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    public void UpdateWeaponSlotsDisplay()
-    {
-        // // Clear existing weapon slots
-        // foreach (Transform child in WeaponSlotsDisplay)
-        // {
-        //     Destroy(child.gameObject);
-        // }
-
-        // // Get active weapon slots from the player's ship
-        // List<WeaponSlot> activeWeaponSlots = PlayerManager.Inst.ActivePlayerShip.GetActiveWeaponSlots();
-
-        // // Iterate through active weapon slots and instantiate new weapon slots
-        // for (int i = 0; i < activeWeaponSlots.Count; i++)
-        // {
-        //     var weaponSlot = activeWeaponSlots[i];
-        //     if (weaponSlot != null)
-        //     {
-        //         // Instantiate a new weapon slot prefab
-        //         GameObject weaponSlotObj = Instantiate(AssetManager.WeaponSlotPrefab, WeaponSlotsDisplay);
-        //         weaponSlotObj.transform.localPosition = new Vector3(i * WeaponSlotSpacing, 0, 0);
-
-        //         // Set the weapon icon sprite
-        //         var weaponSlotImage = weaponSlotObj.GetComponent<Image>();
-        //         if (weaponSlotImage != null)
-        //         {
-        //             weaponSlotImage.sprite = weaponSlot.WeaponIcon;
-        //         }
-        //     }
-        // }
-    }
-
     public void ShowPickupMessage(string message)
     {
         GameObject messageObj = Instantiate(AssetManager.PickupMessagePrefab, PlayerManager.Inst.ActivePlayerShip.UICanvas.transform);
